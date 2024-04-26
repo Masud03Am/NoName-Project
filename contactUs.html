@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> NoName(404) </title>
+    <title> NoName </title>
     
     <link href="assets/css/themify-icons.css" rel="stylesheet">
     <link href="assets/css/flaticon.css" rel="stylesheet">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/animate.css" rel="stylesheet">
     <link href="assets/css/owl.carousel.css" rel="stylesheet">
     <link href="assets/css/owl.theme.css" rel="stylesheet">
     <link href="assets/css/slick.css" rel="stylesheet">
@@ -112,10 +111,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col col-xs-12">
-                        <h2>404</h2>
+                        <h2>Контакты</h2>
                         <ol class="breadcrumb">
                             <li><a href="index.html">Главная</a></li>
-                            <li>404</li>
+                            <li>Контакты</li>
                         </ol>
                     </div>
                 </div> <!-- end row -->
@@ -123,26 +122,79 @@
         </section>        
         <!-- end page-title -->
 
-        <!-- start error-404-section -->
-        <section class="error-404-section section-padding">
+
+        <!-- start contact-pg-section -->
+        <section class="contact-pg-section section-padding">
             <div class="container">
                 <div class="row">
-                    <div class="col col-xs-12">
-                        <div class="content clearfix">
-                            <div class="error">
-                                <h2>404</h2>
-                            </div>
-                            <div class="error-message">
-                                <h3>Oops! Page Not Found!</h3>
-                                <p>Извините, страница в разработке <i class="ti-thought"></i></p>
-                                <a href="index.html" class="theme-btn">Вернуться</a>
-                            </div>
+                    <div class="col col-lg-6 col-md-6 col-sm-8">
+                        <div class="section-title">
+                            <h2>Обратная связь</h2>
                         </div>
                     </div>
-                </div> <!-- end row -->
+                </div>
+                <div class="row">
+                    <div class="col col-md-8">
+                        <form method="post" class="contact-validation-active" id="contact-form-main">
+                            <div>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Имя*">
+                            </div>
+                            <div>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Эл. Адрес*">
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Телефон*">
+                            </div>  
+                            <div>
+                                <select name="subject" class="form-control">
+                                    <option disabled="disabled" selected>Тема</option>
+                                    <option>Благодарность</option>
+                                    <option>Предложение</option>
+                                    <option>Жалоба</option>
+                                </select>
+                            </div>
+                            <div class="fullwidth">
+                                <textarea class="form-control" name="note"  id="note" placeholder="Текст сообщения..."></textarea>
+                            </div>
+                            <div class="submit-area">
+                                <button type="submit" class="theme-btn">Отправить</button>
+                                <!--<div id="loader">
+                                    <i class="ti-reload"></i>
+                                </div> need for remaking--> 
+                            </div>
+                            <!--<div class="clearfix error-handling-messages">
+                                <div id="success">Спасибо</div>
+                                <div id="error"> Ошибка, повторите ещё раз попозже. </div>
+                            </div> need for remaking-->
+                        </form>
+                    </div>  
+
+                    <div class="col col-md-4">
+                        <div class="office-info">
+                            <div>
+                                <h3>Таджикистан</h3>
+                                <ul>
+                                    <li><i class="ti-location-pin"></i> Локация, Душанбе</li>
+                                    <li><i class="ti-mobile"></i> +992 99 999 9999</li>
+                                    <li><i class="ti-email"></i> fakemail@email.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                  
+                </div>
             </div> <!-- end container -->
-        </section>    
-        <!-- end error-404-section -->    
+        </section>
+        <!-- end contact-pg-section -->
+
+
+        <!--  start contact-map -->
+        <section class="contact-map-section">
+            <h2 class="hidden">Карта</h2>
+            <div class="contact-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.9147703055!2d-74.11976314309273!3d40.69740344223377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbd!4v1547528325671" allowfullscreen></iframe>
+            </div>
+        </section>
+        <!-- end contact-map -->
 
         <!-- start site-footer -->
         <footer class="site-footer">

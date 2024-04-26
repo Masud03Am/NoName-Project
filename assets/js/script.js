@@ -332,6 +332,63 @@
         });
     } 
 
+    /*-----------------------------------------------------
+    = CONTACT FORM SUBMISSION *** = CONNECTION WITH BACKEND
+    = IS STILL UNFINISHED <= (FOR AMIR)
+    ------------------------------------------------------*/
+    if ($("#contact-form-main").length) {
+        $("#contact-form-main").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+
+                email: "required",
+
+                phone: "required",
+                
+                subject: {
+                    required: true
+                }
+
+            },
+
+            messages: {
+                name: "Пожалуйста введите своё имя",
+                email: "Пожалуйста введите свой Эл. Адрес",
+                phone: "Пожалуйста введите свои номера",
+                subject: "Пожалуйста выберите тему"
+            },
+
+            submitHandler: function (form) {
+                $.ajax({
+                    type: "POST",
+                    url: "mail-contact.json",
+                    data: $(form).serialize(),
+                    success: function () {
+                        $( "#loader").hide();
+                        $( "#success").slideDown( "slow" );
+                        setTimeout(function() {
+                        $( "#success").slideUp( "slow" );
+                        }, 3000);
+                        form.reset();
+                    },
+                    error: function() {
+                        $( "#loader").hide();
+                        $( "#error").slideDown( "slow" );
+                        setTimeout(function() {
+                        $( "#error").slideUp( "slow" );
+                        }, 3000);
+                    }
+                });
+                return false; // необходимо заблокировать обычную отправку, поскольку я использовал ajax
+            }
+
+        });
+    }
+
+
 
     /*==========================================================================
         WHEN DOCUMENT LOADING
@@ -343,8 +400,6 @@
             toggleMobileNavigation();
 
             smallNavFunctionality();
-
-            sortingGallery();
 
         });
 
