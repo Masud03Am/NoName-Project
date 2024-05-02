@@ -1,0 +1,346 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  /*padding: 40px 20px;*/
+}
+
+/*main {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  place-items: center;
+  background: #f6f6f6;
+  width: min(700px, 95%);
+  border-radius: 20px;
+}*/
+
+/* Left Side */
+
+/*.left-side {
+  height: 100%;
+  width: 100%;
+  background-image: url(../images/contact-man.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  border-radius: 20px 0 0 20px;
+}*/
+
+/* Right Side */
+
+.right-side {
+  padding: 60px;
+}
+
+/* Button Group */
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 32px;
+}
+
+.btn-group .btn {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  width: max-content;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 8px 6px;
+  border: 2px solid #6b7280;
+  border-radius: 5px;
+  background-color: #f6f6f6;
+  transform: scale(1);
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.5s, color 0.5s;
+}
+
+.btn-group .btn:focus {
+  transform: scale(0.97);
+}
+
+.btn-group .btn:hover {
+  background-color: #000;
+  color: #eee;
+}
+
+.btn img {
+  width: 16px;
+  height: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f6f6;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* OR */
+
+.or {
+  position: relative;
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.or::before,
+.or::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #000;
+}
+
+.or::before {
+  left: 0;
+}
+
+.or::after {
+  right: 0;
+}
+
+/* Inputs and Labels */
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  border: 2px solid #ccc;
+  outline: 0;
+  border-radius: 5px;
+  background-color: transparent;
+  margin: 4px 0 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.5s;
+}
+
+input:focus {
+  border: 2px solid #000;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #000;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Login Button */
+
+.login-btn {
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 24px;
+  margin: 12px 0 24px;
+  border: 2px solid #6b7280;
+  border-radius: 5px;
+  background-color: #f6f6f6;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.login-btn:hover {
+  background-color: #000;
+  color: #eee;
+}
+
+/* Links */
+
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+a {
+  color: #000;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -1px;
+  transition: all 0.4s ease;
+}
+
+a:hover {
+  color: rgb(13, 133, 185);
+}
+
+/* For small devices (phones) */
+@media only screen and (max-width: 600px) {
+    main {
+      grid-template-columns: 100%;
+    }
+  
+    .left-side {
+      display: none; /* Hide the left side background image on small screens */
+    }
+  
+    .right-side {
+      padding: 40px; /* Adjust padding for smaller screens */
+    }
+  
+    .btn-group {
+      flex-direction: column; /* Stack buttons vertically on small screens */
+    }
+  
+    .btn-group .btn {
+      width: 100%; /* Full width buttons on small screens */
+      margin-bottom: 10px; /* Add spacing between buttons */
+    }
+  }
+  
+  /* For medium and larger devices */
+  @media only screen and (min-width: 601px) {
+    .left-side {
+      display: block; /* Ensure left side background is displayed */
+    }
+  
+    .right-side {
+      padding: 60px; /* Restore padding for medium and larger screens */
+    }
+  
+    .btn-group {
+      flex-direction: row; /* Revert button layout to horizontal */
+    }
+  
+    .btn-group .btn {
+      width: auto; /* Reset button width to auto */
+      margin-bottom: 0; /* Remove spacing between buttons */
+    }
+  }  
+
+  #slider {
+    position: relative;
+    background: linear-gradient(300deg, #0a3247 0%, #102b41 60%, #ff5e14 100%);
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  .bolaMov1 {
+    background-color: #0e2c3b;
+    opacity: 70%;
+    filter: blur(100px);
+    width: 480px;
+    height: 350px;
+    border-radius: 50%;
+    position: absolute;
+    left: -10px;
+    bottom: 40px;
+    z-index: 4;
+    animation: rotar 8s infinite ease-in-out;
+    transform-origin: 50% -100%;
+  }
+  .bolaMov2 {
+    background-color: #ff5e14;
+    opacity: 60%;
+    filter: blur(60px);
+    width: 300px;
+    height: 320px;
+    border-radius: 50%;
+    position: absolute;
+    top: 130px;
+    right: 20%;
+    z-index: 5;
+    animation: gradient 6s infinite;
+  }
+  .bolaMov3 {
+    background-color: #072738;
+    filter: blur(40px);
+    width: 400px;
+    height: 320px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    z-index: 8;
+    animation: rotar 12s infinite ease-in-out;
+    transform-origin: -50% 100%;
+  }
+  .bolaMov4 {
+    background-color: #cf5218;
+    opacity: 90%;
+    filter: blur(100px);
+    width: 360px;
+    height: 600px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -30%;
+    right: -30%;
+    z-index: 1;
+    animation: gradient 7s infinite;
+  }
+  .bolaMov5 {
+    background-color: #0a3247;
+    opacity: 70%;
+    filter: blur(50px);
+    width: 200px;
+    height: 90px;
+    border-radius: 50%;
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    z-index: 6;
+    animation: rotar 5s infinite;
+    transform-origin: -100% -120%;
+  }
+  
+  @keyframes rotar {
+    0% {
+      transform: rotate(0deg);
+      opacity: 0.5;
+    }
+    50% {
+      transform: rotate(50deg) scale(0.5);
+      opacity: 0.9;
+    }
+    100% {
+      transform: rotate(0deg);
+      opacity: 0.5;
+    }
+  }
+  
+  @keyframes gradient {
+    60% {
+      transform: scale(1.5) translate(-70%, -20%);
+    }
+  }  

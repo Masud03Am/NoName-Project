@@ -68,10 +68,10 @@
                                 <a href="./services.html">Услуги</a>
                             </li>
                             <li class="menu-item">
-                                <a href="./404.html">Магазины</a>
+                                <a href="./stores.html">Магазины</a>
                             </li>
                             <li class="menu-item">
-                                <a href="./404.html">О нас</a>
+                                <a href="./aboutUs.html">О нас</a>
                             </li>
                             <li class="menu-item">
                                 <a href="./contactUs.html">Контакты</a>
@@ -91,7 +91,7 @@
                             <div class="header-search-form">
                                 <form>
                                     <div>
-                                        <input name="text" id="text" type="text" class="form-control" placeholder="Search here...">
+                                        <input type="text" class="form-control" placeholder="Поиск ...">
                                         <button type="submit"><i class="ti-search"></i></button>
                                     </div>
                                 </form>
@@ -143,16 +143,16 @@
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Эл. Адрес*">
                             </div>
                             <div>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Телефон*">
-                            </div>  
-                            <div>
-                                <select name="subject" class="form-control">
-                                    <option disabled="disabled" selected>Тема</option>
-                                    <option>Благодарность</option>
-                                    <option>Предложение</option>
-                                    <option>Жалоба</option>
+                                <select name="country" id="country" class="form-control">
+                                    <option value="TJ">Таджикистан</option>
+                                    <option value="KZ">Казахстан</option>
+                                    <option value="UZ">Узбекистан</option>
+                                    <option value="RU">Россия</option>
                                 </select>
                             </div>
+                            <div>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Телефон*">
+                            </div>                            
                             <div class="fullwidth">
                                 <textarea class="form-control" name="note"  id="note" placeholder="Текст сообщения..."></textarea>
                             </div>
@@ -306,6 +306,48 @@
     <!-- All JavaScript files
     ================================================== -->
     <script src="assets/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/7.6.0/imask.min.js" integrity="sha512-nTNcq3y76KV0waC+4blkE81acF83+Q0wmdNlDfpXgzpswh6FbhemEYoIV3TH+tOhadNeviCA+WPD5FEuXeF6mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/JavaScript">
+
+        /*==========================================================================
+        ImaskJs-for Country_Phone_Code
+        ==========================================================================*/
+
+    $(document).ready(function() {
+        const element = document.getElementById('phone');
+        const masks = {
+            'TJ': {
+                mask: '+{992}(00)000-0000',
+                lazy: false,
+            },
+            'KZ': {
+                mask: '+{7}(000)000-00-00',
+                lazy: false,
+            },
+            'UZ': {
+                mask: '+{998}(00)000-00-00',
+                lazy: false,
+            },
+            'RU': {
+                mask: '+{7}(000)000-00-00',
+                lazy: false,
+            },
+        };
+    
+        const maskOptions = masks['TJ']; // Default mask options for initial load
+    
+        // Initialize mask
+        const mask = IMask(element, maskOptions);
+    
+        // Change mask and set country code when country selection changes
+        $("#country").change(function() {
+            const countryCode = $(this).val();
+            mask.updateOptions(masks[countryCode]); // Update mask options
+            $("#phone").val('+' + countryCode); // Set country code in input field
+        });
+    });
+    </script>
+
     <script src="assets/js/bootstrap.min.js"></script>
 
     <!-- Plugins for this webpage(NoName) -->

@@ -388,43 +388,21 @@
         });
     }
 
-    /*==========================================================================
-        ImaskJs-for Country_Phone_Code
-    ==========================================================================*/
-
-    $(document).ready(function() {
-        const element = document.getElementById('phone');
-        const masks = {
-            'TJ': {
-                mask: '+{992}(00)000-0000',
-                lazy: false,
-            },
-            'KZ': {
-                mask: '+{7}(000)000-00-00',
-                lazy: false,
-            },
-            'UZ': {
-                mask: '+{998}(00)000-00-00',
-                lazy: false,
-            },
-            'RU': {
-                mask: '+{7}(000)000-00-00',
-                lazy: false,
-            },
-        };
-    
-        const maskOptions = masks['TJ']; // Default mask options for initial load
-    
-        // Initialize mask
-        const mask = IMask(element, maskOptions);
-    
-        // Change mask and set country code when country selection changes
-        $("#country").change(function() {
-            const countryCode = $(this).val();
-            mask.updateOptions(masks[countryCode]); // Update mask options
-            $("#phone").val('+' + countryCode); // Set country code in input field
+    /*------------------------------------------
+        = POST SLIDER
+    -------------------------------------------*/
+    if($(".post-slider".length)) {
+        $(".post-slider").owlCarousel({
+            mouseDrag: false,
+            smartSpeed: 500,
+            margin: 30,
+            loop:true,
+            nav: true,
+            navText: ['<i class="fi flaticon-back"></i>','<i class="fi flaticon-next"></i>'],
+            dots: false,
+            items: 1
         });
-    });
+    }  
 
     /*==========================================================================
         WHEN DOCUMENT LOADING
