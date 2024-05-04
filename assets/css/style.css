@@ -48,6 +48,10 @@ body {
   }
 }
 
+.d-none{
+  display: none;
+}
+
 p {
   color: #687187;
   line-height: 1.7em;
@@ -4125,8 +4129,10 @@ FAQ page
 hr:not([size]) {
   background-color: #999;
 }
+
 hr:not([size]) {
   height: 1px;
+  width: auto;
 }
 
 hr {
@@ -4192,7 +4198,7 @@ hr {
   margin: 10px;
   background: #ffffff;
   border-radius: 16px;
-  border: 1px solid #ff5e14;
+  border: 4px solid #ff5e14;
 }
 
 .middle-item__head .working-hours {
@@ -4237,38 +4243,15 @@ hr {
   display: flex;
 }
 
-.profile_avatar{
+.profile_avatar {
   width: 30%;
-  padding: 8px;
+  padding: 20px;
+  height: auto;
 }
 
-.sidebar-profile > li{
-  padding: 15px;
-  border-bottom: 2px solid #ff5e14;
-  display: flex;
-  align-items: center;
-}
-
-.sidebar-profile > li > i{
-  padding-left: 10px;
-  color: #020d26;
-}
-
-.sidebar-profile > li > a{
-  padding-left: 10px;
-}
-
-.sidebar-profile > li.active{
-  background-color: #ff5e14;
-}
-
-.sidebar-profile > li.active a{
-  color: #020d26;
-  font-weight: 700;
-}
-
-.sidebar-profile > li.active a:hover{
-  color: white;
+.isotope-toolbar-btn > i{
+  padding-right: 10px;
+  font-size: 15px;
 }
 
 .profile-content-1, .profile-content-2{
@@ -4276,6 +4259,380 @@ hr {
   box-shadow: 0px 4px 21px 0px rgba(33, 49, 182, 0.09);
 }
 
+
+/*         section                 */
+.section-profile {
+  color: #fff;
+  width: 100%;
+  position: relative;
+  min-height: 155vh;
+  border-bottom: 3px solid rgba(250, 250, 250, 0.25);
+}
+
+.section-heading {
+  text-align: center;
+  padding: 80px 45px;
+}
+
+.section-heading h2 {
+  margin: 0 auto;
+  padding: 10px auto;
+  font-size: 32px;
+  font-weight: 700;
+  color: #020d26;
+  background-color: #fff;
+  transition: 1s;
+}
+.section-heading h2:hover {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #020d26;
+  transition: 1s;
+}
+.section-heading .line-dec {
+  width: 60px;
+  height: 3px;
+  background-color: #ff5e14;
+  margin: 10px auto;
+}
+.section-heading span {
+  margin-top: 5px;
+  font-size: 16px;
+  color: #020d26;
+  letter-spacing: 0.5px;
+}
+
+/* Buttons */
+
+.isotope-toolbar-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0px 5px;
+  background-color: #fff;
+  color: #020d26;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.isotope-toolbar-btn:hover {
+  outline: none;
+  background-color: #020d26;
+  color: #fff;
+}
+.isotope-toolbar-btn.active {
+  outline: none;
+  background-color: #020d26;
+  color: #fff;
+}
+
+.isotope-toolbar-btn-1 {
+  display: inline-block;
+  padding: 5px 25px;
+  margin: 0px 5px;
+  background-color: #fff;
+  color: #020d26;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.isotope-toolbar-btn-1:hover {
+  outline: none;
+  background-color: #020d26;
+  color: #fff;
+}
+.isotope-toolbar-btn-1.active {
+  outline: none;
+  background-color: #020d26;
+  color: #fff;
+}
+
+
+/*    isotope       */
+.section-heading {
+  text-align: center;
+  padding: 80px 45px 50px 45px;
+}
+
+.isotope-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.isotope-toolbar span {
+  text-transform: capitalize;
+  display: inline-block;
+/*   margin-right: 15px;
+  padding-bottom: 3px; */
+  font-size: 15px;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transform: ease-in-out 0.5s;
+  cursor: pointer;
+  flex: 1;
+}
+
+.isotope-toolbar-1 span {
+  text-transform: capitalize;
+  display: inline-block;
+/*   margin-right: 15px;
+  padding-bottom: 3px; */
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 2px solid transparent;
+  transform: ease-in-out 0.5s;
+  cursor: pointer;
+  flex: 1;
+}
+
+.isotope-box {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+.isotope-box-1 {
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+.isotope-toolbar {
+  text-align: center;
+  margin: 10px;
+}
+
+.isotope-toolbar-1 {
+  text-align: center;
+  margin: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: 3px solid #ff5e14;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.isotope-item {
+  position: relative;
+  width: 48%;
+  margin: 1%;
+  border-bottom: 2px solid rgba(250, 250, 250, 0.1);
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.isotope-item-1 {
+  position: relative;
+  margin: 1%;
+  border-bottom: 2px solid rgba(250, 250, 250, 0.1);
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.parcles-content{
+  margin-top: 3rem;
+}
+
+.tabline {
+  border-right: 1px solid #f4f4f4;
+  display: inline-block;
+  /* height: 100%; */
+}
+
+.isotope-toolbar-label{
+  margin-left: 30rem;
+}
+
+@media (min-width: 768px) and (max-width: 820px) {
+  .isotope-toolbar-label {
+    margin-left: 0;
+  }
+}
+
+.parcles-row-body {
+  background-color: #020d26;
+  position: relative;
+  height: 450px;
+}
+
+.parcles-row-body:before {
+  background: url("../images/dotted-map.png") center center/auto no-repeat local;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.parcles-row-body .parcles-row-body-grid {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.parcles-row-body .parcles-row-body-grid i {
+  font-size: 10rem;
+}
+
+.parcles-row-body .parcles-row-body-grid h3 {
+  font-size: 16px;
+  font-size: 1.06667rem;
+  font-weight: 500;
+  margin: 1em 0 0.3em;
+  color: #9a9494;
+}
+
+.parcles-row-body .parcles-row-body-grid .grid {
+  background: transparent;
+  padding: 50px 45px;
+}
+
+@media (max-width: 991px) {
+  .parcles-row-body .parcles-row-body-grid .grid {
+    padding: 40px 25px;
+  }
+}
+
+.parcles-row-body .client-info {
+  margin-bottom: 30px;
+}
+
+.parcles-row-body .client-pic {
+  max-width: 150px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Inputs and Labels */
+.profile-input select {
+  width: 100%;
+  border: 2px solid #ccc;
+  outline: 0;
+  border-radius: 5px;
+  background-color: transparent;
+  margin: 4px 0 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.5s;
+}
+
+.profile-input input {
+  width: 100%;
+  padding: 12px 20px;
+  border: 2px solid #ccc;
+  outline: 0;
+  border-radius: 5px;
+  background-color: transparent;
+  margin: 4px 0 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.5s;
+}
+
+.profile-input input:focus, .profile-input select:focus {
+  border: 2px solid #000;
+}
+
+.profile-input input:-webkit-autofill, .profile-input select:-webkit-autofill,
+.profile-input input:-webkit-autofill:hover, .profile-input select:-webkit-autofill:hover,
+.profile-input input:-webkit-autofill:focus, .profile-input select:-webkit-autofill:focus,
+.profile-input input:-webkit-autofill:active, .profile-input select:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #000;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.fedex-row-heading{
+  margin-bottom: 1rem;
+  margin-top: 4rem;
+}
+
+.fedex-row-body {
+  background-color: #020d26;
+  position: relative;
+  height: 450px;
+}
+
+.fedex-row-body:before {
+  background: url("../images/dotted-map.png") center center/auto no-repeat local;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.fedex-row-body .fedex-row-body-grid {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.fedex-row-body .fedex-row-body-grid i {
+  font-size: 10rem;
+}
+
+.fedex-row-body .fedex-row-body-grid h3 {
+  font-size: 16px;
+  font-size: 1.06667rem;
+  font-weight: 500;
+  margin: 1em 0 0.3em;
+  color: #9a9494;
+}
+
+.fedex-row-body .fedex-row-body-grid .grid {
+  background: transparent;
+  padding: 50px 45px;
+}
+
+@media (max-width: 991px) {
+  .fedex-row-body .fedex-row-body-grid .grid {
+    padding: 40px 25px;
+  }
+}
+
+.fedex-row-body .client-info {
+  margin-bottom: 30px;
+}
+
+.fedex-row-body .client-info label{
+  margin-top: 30px;
+}
+
+.fedex-row-body .client-pic {
+  max-width: 150px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.claims-content {
+  margin-top: 4rem;
+}
+
+.control-label h6{
+  color: #ffffff;
+  font-size: 15px;
+}
 
 /*--------------------------------------------------------------
 404 page

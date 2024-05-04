@@ -404,6 +404,60 @@
         });
     }  
 
+    /*$(document).ready(function() {
+        $('.sidebar-profile li').on('click', function() {
+          // Удаляем класс active из предыдущей активной категории
+          $('.sidebar-profile li.active').removeClass('active');
+          // Добавляем класс active к выбранной категории
+          $(this).addClass('active');
+          
+          // Удаляем класс контента предыдущей категории
+          $('#').removeClass('dis');
+          // Добавляем класс контента к выбранной категории
+          $('#' + $(this).data('category')).addClass($(this).data('content-class'));
+        });
+    });*/
+
+
+    // external js: isotope.pkgd.js
+
+    // init Isotope elements
+    // init Isotope elements
+var $box = $(".isotope-box").isotope({
+    itemSelector: ".isotope-item"
+});
+
+var $box1 = $(".isotope-box-1").isotope({
+    itemSelector: ".isotope-item-1"
+});
+
+// Set initial filter based on active button
+var initialFilter = $(".isotope-toolbar-btn.active").attr("data-type");
+var initialFilterValue = initialFilter !== "*" ? '[data-type="' + initialFilter + '"]' : "*";
+$box.isotope({ filter: initialFilterValue });
+$box1.isotope({ filter: initialFilterValue });
+
+// filter functions
+// bind filter button click
+$(".isotope-toolbar").on("click", "button", function () {
+    var filterValue = $(this).attr("data-type");
+    // Remove active class from all buttons
+    $(".isotope-toolbar-btn").removeClass("active");
+    // Add active class to the clicked button
+    $(this).addClass("active");
+    if (filterValue !== "*") {
+        filterValue = '[data-type="' + filterValue + '"]';
+    }
+    console.log(filterValue);
+    // Apply filter to both Isotope containers
+    $box.isotope({ filter: filterValue });
+    $box1.isotope({ filter: filterValue });
+});
+
+    
+    // change is-checked class on buttons
+  
+
     /*==========================================================================
         WHEN DOCUMENT LOADING
     ==========================================================================*/
