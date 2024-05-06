@@ -7,6 +7,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Quicksand", sans-serif;
+  letter-spacing: 0.5px;
 }
 
 body {
@@ -16,6 +17,27 @@ body {
   min-height: 100vh;
   width: 100%;
   /*padding: 40px 20px;*/
+}
+
+/* Для широких экранов */
+@media only screen and (min-width: 1200px) {
+  a {
+    font-size: 0.88rem;
+  }
+}
+
+/* Для средних экранов */
+@media only screen and (max-width: 1199px) {
+  a {
+    font-size: 0.88rem;
+  }
+}
+
+/* Для маленьких экранов (мобильные устройства) */
+@media only screen and (max-width: 767px) {
+  a {
+    font-size: 0.68rem;
+  }
 }
 
 /*main {
@@ -194,14 +216,20 @@ a:active {
 
 a {
   color: #000;
-  font-size: 0.88rem;
   font-weight: 600;
-  letter-spacing: -1px;
   transition: all 0.4s ease;
 }
 
 a:hover {
   color: rgb(13, 133, 185);
+}
+
+.backtohome {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 /* For small devices (phones) */
@@ -210,9 +238,9 @@ a:hover {
       grid-template-columns: 100%;
     }
   
-    .left-side {
-      display: none; /* Hide the left side background image on small screens */
-    }
+    /*.left-side {
+      display: none; 
+    }*/
   
     .right-side {
       padding: 40px; /* Adjust padding for smaller screens */
@@ -230,9 +258,9 @@ a:hover {
   
   /* For medium and larger devices */
   @media only screen and (min-width: 601px) {
-    .left-side {
-      display: block; /* Ensure left side background is displayed */
-    }
+    /*.left-side {
+      display: block; 
+    }*/
   
     .right-side {
       padding: 60px; /* Restore padding for medium and larger screens */

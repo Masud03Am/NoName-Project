@@ -404,6 +404,11 @@
         });
     }  
 
+
+    /*------------------------------------------
+        = isotope-box
+    -------------------------------------------*/
+
     /*$(document).ready(function() {
         $('.sidebar-profile li').on('click', function() {
           // Удаляем класс active из предыдущей активной категории
@@ -421,42 +426,175 @@
 
     // external js: isotope.pkgd.js
 
-    // init Isotope elements
-    // init Isotope elements
-var $box = $(".isotope-box").isotope({
-    itemSelector: ".isotope-item"
-});
+    // инициализировать элементы изотопа
+    var $box1 = $(".isotope-box-1").isotope({
+        itemSelector: ".isotope-item-1"
+    });
 
-var $box1 = $(".isotope-box-1").isotope({
-    itemSelector: ".isotope-item-1"
-});
+    // Установить начальный фильтр на основе активной кнопки
+    var initialFilter = $(".isotope-toolbar-btn.active").attr("data-type");
+    var initialFilterValue = initialFilter !== "*" ? '[data-type="' + initialFilter + '"]' : "*";
+    $box1.isotope({ filter: initialFilterValue });
 
-// Set initial filter based on active button
-var initialFilter = $(".isotope-toolbar-btn.active").attr("data-type");
-var initialFilterValue = initialFilter !== "*" ? '[data-type="' + initialFilter + '"]' : "*";
-$box.isotope({ filter: initialFilterValue });
-$box1.isotope({ filter: initialFilterValue });
-
-// filter functions
-// bind filter button click
-$(".isotope-toolbar").on("click", "button", function () {
-    var filterValue = $(this).attr("data-type");
-    // Remove active class from all buttons
-    $(".isotope-toolbar-btn").removeClass("active");
-    // Add active class to the clicked button
-    $(this).addClass("active");
-    if (filterValue !== "*") {
-        filterValue = '[data-type="' + filterValue + '"]';
-    }
-    console.log(filterValue);
-    // Apply filter to both Isotope containers
-    $box.isotope({ filter: filterValue });
-    $box1.isotope({ filter: filterValue });
-});
+    // функции фильтра
+    // нажать кнопку «Привязать фильтр»
+    $(".isotope-toolbar").on("click", "button", function () {
+        var filterValue = $(this).attr("data-type");
+        // Удалить активный класс со всех кнопок
+        $(".isotope-toolbar-btn").removeClass("active");
+        // Добавить активный класс к нажатой кнопке
+        $(this).addClass("active");
+        if (filterValue !== "*") {
+            filterValue = '[data-type="' + filterValue + '"]';
+        }
+        console.log(filterValue);
+        // Примените фильтр к обоим контейнерам с изотопами.
+        $box1.isotope({ filter: filterValue });
+    });
 
     
-    // change is-checked class on buttons
-  
+
+
+    /*------------------------------------------
+        = CALCULATOR
+    -------------------------------------------*/
+
+    // Заглушка для переменной rates
+    const rates = [
+        { sender_country: 1, receiver_country: 2, rate_usd_to_somoni: 2, rate_somoni_to_usd: 0.5, rate_kg_to_lb: 2.20462, rate_lb_to_kg: 0.453592 },
+        { sender_country: 2, receiver_country: 1, rate_usd_to_somoni: 0.5, rate_somoni_to_usd: 2, rate_kg_to_lb: 0.453592, rate_lb_to_kg: 2.20462 }
+    ];
+
+    // Функция для расчета итоговой суммы
+    const computeValues = (rates, values) => {
+        const rate = (rates || []).find(
+            (r) =>
+                parseInt(r.sender_country) === parseInt(values.from) &&
+                parseInt(r.receiver_country) === parseInt(values.to),
+        );
+        if (rate) {
+            let dimensionWeight = 0;
+            if (values.dimension && values.dimension.length > 0) {
+                const multiplier = 0.453592;
+                if (values.measure === 'sm') {
+                    dimensionWeight =
+                        ((values.length || 0) * (values.width || 0) * (values.height || 0)) /
+                        5000;
+                    if (values.unit === 'lb') {
+                        dimensionWeight = dimensionWeight / multiplier;
+                    }
+                } else {
+                    dimensionWeight =
+                        ((values.length || 0) * (values.width || 0) * (values.height || 0)) /
+                        139;
+                    if (values.unit === 'kg') {
+                        dimensionWeight = dimensionWeight * multiplier;
+                    }
+                }
+            }
+            let weight = values.weight || 0;
+            weight = weight >= dimensionWeight ? weight : dimensionWeight;
+            if (values.unit === 'lb') {
+                return (weight * rate.rate_usd_to_somoni).toFixed(2);
+            } else {
+                return (weight * rate.rate_somoni_to_usd).toFixed(2);
+            }
+        }
+    };
+
+    $(document).ready(function() {
+        // Скрытие extra-data при загрузке страницы
+        $('.extra-data').hide();
+
+        // Обработка события изменения состояния чекбокса
+        $('#formCheckCalc').on('click', function() {
+            if ($(this).is(':checked')) {
+                $('.extra-data').show();
+            } else {
+                $('.extra-data').hide();
+            }
+        });
+
+        // Обработка события изменения значений в калькуляторе
+        $('#calculator-new input, #calculator-new select').on('input', function() {
+            calculateTotal();
+        });
+
+        // Обработка события изменения положения ползунка range
+        $('#range').on('input', function() {
+            // Обновляем значение input
+            $('input[name="weight"]').val($(this).val());
+            calculateTotal();
+        });
+
+        // Функция для расчета итоговой суммы
+        function calculateTotal() {
+            // Получаем значения из инпутов
+            var values = {
+                from: parseInt($('select[name="from"]').val()),
+                to: parseInt($('select[name="to"]').val()),
+                weight: parseFloat($('input[name="weight"]').val()),
+                length: parseFloat($('input[name="length"]').val()),
+                width: parseFloat($('input[name="width"]').val()),
+                height: parseFloat($('input[name="height"]').val()),
+                unit: $('select[name="unit"]').val(),
+                measure: $('select[name="measure"]').val(),
+                dimension: $('input[name="dimension"]').is(':checked'),
+            };
+
+            // Получаем выбранные единицы измерения
+            var unit = $('select[name="unit"]').val();
+            var measure = $('select[name="measure"]').val();
+
+            // Выполняем расчеты и обновляем итоговую сумму
+            var total = computeValues(rates, values);
+            if (total) {
+                // Выводим итоговую сумму в долларах
+                $('.calc-amount').text(total + ' $');
+            } else {
+                // Если расчет невозможен, выводим сообщение об ошибке
+                $('.calc-amount').text('Ошибка расчета');
+            }
+        }
+    });
+
+
+    /*==========================================================================
+        MODAL-WINDOW
+    ==========================================================================*/
+
+    $(document).ready(function(){
+        // При клике на кнопку открыть модальное окно
+        $(".openModalBtn").click(function(){
+            var modalId = $(this).data("modal-id");
+            $("#" + modalId).show();
+        });
+    
+        // При клике на кнопку закрыть модальное окно
+        $(".close").click(function(){
+            $(this).closest(".modal").hide();
+        });
+    
+        // Закрыть модальное окно при клике вне его
+        $(window).click(function(event) {
+            if ($(event.target).hasClass("modal")) {
+                $(event.target).hide();
+            }
+        });
+    });
+
+
+    /*==========================================================================
+        LOGOUT
+    ==========================================================================*/
+
+    $(document).ready(function(){
+        // При клике на кнопку Log Out
+        $("#LogOutBtn").click(function(){
+            // Перенаправление на страницу входа (login.html)
+            window.location.href = "login.html";
+        });
+    });
 
     /*==========================================================================
         WHEN DOCUMENT LOADING

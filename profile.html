@@ -158,19 +158,19 @@
                                 </button>
                             </label>
                             <label>
-                                <button class="isotope-toolbar-btn" data-type="LogOut" name="isotope-filter">
+                                <button class="isotope-toolbar-btn" id="LogOutBtn">
                                     <i class="ti-shift-left"></i><span>Выйти</span>
                                 </button>
                             </label>
                         </div>
-                        <div class="isotope-box">
-                            <div class="isotope-item" data-type="profile">
-                                <div id="profile-category" class="col col-md-12 profile-content-1">
+                        <div class="isotope-box-1">
+                            <div class="isotope-item-1" data-type="profile">
+                                <div id="profile-category" class="col col-md-8 profile-content-1">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="middle-item__head">
                                                 <img class="profile_avatar" src="assets/images/testimonials/img-1.jpg" alt="avatar" width="36" height="36">
-                                                <div style="width: 70%;">
+                                                <div class="text-profile">
                                                     <h2>Ваш адрес в Душанбе</h2>
                                                     <p class="descs">Укажите ваш адрес в Душанбе как адрес для доставки при покупке online</p>
                                                 </div>
@@ -246,10 +246,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-        
-                            <div class="isotope-item" data-type="profile">
-                                <div id="profile-category" class="col col-md-12 profile-content-2">
+                                <div id="profile-category" class="col col-md-4 profile-content-2">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="middle-item__head middle-item__headd">
@@ -272,10 +269,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-        
-                            <div class="isotope-item" data-type="profile">
-                                <div class="faq-section">
+                                <div style="margin-top: 2rem;" class="col col-md-4 faq-section">
                                     <div class="panel-group faq-accordion theme-accordion-s1" id="accordion">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
@@ -312,10 +306,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="isotope-items" data-type="LogOut">
-
-                            </div>
                         </div>
 
                         <div class="isotope-box-1">
@@ -339,10 +329,16 @@
                                                 </button>
                                             </label>
                                             <label class="isotope-toolbar-label">
-                                                <button class="isotope-toolbar-btn-1" data-type="" name="isotope-filter">
+                                                <button class="isotope-toolbar-btn-1 openModalBtn" data-modal-id="myModal1">
                                                     <span>+ Новый заказ</span>
                                                 </button>
                                             </label>
+                                        </div>
+                                    </div>
+                                    <div class="modal" id="myModal1">
+                                        <div class="modal-content">
+                                            <span class="close">&times;</span>
+                                            <p>Это модальное окно. Нужно добавить здесь контент.</p>
                                         </div>
                                     </div>
                                     <div class="parcles-row-low-heading">
@@ -413,11 +409,17 @@
                                             </div>
                                             <div class="col col-md-2 fedex-head-btn">
                                                 <label>
-                                                    <button class="isotope-toolbar-btn-1 active" data-type="" name="isotope-filter">
+                                                    <button class="isotope-toolbar-btn-1 active openModalBtn" data-modal-id="myModal2">
                                                         <span>+ Создать Fedex</span>
                                                     </button>
                                                 </label>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal" id="myModal2">
+                                        <div class="modal-content">
+                                            <span class="close">&times;</span>
+                                            <p>Это модальное окно. Нужно добавить здесь контент.</p>
                                         </div>
                                     </div>
                                     <div class="fedex-row-body section-padding">
@@ -469,11 +471,17 @@
                                                                     <i class="ti-write"></i>
                                                                 </div>
                                                                 <label>
-                                                                    <button class="isotope-toolbar-btn-1" data-type="" name="isotope-filter">
+                                                                    <button class="isotope-toolbar-btn-1 openModalBtn" data-modal-id="myModal3">
                                                                         <span>+ Подать претензию</span>
                                                                     </button>
                                                                 </label>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal" id="myModal3">
+                                                        <div class="modal-content">
+                                                            <span class="close">&times;</span>
+                                                            <p>Это модальное окно. Нужно добавить здесь контент.</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -488,12 +496,12 @@
                                         <div class="row">
                                             <div class="isotope-toolbar-1">
                                                 <label>
-                                                    <button class="isotope-toolbar-btn-1 active" data-type="" name="isotope-filter">
+                                                    <button class="isotope-toolbar-btn-1 active">
                                                         <span>Личные данные</span>
                                                     </button>
                                                 </label>
                                                 <label>
-                                                    <button class="isotope-toolbar-btn-1" data-type="" name="isotope-filter">
+                                                    <button class="isotope-toolbar-btn-1">
                                                         <span>Сменить пароль</span>
                                                     </button>
                                                 </label>
@@ -552,7 +560,7 @@
                                                                                 </script>
                                                                             </select>
                                                                         </div>
-                                                                        <div style="display: flex; gap: 2rem;" class="row">
+                                                                        <div class="settings-opt row">
                                                                             <div class="col col-md-4 profile-input">
                                                                                 <select style="width: max-content" class="form-control">
                                                                                     <option value="">Country</option>

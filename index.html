@@ -406,10 +406,84 @@
                 </div>
             </div> <!-- end container -->
         </section>
-        <!-- end contact-section -->
-        <div class="grid_1">
-            <hr class="sketch-rule grid__item">
-        </div>
+
+        
+        <!-- start calculator-section -->
+        <section id="calculator-new" class="container-fluid section-padding">
+            <div class="container">
+                <h3 class="calculator-section-title">Калькулятор</h3>
+                <div class="calculator-row row">
+                    <div class="col-md-6 col-12 first-item">
+                        <div class="calculator-box">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="inputFrom" class="form-label">Откуда</label>
+                                    <select class="form-control calc-select" id="inputFrom" name="from">
+                                        <option value="1">USA</option>
+                                        <option value="2">TJK</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="inputTo" class="form-label">Куда</label>
+                                    <select class="form-control calc-select" id="inputTo" name="to">
+                                        <option value="2">TJK</option>
+                                        <option value="1">USA</option>
+                                    </select>
+                                </div>
+                                <div class="col-9">
+                                    <input name="weight" type="number" class="form-control interval-input" value="0">
+                                    <input id="range" class="form-control calc-interval" type="range" max="60" min="0" step="0.1" value="0">
+                                </div>
+                                <div class="col-3">
+                                    <select name="unit" class="form-control calc-select">
+                                        <option value="kg">KG</option>
+                                        <option value="lb">LB</option>
+                                    </select>
+                                </div>
+                                <div class="calculator-total">
+                                    <h5 class="calc-title">Итого</h5>
+                                    <h5 class="calc-amount">0.00 $</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 second-item">
+                        <div class="calculator-box">
+                            <div class="row checkbox-row">
+                                <label class="form-label" style="color: transparent;">.</label>
+                                <div class="col-12">
+                                    <input name="dimension" type="checkbox" class="form-check-input" value="1" id="formCheckCalc">
+                                    <label class="form-check-label" for="formCheckCalc">Расчёт стоимости доставки крупногабаритных посылок</label>
+                                </div>
+                            </div>
+                            <div class="row extra-data d-none">
+                                <div class="col-3">
+                                    <label class="form-label">Длина</label>
+                                    <input name="length" type="number" class="form-control" value="">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Ширина</label>
+                                    <input name="width" type="number" class="form-control" value="">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Высота</label>
+                                    <input name="height" type="number" class="form-control" value="">
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">&nbsp;</label>
+                                    <select name="measure" class="form-control calc-select">
+                                        <option value="sm">см</option>
+                                        <option value="in">дюйм</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end calculator-section -->
+        
         <!-- start contact-section -->
         <section class="contact-section section-padding">
             <div class="container">
