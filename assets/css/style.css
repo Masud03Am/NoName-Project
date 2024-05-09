@@ -4399,7 +4399,7 @@ hr {
   .section-profile {
     min-height: 230vh;
   }
-  .fedex-row-body {
+  .fedex-row-body-1 {
     height: 75rem !important;
   }
 } 
@@ -4591,7 +4591,7 @@ hr {
 }
 
 .isotope-toolbar-label{
-  margin-left: 28rem;
+  margin-left: 40rem;
 }
 
 @media (min-width: 768px) and (max-width: 820px) {
@@ -4612,13 +4612,13 @@ hr {
   }
 }
 
-.parcles-row-body {
+.parcles-row-body-1, .parcles-row-body-2 {
   background-color: #020d26;
   position: relative;
   height: 450px;
 }
 
-.parcles-row-body:before {
+.parcles-row-body-1:before, .parcles-row-body-2:before {
   background: url("../images/dotted-map.png") center center/auto no-repeat local;
   content: "";
   width: 100%;
@@ -4628,17 +4628,17 @@ hr {
   top: 0;
 }
 
-.parcles-row-body .parcles-row-body-grid {
+.parcles-row-body-1 .parcles-row-body-grid, .parcles-row-body-2 .parcles-row-body-grid {
   position: relative;
   z-index: 1;
   text-align: center;
 }
 
-.parcles-row-body .parcles-row-body-grid i {
+.parcles-row-body-1 .parcles-row-body-grid i, .parcles-row-body-2 .parcles-row-body-grid i {
   font-size: 10rem;
 }
 
-.parcles-row-body .parcles-row-body-grid h3 {
+.parcles-row-body-1 .parcles-row-body-grid h3, .parcles-row-body-2 .parcles-row-body-grid h3 {
   font-size: 16px;
   font-size: 1.06667rem;
   font-weight: 500;
@@ -4646,22 +4646,22 @@ hr {
   color: #9a9494;
 }
 
-.parcles-row-body .parcles-row-body-grid .grid {
+.parcles-row-body-1 .parcles-row-body-grid .grid, .parcles-row-body-2 .parcles-row-body-grid .grid {
   background: transparent;
   padding: 50px 45px;
 }
 
 @media (max-width: 991px) {
-  .parcles-row-body .parcles-row-body-grid .grid {
+  .parcles-row-body-1 .parcles-row-body-grid .grid, .parcles-row-body-2 .parcles-row-body-grid .grid {
     padding: 40px 25px;
   }
 }
 
-.parcles-row-body .client-info {
+.parcles-row-body-1 .client-info, .parcles-row-body-2 .client-info {
   margin-bottom: 30px;
 }
 
-.parcles-row-body .client-pic {
+.parcles-row-body-1 .client-pic, .parcles-row-body-2 .client-pic {
   max-width: 150px;
   margin: 0 auto;
   position: relative;
@@ -4711,13 +4711,13 @@ hr {
   margin-top: 4rem;
 }
 
-.fedex-row-body {
+.fedex-row-body-1, .fedex-row-body-2 {
   background-color: #020d26;
   position: relative;
   height: 450px;
 }
 
-.fedex-row-body:before {
+.fedex-row-body-1:before, .fedex-row-body-2:before {
   background: url("../images/dotted-map.png") center center/auto no-repeat local;
   content: "";
   width: 100%;
@@ -4727,17 +4727,17 @@ hr {
   top: 0;
 }
 
-.fedex-row-body .fedex-row-body-grid {
+.fedex-row-body-1 .fedex-row-body-grid, .fedex-row-body-2 .fedex-row-body-grid {
   position: relative;
   z-index: 1;
   text-align: center;
 }
 
-.fedex-row-body .fedex-row-body-grid i {
+.fedex-row-body-1 .fedex-row-body-grid i, .fedex-row-body-2 .fedex-row-body-grid i {
   font-size: 10rem;
 }
 
-.fedex-row-body .fedex-row-body-grid h3 {
+.fedex-row-body-1 .fedex-row-body-grid h3, .fedex-row-body-2 .fedex-row-body-grid h3 {
   font-size: 16px;
   font-size: 1.06667rem;
   font-weight: 500;
@@ -4745,26 +4745,26 @@ hr {
   color: #9a9494;
 }
 
-.fedex-row-body .fedex-row-body-grid .grid {
+.fedex-row-body-1 .fedex-row-body-grid .grid, .fedex-row-body-2 .fedex-row-body-grid .grid {
   background: transparent;
   padding: 50px 45px;
 }
 
 @media (max-width: 991px) {
-  .fedex-row-body .fedex-row-body-grid .grid {
+  .fedex-row-body-1 .fedex-row-body-grid .grid, .fedex-row-body-2 .fedex-row-body-grid .grid {
     padding: 40px 25px;
   }
 }
 
-.fedex-row-body .client-info {
+.fedex-row-body-1 .client-info, .fedex-row-body-2 .client-info {
   margin-bottom: 30px;
 }
 
-.fedex-row-body .client-info label{
+.fedex-row-body-1 .client-info label, .fedex-row-body-2 .client-info label{
   margin-top: 30px;
 }
 
-.fedex-row-body .client-pic {
+.fedex-row-body-1 .client-pic, .fedex-row-body-2 .client-pic {
   max-width: 150px;
   margin: 0 auto;
   position: relative;
@@ -4777,6 +4777,24 @@ hr {
 .control-label h6{
   color: #ffffff;
   font-size: 15px;
+}
+
+.parcles-row-low-heading-1,
+.parcles-row-body-1,
+.parcles-row-low-heading-2,
+.parcles-row-body-2 {
+    display: none;
+}
+
+.fedex-row-body-1, .fedex-row-body-2 {
+  display: none;
+}
+.fedex-row-body-1 {
+  height: 600px;
+}
+.fedex-row-body-2 {
+  height: 400px;
+  margin-top: 10rem;
 }
 
 /*--------------------------------------------------------------
