@@ -19,7 +19,8 @@
 
   <div class="right-side">
       <form>
-        <div class="btn-group">
+        <a class="backtohome" href="./index.html">Вернуться на главную страницу</a>
+        <!--<div class="btn-group">
           <button class="btn">
             <img class="logo" src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/d1c98974-c62d-4071-8bd2-ab859fc5f4e9" alt="" />
             <span>Войти с помощью Google</span>
@@ -30,22 +31,22 @@
           </button>
         </div>
 
-        <div class="or">ИЛИ</div>
+        <div class="or">ИЛИ</div>-->
 
         <label for="name">ФИО*</label>
         <input type="text" placeholder="ФИО*" name="Fullname" required />
 
-        <div>
-          <select name="country" id="country" class="form-control">
-            <option value="TJ">Таджикистан</option>
-            <option value="KZ">Казахстан</option>
-            <option value="UZ">Узбекистан</option>
-            <option value="RU">Россия</option>
-          </select>
-        </div>
-        <div>
+        <div class="form-group">
+          <div class="select-wrapper">
+            <select name="country" id="country" class="">
+              <option value="TJ">Таджикистан</option>
+              <option value="KZ">Казахстан</option>
+              <option value="UZ">Узбекистан</option>
+              <option value="RU">Россия</option>
+            </select>
+          </div>
           <input type="text" class="form-control" name="phone" id="phone" placeholder="Телефон*">
-        </div>        
+        </div>               
 
         <label for="email">Эл. Адрес*</label>
         <input type="text" placeholder="Эл. адрес*" name="email" required />
@@ -54,10 +55,6 @@
         <input type="password" placeholder="Введите пароль*" name="password" required />
 
         <button type="submit" class="login-btn">Зарегистрироваться</button>
-        <div class="links">
-          <a href="./404.html">Forgot password?</a>
-          <a href="./register.html">Do not have an account?</a>
-        </div>
       </form>
   </div>
 

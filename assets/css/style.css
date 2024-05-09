@@ -705,6 +705,9 @@ img {
     color: #fff;
     padding: 40px 20px;
   }
+  .site-header #navbar > ul > .menu-item-1{
+    display: none;
+  }
   .site-header #navbar > ul > .menu-item a {
     padding: 10px 10px;
     color: #151222;
@@ -715,11 +718,23 @@ img {
   }
 }
 
+
 @media (max-width: 991px) {
   .site-header #navbar > ul > li a {
     display: block;
     font-size: 14px;
     font-size: 0.93333rem;
+  }
+  .site-header #navbar > ul > .menu-item-1{
+    display: block;
+  }
+  .site-header #navbar > ul > .menu-item-1 a {
+    padding: 10px 15px 10px 35px;
+    font-size: 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
   }
 }
 
@@ -886,9 +901,9 @@ img {
   text-align: left;
 }
 
-.header-style .navbar-brand {
+/*.header-style .navbar-brand {
   margin-top: 12px;
-}
+}*/
 
 @media (max-width: 991px) {
   .header-style .navbar-brand {
@@ -907,7 +922,7 @@ img {
 @media screen and (min-width: 992px) {
   .header-style #navbar {
     width: calc(100% - 300px);
-    margin: 30px 100px;
+    margin: 30px 135px;
     float: none !important;
     text-align: center;
     max-height: 100px;
@@ -963,7 +978,7 @@ img {
 
 .header-style .search-contact {
   position: absolute;
-  right: -65px;
+  right: -40px;
   top: 25px;
   z-index: 10;
 }
@@ -1340,10 +1355,34 @@ img {
   margin: 0 0 2em;
 }
 
+.hero-slider .text-service-slider{
+  position: relative; 
+  top: -15rem;
+  font-size: 3rem;
+}
+
+.hero-slider .slider-span{
+  font-size: 3rem;
+}
+
 @media (max-width: 768px) {
   .hero-slider .slide-text p {
-    font-size: 16px;
-    font-size: 1.06667rem;
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-slider .slide-text p {
+    font-size: 11px !important;
+  }
+
+  .hero-slider .slide-title .text-service-slider {
+    margin: 3em 0 0;
+    font-size: 2.5rem !important;
+  }
+
+  .hero-slider .slider-span{
+    font-size: 2.5rem !important;
   }
 }
 
@@ -1390,6 +1429,12 @@ img {
 @media (max-width: 768px) {
   .hero-style-3 .slide-title h2 {
     margin: -0.2em 0 0.57em;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-style-3 .slide-title h2 {
+      margin: 0 0 2.57em;
   }
 }
 
@@ -1479,6 +1524,7 @@ img {
 
 .sec-title .text{
   position: relative;
+  padding: 10px;
   font-size: 16px;
   line-height: 26px;
   color: #848484;
@@ -2902,6 +2948,12 @@ hr {
   }
 }
 
+@media screen and (max-width: 430px) {
+  .about-us-section-s3 .feature-grids h3 {
+    font-size: 8px;
+  }
+}
+
 .about-us-section-s3 .about-area .details > div {
   margin-top: 25px;
   position: relative;
@@ -4020,7 +4072,7 @@ FAQ page
   width: 100%;
 }
 
-.blog-sidebar .tag-widget ul {
+/*.blog-sidebar .tag-widget ul {
   overflow: hidden;
   list-style: none;
 }
@@ -4094,7 +4146,7 @@ FAQ page
   background: #ff5e14;
   color: #fff;
   border-color: #ff5e14;
-}
+}*/
 
 /*--------------------------------------------------------------
 #1.6  profile-section
@@ -4718,9 +4770,9 @@ hr {
   position: relative;
 }
 
-.claims-content {
+/*.claims-content {
   margin-top: 4rem;
-}
+}*/
 
 .control-label h6{
   color: #ffffff;

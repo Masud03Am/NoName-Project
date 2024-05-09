@@ -240,7 +240,7 @@
     /*------------------------------------------
         = Header search toggle
     -------------------------------------------*/
-    if($(".header-search-form-wrapper").length) {
+    /*if($(".header-search-form-wrapper").length) {
         var searchToggleBtn = $(".search-toggle-btn");
         var searchContent = $(".header-search-form");
         var body = $("body");
@@ -255,7 +255,7 @@
         }).find(searchContent).on("click", function(e) {
             e.stopPropagation();
         });
-    }
+    }*/
 
 
     
@@ -433,8 +433,11 @@
 
     // Установить начальный фильтр на основе активной кнопки
     var initialFilter = $(".isotope-toolbar-btn.active").attr("data-type");
+    var initialFilter1 = $(".isotope-toolbar-btn-1.active").attr("data-type")
     var initialFilterValue = initialFilter !== "*" ? '[data-type="' + initialFilter + '"]' : "*";
+    var initialFilterValue1 = initialFilter1 !== "*" ? '[data-type="' + initialFilter1 + '"]' : "*";
     $box1.isotope({ filter: initialFilterValue });
+    $box1.isotope({ filter: initialFilterValue1 });
 
     // функции фильтра
     // нажать кнопку «Привязать фильтр»
@@ -448,8 +451,22 @@
             filterValue = '[data-type="' + filterValue + '"]';
         }
         console.log(filterValue);
-        // Примените фильтр к обоим контейнерам с изотопами.
+        // Примените фильтр к контейнеру с изотопами.
         $box1.isotope({ filter: filterValue });
+    });
+
+    $(".isotope-toolbar-1").on("click", "button", function () {
+        var filterValue1 = $(this).attr("data-type");
+        // Удалить активный класс со всех кнопок
+        $(".isotope-toolbar-btn-1").removeClass("active");
+        // Добавить активный класс к нажатой кнопке
+        $(this).addClass("active");
+        if (filterValue1 !== "*") {
+            filterValue1 = '[data-type="' + filterValue1 + '"]';
+        }
+        console.log(filterValue1);
+        // Примените фильтр к контейнеру с изотопами.
+        $box1.isotope({ filter: filterValue1 });
     });
 
     
