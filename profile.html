@@ -336,12 +336,67 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="modal" id="myModal1">
-                                        <div class="modal-content">
-                                            <span class="close">&times;</span>
-                                            <p>Это модальное окно. Нужно добавить здесь контент.</p>
+                                    <form id="orderParcelForm">
+                                        <div class="modal" id="myModal1">
+                                            <div class="modal-content">
+                                                <span class="close">&times;</span>
+                                                <label class="modal-content-label" for="email"> 
+                                                    Введите Эл.Адрес*
+                                                    <input type="text" placeholder="Эл.Адрес*" id="" name="email" class="modal-content-input" autocomplete="on" required>
+                                                </label>
+                                                <label class="modal-content-label" for="id"> 
+                                                    Введите ID*
+                                                    <input type="text" placeholder="ID*" id="id" name="id" class="modal-content-input" autocomplete="on" required>
+                                                </label>
+                                                <label class="modal-content-label" for="role"> 
+                                                    Введите Role*
+                                                    <input type="text" placeholder="Role*" id="role" name="role" class="modal-content-input" autocomplete="on" required>
+                                                </label>
+                                                <button class="modal-content-btn" type="submit">Заказать</button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
+                                    <script type="text/JavaScript">
+                                        document.getElementById('orderParcelForm').addEventListener('submit', function(event) {
+                                            event.preventDefault();
+                                            const formData = new FormData(event.target);
+                                            const data = {
+                                                email: formData.get('email') || null,
+                                                id: formData.get('id') ? parseInt(formData.get('id')) : null,
+                                                role: formData.get('role')
+                                            };
+                                            // Removing null values
+                                            Object.keys(data).forEach(key => {
+                                                if (data[key] === null) {
+                                                delete data[key];
+                                                }
+                                            });
+                                            const token = "our_access_token";
+                                            const options = {
+                                                method: 'POST',
+                                                headers: {
+                                                'Content-Type': 'application/json',
+                                                'Authorization': `Bearer ${token}`
+                                                },
+                                                body: JSON.stringify(data)
+                                            };
+                                            fetch('http://185.121.2.208/hi-usa/private/parcel/add', options)
+                                                .then(response => {
+                                                if (!response.ok) {
+                                                    throw new Error('Network response was not ok: ' + response.statusText);
+                                                }
+                                                return response.json();
+                                                })
+                                                .then(data => {
+                                                console.log('Success:', data);
+                                                alert('Посылка успешно заказана.');
+                                                })
+                                                .catch(error => {
+                                                console.error('There was a problem with your fetch operation:', error);
+                                                alert('Ошибка при заказе посылки. Пожалуйста, попробуйте снова.');
+                                                });
+                                            });
+                                    </script>
                                     <div class="parcles-row-low-heading-1">
                                         <div class="isotope-toolbar-1">
                                             <label>
@@ -675,24 +730,58 @@
                                                     <div class="fedex-row-body-grid">
                                                         <div class="grid">
                                                             <div class="settings-content">
-                                                                <form class="row setting-forms">
-                                                                    <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="" type="text" placeholder="Старый пароль**" class="profile-input">
+                                                                <form id="changePasswordForm">
+                                                                    <div class="row setting-forms">
+                                                                        <div class="col col-md-4 profile-input">
+                                                                            <input name="old_password" type="password" placeholder="Старый пароль*" class="profile-input">
+                                                                        </div>
+                                                                        <div class="col col-md-4 profile-input">
+                                                                            <input name="new_password" type="password" placeholder="Новый пароль*" class="">
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="" type="text" placeholder="Новый пароль*" class="">
+                                                                    <div class="row setting-forms">
+                                                                        <div class="col col-md-4">
+                                                                            <button type="submit" class="isotope-toolbar-btn-1">
+                                                                                <span>Сохранить изменения</span>
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="" type="text" readonly="" placeholder="Повторите пароль*" value="">
-                                                                    </div>
-                                                                </div>
-                                                                <form class="row setting-forms">
-                                                                    <div class="col col-md-4">
-                                                                        <button class="isotope-toolbar-btn-1">
-                                                                            <span>Сохранить изменения</span>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+                                                                </form>
+                                                                <script>
+                                                                    document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
+                                                                        event.preventDefault();
+                                                                        const formData = new FormData(event.target);
+                                                                        const data = {
+                                                                            old_password: formData.get('old_password'),
+                                                                            new_password: formData.get('new_password')
+                                                                        };
+                                                                        const token = "our_access_token"; // Заменим "our_access_token" на наш реальный токен
+                                                                        const options = {
+                                                                            method: 'POST',
+                                                                            headers: {
+                                                                                'Content-Type': 'application/json',
+                                                                                // Здесь нужно добавить заголовок с токеном для аутентификации
+                                                                                'Authorization': `Bearer ${token}` // Добавляем токен в заголовок
+                                                                            },
+                                                                            body: JSON.stringify(data)
+                                                                        };
+                                                                        fetch('http://185.121.2.208/hi-usa/private/auth/resetPassword', options)
+                                                                            .then(response => {
+                                                                                if (!response.ok) {
+                                                                                    throw new Error('Network response was not ok: ' + response.statusText);
+                                                                                }
+                                                                                return response.json();
+                                                                            })
+                                                                            .then(data => {
+                                                                                console.log('Success:', data);
+                                                                                alert('Пароль успешно изменён.');
+                                                                            })
+                                                                            .catch(error => {
+                                                                                console.error('There was a problem with your fetch operation:', error);
+                                                                                alert('Ошибка при изменении пароля. Пожалуйста, попробуйте снова.');
+                                                                            });
+                                                                    });
+                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>

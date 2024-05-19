@@ -18,7 +18,7 @@
   <!--<div class="left-side"></div>-->
 
   <div class="right-side">
-      <form>
+      <form id="registrationForm">
         <a class="backtohome" href="./index.html">Вернуться на главную страницу</a>
         <!--<div class="btn-group">
           <button class="btn">
@@ -55,6 +55,13 @@
         <input type="password" placeholder="Введите пароль*" name="password" required />
 
         <button type="submit" class="login-btn">Зарегистрироваться</button>
+      </form>
+      <!-- Добавляем форму для ввода OTP кода -->
+      <form id="otpForm" style="display:none;">
+        <label for="otp">OTP Код*</label>
+        <input type="text" placeholder="Введите OTP код" name="otp" required />
+
+        <button type="submit" class="otp-btn">Подтвердить</button>
       </form>
   </div>
 
@@ -101,4 +108,6 @@
         });
     });
     </script>
+    <script src="./assets/js/fetchs/fetchPreRegis.js"></script>
+    <script src="./assets/js/fetchs/fetchRegis.js"></script>
 </html>

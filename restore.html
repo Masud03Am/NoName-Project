@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/login.css">
+  <title> NoName </title>
+</head>
+<body>
+  <div id="slider">
+    <div class="bolaMov1"></div>
+    <div class="bolaMov2"></div>
+    <div class="bolaMov3"></div>
+    <div class="bolaMov4"></div>
+    <div class="bolaMov5"></div>
+  </div>
+
+  <!--<div class="left-side"></div>-->
+
+  <div class="right-side">
+      <form id="restorePasswordForm">
+        <a class="backtohome" href="./index.html">Вернуться на главную страницу</a>
+        <label for="email">Эл. Адрес*</label>
+        <input type="text" placeholder="Эл. Адрес*" name="email" required />
+        <button type="submit" class="login-btn">Восстановить пароль</button>
+        <div class="links">
+          <a href="./login.html">Войти</a>
+          <a href="./register.html">Нету аккаунта ?</a>
+        </div>
+      </form>
+      <form style="display: none;" id="changePasswordForm">
+        <a class="backtohome" href="./index.html">Вернуться на главную страницу</a>
+        <label for="email">Эл. Адрес*</label>
+        <input type="text" placeholder="Эл. Адрес*" name="email" required />
+        <label for="code">OTP Код*</label>
+        <input type="text" placeholder="OTP Код*" name="code" required />
+        <label for="password">Новый Пароль*</label>
+        <input type="password" placeholder="Новый Пароль*" name="password" required />
+        <button type="submit" class="change-password-btn">Изменить пароль</button>
+        <div class="links">
+          <a href="./login.html">Войти</a>
+          <a href="./register.html">Нету аккаунта ?</a>
+        </div>
+      </form>
+  </div>
+</body>
+<script src="./assets/js/fetchs/fetchPreRestore.js"></script>
+<script src="./assets/js/fetchs/fetchRestore.js"></script>
+<script type="text/JavaScript">
+    
+</script>
+</html>

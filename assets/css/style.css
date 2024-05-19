@@ -4798,6 +4798,54 @@ hr {
 }
 
 /*--------------------------------------------------------------
+modal
+--------------------------------------------------------------*/
+
+.modal-content-label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #14191f;
+}
+.modal-content-input, .modal-content-btn {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #30363d;
+  border-radius: 5px;
+  background-color: #020d26;
+  color: #c9d1d9;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+.modal-content-input::placeholder {
+  color: #f3eded;
+}
+.modal-content-input:focus {
+  border-color: #050825;
+  box-shadow: 0 0 10px rgba(11, 6, 48, 0.603);
+}
+.modal-content-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #020d26;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.modal-content-btn:hover {
+  background-color: #fa4f00;
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px rgba(255, 115, 1, 0.603);
+}
+
+/*--------------------------------------------------------------
 CALCULATOR-SECTION
 --------------------------------------------------------------*
 
