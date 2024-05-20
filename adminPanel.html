@@ -255,6 +255,7 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Список всех категорий</h2>
+                        <a id="getAllCategory" href="" class="btn">Все</a>
                     </div>
                     <ul class="category-list">
                         <li>
@@ -392,8 +393,8 @@
                                     <td>+123456789</td>
                                     <td>Страна 1</td>
                                     <td>
-                                        <button onclick="editPartner(1)">Редактировать</button>
-                                        <button onclick="deletePartner(1)">Удалить</button>
+                                        <button onclick="editPartner(2)">Редактировать</button>
+                                        <button onclick="deletePartner(2)">Удалить</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -402,8 +403,8 @@
                                     <td>+123456789</td>
                                     <td>Страна 1</td>
                                     <td>
-                                        <button onclick="editPartner(1)">Редактировать</button>
-                                        <button onclick="deletePartner(1)">Удалить</button>
+                                        <button onclick="editPartner(3)">Редактировать</button>
+                                        <button onclick="deletePartner(3)">Удалить</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -412,8 +413,8 @@
                                     <td>+123456789</td>
                                     <td>Страна 1</td>
                                     <td>
-                                        <button onclick="editPartner(1)">Редактировать</button>
-                                        <button onclick="deletePartner(1)">Удалить</button>
+                                        <button onclick="editPartner(4)">Редактировать</button>
+                                        <button onclick="deletePartner(4)">Удалить</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -422,8 +423,8 @@
                                     <td>+123456789</td>
                                     <td>Страна 1</td>
                                     <td>
-                                        <button onclick="editPartner(1)">Редактировать</button>
-                                        <button onclick="deletePartner(1)">Удалить</button>
+                                        <button onclick="editPartner(5)">Редактировать</button>
+                                        <button onclick="deletePartner(5)">Удалить</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -432,8 +433,8 @@
                                     <td>+123456789</td>
                                     <td>Страна 1</td>
                                     <td>
-                                        <button onclick="editPartner(1)">Редактировать</button>
-                                        <button onclick="deletePartner(1)">Удалить</button>
+                                        <button onclick="editPartner(6)">Редактировать</button>
+                                        <button onclick="deletePartner(6)">Удалить</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -442,8 +443,8 @@
                                     <td>+123456789</td>
                                     <td>Страна 1</td>
                                     <td>
-                                        <button onclick="editPartner(1)">Редактировать</button>
-                                        <button onclick="deletePartner(1)">Удалить</button>
+                                        <button onclick="editPartner(7)">Редактировать</button>
+                                        <button onclick="deletePartner(7)">Удалить</button>
                                     </td>
                                 </tr>
                                 <!-- Другие партнеры будут добавлены здесь -->
@@ -459,6 +460,7 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Имя Дир. Орг.</th>
                                     <th>Название Организации</th>
                                     <th>Email</th>
                                     <th>Телефон</th>
@@ -468,42 +470,49 @@
                             <tbody>
                                 <tr>
                                     <td>Партнер 1</td>
+                                    <td>Партнер 1</td>
                                     <td>partner1@example.com</td>
                                     <td>+123456789</td>
                                     <td>Страна 1</td>
                                 </tr>
                                 <tr>
                                     <td>Партнер 2</td>
+                                    <td>Партнер 1</td>
                                     <td>partner2@example.com</td>
                                     <td>+987654321</td>
                                     <td>Страна 2</td>
                                 </tr>
                                 <tr>
                                     <td>Партнер 3</td>
+                                    <td>Партнер 1</td>
                                     <td>partner2@example.com</td>
                                     <td>+987654321</td>
                                     <td>Страна 2</td>
                                 </tr>
                                 <tr>
                                     <td>Партнер 4</td>
+                                    <td>Партнер 1</td>
                                     <td>partner2@example.com</td>
                                     <td>+987654321</td>
                                     <td>Страна 2</td>
                                 </tr>
                                 <tr>
                                     <td>Партнер 5</td>
+                                    <td>Партнер 1</td>
                                     <td>partner2@example.com</td>
                                     <td>+987654321</td>
                                     <td>Страна 2</td>
                                 </tr>
                                 <tr>
                                     <td>Партнер 6</td>
+                                    <td>Партнер 1</td>
                                     <td>partner2@example.com</td>
                                     <td>+987654321</td>
                                     <td>Страна 2</td>
                                 </tr>
                                 <tr>
                                     <td>Партнер 7</td>
+                                    <td>Партнер 1</td>
                                     <td>partner2@example.com</td>
                                     <td>+987654321</td>
                                     <td>Страна 2</td>
@@ -590,8 +599,8 @@
                 <div class="dialog-block">
                   <h2>Вы уверены, что хотите выйти ?</h2>
                   <div class="controls">
-                    <a href="#" class="button">Выйти/a>
-                    <a data-dialog-action="cancel" href="#" class="button">Назад</a>
+                    <a href="./adminForm.html" class="button">Выйти</a>
+                    <a data-dialog-action="cancel" href="" class="button">Назад</a>
                   </div>
                 </div>
               </div>
@@ -640,6 +649,9 @@
             });
         });
     </script>
+
+    <script src="assets/js/fetchs/fetchShopCategory.js"></script>
+    <script src="assets/js/fetchs/fetchAddPartnerAdmin.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
