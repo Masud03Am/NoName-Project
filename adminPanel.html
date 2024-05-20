@@ -11,26 +11,26 @@
     <div class="container">
         <div class="navigation">
             <ul>
-                <li>
-                    <a href="#">
+                <li class="active hovered">
+                    <a href="./adminPanel.html">
                         <span class="icon">
-                            <ion-icon name="logo-apple"></ion-icon>
+                            <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span class="title">NoName</span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
+                <!--<li>
+                    <a href="" data-menu="profile">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
                         <span class="title">Профиль</span>
                     </a>
-                </li>
+                </li>-->
 
-                <li>
-                    <a href="#">
+                <li class="">
+                    <a href="#" data-menu="users">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -39,25 +39,34 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="#" data-menu="stores">
                         <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <ion-icon name="cart-outline"></ion-icon>
                         </span>
-                        <span class="title">Сообщения</span>
+                        <span class="title">Магазины</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="#" data-menu="orders">
                         <span class="icon">
-                            <ion-icon name="help-outline"></ion-icon>
+                            <ion-icon name="bag-check-outline"></ion-icon>
                         </span>
-                        <span class="title">Помощь</span>
+                        <span class="title">Заказы</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="#" data-menu="partners">
+                        <span class="icon">
+                            <ion-icon name="briefcase-outline"></ion-icon>
+                        </span>
+                        <span class="title">Партнёры</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" data-menu="settings">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -66,16 +75,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
-                        <span class="icon">
-                            <ion-icon name="lock-closed-outline"></ion-icon>
-                        </span>
-                        <span class="title">Личные-Данные</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
+                    <a href="#" data-dialog="logout">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -104,14 +104,95 @@
                 </div>
             </div>
 
-            
-
             <!-- ================ Order Details List ================= -->
-            <div class="details">
+            <div style="grid-template-columns: 1fr;" data-page="users" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Список магазинов</h2>
+                        <h2>Пользователи</h2>
                         <a href="#" class="btn">Все</a>
+                    </div>
+                    <div class="users-table">
+                        <div class="users-item header">
+                            <div class="table-item noflex">ID</div>
+                            <div class="table-item">Email</div>
+                            <div class="table-item">Username</div>
+                            <div class="table-item">Nickname</div>
+                            <div class="table-item">Статус</div>
+                            <div class="table-item">Тип</div>
+                            <div class="table-item">Количество Заказов</div>
+                        </div>
+                        <div class="users-item">
+                            <div class="table-item noflex">1</div>
+                            <div class="table-item">user1@example.com</div>
+                            <div class="table-item">User1</div>
+                            <div class="table-item">Nick1</div>
+                            <div class="table-item">Активен</div>
+                            <div class="table-item">Базовый</div>
+                            <div class="table-item">5</div>
+                        </div>
+                        <div class="users-item">
+                            <div class="table-item noflex">2</div>
+                            <div class="table-item">user2@example.com</div>
+                            <div class="table-item">User2</div>
+                            <div class="table-item">Nick2</div>
+                            <div class="table-item">Неактивен</div>
+                            <div class="table-item">Премиум</div>
+                            <div class="table-item">10</div>
+                        </div>
+                        <div class="users-item">
+                            <div class="table-item noflex">3</div>
+                            <div class="table-item">user1@example.com</div>
+                            <div class="table-item">User1</div>
+                            <div class="table-item">Nick1</div>
+                            <div class="table-item">Активен</div>
+                            <div class="table-item">Базовый</div>
+                            <div class="table-item">5</div>
+                        </div>
+                        <div class="users-item">
+                            <div class="table-item noflex">4</div>
+                            <div class="table-item">user2@example.com</div>
+                            <div class="table-item">User2</div>
+                            <div class="table-item">Nick2</div>
+                            <div class="table-item">Неактивен</div>
+                            <div class="table-item">Премиум</div>
+                            <div class="table-item">10</div>
+                        </div>
+                        <div class="users-item">
+                            <div class="table-item noflex">5</div>
+                            <div class="table-item">user1@example.com</div>
+                            <div class="table-item">User1</div>
+                            <div class="table-item">Nick1</div>
+                            <div class="table-item">Активен</div>
+                            <div class="table-item">Базовый</div>
+                            <div class="table-item">5</div>
+                        </div>
+                        <div class="users-item">
+                            <div class="table-item noflex">6</div>
+                            <div class="table-item">user2@example.com</div>
+                            <div class="table-item">User2</div>
+                            <div class="table-item">Nick2</div>
+                            <div class="table-item">Неактивен</div>
+                            <div class="table-item">Премиум</div>
+                            <div class="table-item">10</div>
+                        </div>
+                        <div class="users-item">
+                            <div class="table-item noflex">7</div>
+                            <div class="table-item">user1@example.com</div>
+                            <div class="table-item">User1</div>
+                            <div class="table-item">Nick1</div>
+                            <div class="table-item">Активен</div>
+                            <div class="table-item">Базовый</div>
+                            <div class="table-item">5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================ Order Details List ================= -->
+            <div data-page="stores" class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Добавить новый магазин</h2> 
                     </div>
                     <form id="addStoreForm">
                         <div class="form-group">
@@ -137,53 +218,427 @@
                 </div>
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Список всех магазинов</h2>
+                        <h2>Меню магазина</h2>
                     </div>
-                    <form id="addStoreForm">
+                    <form id="editStoreForm">
                         <div class="form-group">
-                            <label for="storeLink">Ссылка На магазин</label>
-                            <input type="text" id="storeLink" name="storeLink" class="form-input" required>
+                            <label for="storeName">Название Магазина</label>
+                            <input type="text" id="storeName" name="storeName" class="form-input" value="Название" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="initials">Инициалы</label>
-                            <input type="text" id="initials" name="initials" class="form-input" required>
+                            <label for="storeLink">Ссылка На Магазин</label>
+                            <input type="text" id="storeLink" name="storeLink" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="icon">Изображение/Иконка</label>
                             <input type="file" id="icon" name="icon" class="form-input">
                         </div>
-                        <div class="form-group">
-                            <label for="category">Категория Магазина</label>
-                            <select id="category" name="category" class="form-input" required>
-                                <!-- Options will be populated here by JavaScript -->
-                            </select>
-                        </div>
-                        <button type="submit" class="form-submit">Отправить</button>
+                        <button type="submit" class="form-submit">Сохранить Изменения</button>
                     </form>
+                </div>
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Список всех магазинов</h2>
+                    </div>
+                    <div style="margin-top: 2rem;" class="store-list">
+                        <div class="list-group">
+                            <a href="store-settings.html?store=1" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 1</a>
+                            <a href="store-settings.html?store=2" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 2</a>
+                            <a href="store-settings.html?store=3" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 3</a>
+                            <a href="store-settings.html?store=4" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 4</a>
+                            <a href="store-settings.html?store=5" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 5</a>
+                            <a href="store-settings.html?store=1" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 6</a>
+                            <a href="store-settings.html?store=2" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 7</a>
+                        </div>
+                    </div>
+                </div>  
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Список всех категорий</h2>
+                    </div>
+                    <ul class="category-list">
+                        <li>
+                            <h4>Категория 1</h4>
+                            <button class="delete-btn">Удалить</button>
+                            <button class="edit-btn">Изменить</button>
+                        </li>
+                        <li>
+                            <h4>Категория 2</h4>
+                            <button class="delete-btn">Удалить</button>
+                            <button class="edit-btn">Изменить</button>
+                        </li>
+                        <li>
+                            <h4>Категория 3</h4>
+                            <button class="delete-btn">Удалить</button>
+                            <button class="edit-btn">Изменить</button>
+                        </li>
+                        <li>
+                            <h4>Категория 4</h4>
+                            <button class="delete-btn">Удалить</button>
+                            <button class="edit-btn">Изменить</button>
+                        </li>
+                        <li>
+                            <h4>Категория 5</h4>
+                            <button class="delete-btn">Удалить</button>
+                            <button class="edit-btn">Изменить</button>
+                        </li>
+                        <li>
+                            <h4>Категория 6</h4>
+                            <button class="delete-btn">Удалить</button>
+                            <button class="edit-btn">Изменить</button>
+                        </li>
+                        <li>
+                            <h4>Категория 7</h4>
+                            <button class="delete-btn">Удалить</button>
+                            <button class="edit-btn">Изменить</button>
+                        </li>
+                    </ul>
+                    <div class="addCategory">
+                        <input style="width: 100%; margin-bottom: 0.7rem;" type="text" id="newCategoryName" placeholder="Новая категория" class="form-input">
+                        <button onclick="addCategory()" class="form-submit">Добавить</button>
+                    </div>
                 </div>  
             </div>
+
+            <!-- ================ Order Details List ================= -->
+            <div style="grid-template-columns: 1fr;" data-page="orders" class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Список Заказов</h2>
+                    </div>
+                    <div class="ordersList">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Пользователь</th>
+                                    <th>URL адрес товара</th>
+                                    <th>Код товара</th>
+                                    <th>Цена товара</th>
+                                    <th>Окончательная Цена</th>
+                                    <th>Адрес доставки</th>
+                                    <th>Состояние заказа</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Иванов Иван</td>
+                                    <td>http://example.com/product1</td>
+                                    <td>12345</td>
+                                    <td>100</td>
+                                    <td>120</td>
+                                    <td>ул. Пушкина, д. Колотушкина, г. Москва, Россия, 123456</td>
+                                    <td>На проверке</td>
+                                </tr>
+                                <!-- Другие заказы будут добавлены здесь -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="orderDetails">
+                        <h2>Данные Заказа</h2>
+                        <div class="orderInfo">
+                            <!-- Здесь будут данные о заказе -->
+                            <p><strong>Номер заказа:</strong> #123456</p>
+                            <p><strong>Пользователь:</strong> Иванов Иван</p>
+                            <p><strong>URL адрес товара:</strong> http://example.com/product1</p>
+                            <p><strong>Код товара:</strong> 12345</p>
+                            <p><strong>Цена товара:</strong> $100</p>
+                            <p><strong>Окончательная Цена:</strong> $120</p>
+                            <p><strong>Адрес доставки:</strong> ул. Пушкина, д. Колотушкина, г. Москва, Россия, 123456</p>
+                            <p><strong>Состояние заказа:</strong> На проверке</p>
+                        </div>
+                        <div class="orderActions">
+                            <!-- Кнопки для выполнения действий с заказом -->
+                            <button style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
+                            <button onclick="acceptOrder()">Принять Заказ</button>
+                        </div>
+                        <div id="rejectedMessage" style="display: none;">
+                            <p>ДАННЫЕ ЗАКАЗ БЫЛ ОТКЛОНЕН</p>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+
+            <!-- ================ Order Details List ================= -->
+            <div style="grid-template-columns: 1fr;" data-page="partners" class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Список Партнеров</h2>
+                    </div>
+                    <div class="partnersList">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Имя</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
+                                    <th>Страна</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Партнер 1</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                    <td>
+                                        <button onclick="editPartner(1)">Редактировать</button>
+                                        <button onclick="deletePartner(1)">Удалить</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 2</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                    <td>
+                                        <button onclick="editPartner(1)">Редактировать</button>
+                                        <button onclick="deletePartner(1)">Удалить</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 3</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                    <td>
+                                        <button onclick="editPartner(1)">Редактировать</button>
+                                        <button onclick="deletePartner(1)">Удалить</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 4</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                    <td>
+                                        <button onclick="editPartner(1)">Редактировать</button>
+                                        <button onclick="deletePartner(1)">Удалить</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 5</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                    <td>
+                                        <button onclick="editPartner(1)">Редактировать</button>
+                                        <button onclick="deletePartner(1)">Удалить</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 6</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                    <td>
+                                        <button onclick="editPartner(1)">Редактировать</button>
+                                        <button onclick="deletePartner(1)">Удалить</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 7</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                    <td>
+                                        <button onclick="editPartner(1)">Редактировать</button>
+                                        <button onclick="deletePartner(1)">Удалить</button>
+                                    </td>
+                                </tr>
+                                <!-- Другие партнеры будут добавлены здесь -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>    
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Данные Партнеров</h2>
+                    </div>
+                    <div class="partnerData">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Название Организации</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
+                                    <th>Страна</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Партнер 1</td>
+                                    <td>partner1@example.com</td>
+                                    <td>+123456789</td>
+                                    <td>Страна 1</td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 2</td>
+                                    <td>partner2@example.com</td>
+                                    <td>+987654321</td>
+                                    <td>Страна 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 3</td>
+                                    <td>partner2@example.com</td>
+                                    <td>+987654321</td>
+                                    <td>Страна 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 4</td>
+                                    <td>partner2@example.com</td>
+                                    <td>+987654321</td>
+                                    <td>Страна 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 5</td>
+                                    <td>partner2@example.com</td>
+                                    <td>+987654321</td>
+                                    <td>Страна 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 6</td>
+                                    <td>partner2@example.com</td>
+                                    <td>+987654321</td>
+                                    <td>Страна 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Партнер 7</td>
+                                    <td>partner2@example.com</td>
+                                    <td>+987654321</td>
+                                    <td>Страна 2</td>
+                                </tr>
+                                <!-- Другие данные о партнерах будут добавлены здесь -->
+                            </tbody>
+                        </table>
+                        <button onclick="addNewPartner()">Добавить нового партнера</button>
+                    </div>
+                </div>
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Заявки на партнерство</h2>
+                    </div>
+                    <div class="partnerApplications">
+                        <ul>
+                            <li>
+                                <a href="partner_application_page.html">Название Организации 1</a>
+                            </li>
+                            <li>
+                                <a href="partner_application_page.html">Название Организации 2</a>
+                            </li>
+                            <li>
+                                <a href="partner_application_page.html">Название Организации 3</a>
+                            </li>
+                            <li>
+                                <a href="partner_application_page.html">Название Организации 4</a>
+                            </li>
+                            <li>
+                                <a href="partner_application_page.html">Название Организации 5</a>
+                            </li>
+                            <li>
+                                <a href="partner_application_page.html">Название Организации 6</a>
+                            </li>
+                            <li>
+                                <a href="partner_application_page.html">Название Организации 7</a>
+                            </li>
+                            <!-- Другие заявки на партнерство будут добавлены здесь -->
+                        </ul>
+                    </div>
+                </div>   
+                <!-- Модальное окно для редактирования партнера -->
+                <div id="editPartnerModal" style="display: none;">
+                    <h3>Редактировать Партнера</h3>
+                    <form>
+                        <label for="partnerName">Имя:</label>
+                        <input type="text" id="partnerName" name="partnerName">
+                        <label for="partnerEmail">Email:</label>
+                        <input type="email" id="partnerEmail" name="partnerEmail">
+                        <label for="partnerPhone">Телефон:</label>
+                        <input type="text" id="partnerPhone" name="partnerPhone">
+                        <label for="partnerCountry">Страна:</label>
+                        <input type="text" id="partnerCountry" name="partnerCountry">
+                        <button type="submit">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ================ Order Details List ================= -->
+            <div data-page="settings" class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Настройка</h2>
+                    </div>
+                    <div class="header">
+                        <div class="title">
+                          <h2>О нас</h2>
+                        </div>
+                    </div>
+                    <div class="info-container">
+                        <div class="info">
+                          <a href="" target="_blank">Developer</a>
+                          <span>Masud03Am</span>
+                        </div>
+                        <div class="info">
+                          <a href="#" target="_blank">Admin-NoName-Panel</a>
+                          <span>v1.0.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dialog">
+                <div class="dialog-block">
+                  <h2>Вы уверены, что хотите выйти ?</h2>
+                  <div class="controls">
+                    <a href="#" class="button">Выйти/a>
+                    <a data-dialog-action="cancel" href="#" class="button">Назад</a>
+                  </div>
+                </div>
+              </div>
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <!-- =========== Scripts =========  -->
     <script type="text/JavaScript">
-        // add hovered class to selected list item
-        let list = document.querySelectorAll(".navigation li");
-        function activeLink() {
-        list.forEach((item) => {
-            item.classList.remove("hovered");
+        $(document).ready(function() {
+            // add hovered class to selected list item
+            $(".navigation li").mouseover(function() {
+                $(".navigation li").removeClass("hovered");
+                $(this).addClass("hovered");
+            });
+
+            // Menu Toggle
+            $(".toggle").click(function() {
+                $(".navigation").toggleClass("active");
+                $(".main").toggleClass("active");
+            });
+
+            // Function to handle menu clicks
+            $(".navigation a").click(function(event) {
+                event.preventDefault();
+                let target = $(this).data("menu");
+                $(".details").each(function() {
+                    $(this).toggle($(this).data("page") === target);
+                });
+                $(".navigation li").removeClass("active");
+                $(this).closest("li").addClass("active");
+                $(".navigation").removeClass("active");
+                $(".main").removeClass("active");
+            });
+
+            // Function to handle logout dialog
+            $("[data-dialog='logout']").click(function(event) {
+                event.preventDefault();
+                $(".dialog").addClass("active");
+            });
+
+            $("[data-dialog-action='cancel']").click(function(event) {
+                event.preventDefault();
+                $(".dialog").removeClass("active");
+            });
         });
-        this.classList.add("hovered");
-        }
-        list.forEach((item) => item.addEventListener("mouseover", activeLink));
-        // Menu Toggle
-        let toggle = document.querySelector(".toggle");
-        let navigation = document.querySelector(".navigation");
-        let main = document.querySelector(".main");
-        toggle.onclick = function () {
-        navigation.classList.toggle("active");
-        main.classList.toggle("active");
-        };
     </script>
 
     <!-- ====== ionicons ======= -->
