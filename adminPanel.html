@@ -109,7 +109,7 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Пользователи</h2>
-                        <a href="#" class="btn">Все</a>
+                        <a href="#" id="loadAllUsersBtn" class="btn">Все</a>
                     </div>
                     <div class="users-table">
                         <div class="users-item header">
@@ -230,17 +230,37 @@
                             <input type="text" id="storeLink" name="storeLink" class="form-input" required>
                         </div>
                         <div class="form-group">
-                            <label for="icon">Изображение/Иконка</label>
-                            <input type="file" id="icon" name="icon" class="form-input">
+                            <label for="storeLink">Ссылка На Магазин</label>
+                            <input type="text" id="storeLink" name="storeLink" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Категория Магазина</label>
+                            <select id="category" name="category" class="form-input" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="active">Активный</label>
+                            <input type="checkbox" id="active" name="active" class="form-input">
                         </div>
                         <button type="submit" class="form-submit">Сохранить Изменения</button>
+                    </form>
+                    <form style="margin-top: 2rem;" id="updateStoreImageForm">
+                        <div class="form-group">
+                            <label for="storeId">ID Магазина</label>
+                            <input type="text" id="storeId" name="storeId" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="icon">Изображение/Иконка</label>
+                            <input type="file" id="icon" name="icon" class="form-input" required>
+                        </div>
+                        <button type="submit" class="form-submit">Обновить Логотип</button>
                     </form>
                 </div>
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Список всех магазинов</h2>
+                        <a href="" id="loadAllStoresBtn" class="btn">Все</a>
                     </div>
-                    <div style="margin-top: 2rem;" class="store-list">
+                    <div style="margin-top: 2rem;" id="storeList" class="store-list">
                         <div class="list-group">
                             <a href="store-settings.html?store=1" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 1</a>
                             <a href="store-settings.html?store=2" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 2</a>

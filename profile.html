@@ -603,7 +603,7 @@
                                                     <div class="fedex-row-body-grid">
                                                         <div class="grid">
                                                             <div class="settings-content">
-                                                                <form class="row setting-forms">
+                                                                <form class="row setting-forms" id="userUpdateForm">
                                                                     <div class="col col-md-4 profile-input">
                                                                         <input name="firstName" type="text" placeholder="Имя*" class="profile-input" value="Qwerty">
                                                                     </div>
@@ -696,7 +696,7 @@
                                                                         </div>
                                                                         <div class="input-group col-sm-8">
                                                                             <label for="image">
-                                                                                <input id="image" name="image" type="file" accept="image/*">
+                                                                                <input id="passportFront" name="passportFront" type="file" accept="image/*">
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -706,12 +706,12 @@
                                                                         </div>
                                                                         <div class="input-group col-sm-8">
                                                                             <label for="image">
-                                                                                <input id="image" name="image" type="file" accept="image/*">
+                                                                                <input id="passportBack" name="passportBack" type="file" accept="image/*">
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col col-md-4">
-                                                                        <button class="isotope-toolbar-btn-1">
+                                                                        <button type="button" class="isotope-toolbar-btn-1" id="saveChangesButton">
                                                                             <span>Сохранить изменения</span>
                                                                         </button>
                                                                     </div>
@@ -911,6 +911,45 @@
 
     <!-- Plugins for this webpage(NoName) -->
     <script src="assets/js/jquery-plugin-collection.js"></script>
+
+    <script>
+        document.getElementById('saveChangesButton').addEventListener('click', function() {
+            // Получение формы и данных из нее
+            const form = document.getElementById('userUpdateForm');
+            const formData = new FormData(form);
+        
+            // Добавление файлов в formData
+            const passportFront = document.getElementById('passportFront').files[0];
+            const passportBack = document.getElementById('passportBack').files[0];
+        
+            if (passportFront) {
+                formData.append('passport_front', passportFront);
+            }
+            if (passportBack) {
+                formData.append('passport_back', passportBack);
+            }
+        
+            // Отправка данных на сервер
+            fetch('http://185.121.2.208/hi-usa/private/user/update', {
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка сети: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Успешный ответ:', data);
+                // Обработка успешного ответа
+            })
+            .catch(error => {
+                console.error('Ошибка запроса:', error);
+                // Обработка ошибки запроса
+            });
+        });
+        </script>
 
     <!-- Custom script for this webpage(NoName) -->
     <script src="assets/js/script.js"></script>
