@@ -25,7 +25,7 @@
 ----------------------------*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css";
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
 /*--------------------------------------------------------------
 #0.1    Theme Reset Style
@@ -801,7 +801,7 @@ img {
   background: #3a5795;
 }
 
-.twitter {
+.telegram {
   background: #55acee;
 }
 

@@ -11,6 +11,15 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         password: formData.get('password')
     };
 
+    // Логирование данных перед отправкой
+    console.log('Data to be sent:', data);
+
+    // Проверка на заполненность всех полей
+    if (!data.name || !data.country || !data.phone || !data.email || !data.password) {
+        alert('Пожалуйста, заполните все обязательные поля.');
+        return;
+    }
+
     // Настройки запроса
     const options = {
         method: 'POST',
@@ -24,7 +33,9 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     fetch('http://185.121.2.208/hi-usa/public/auth/preRegister', options)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
             }
             return response.json();
         })
