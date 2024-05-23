@@ -694,6 +694,28 @@ div.details.active {
 }
 
 
+.carsData table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+
+.carsData th,
+.carsData td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .carsData th,
+  .carsData td {
+      font-size: 14px;
+  }
+}
+
+
 @media (max-width: 576px) {
   .store-list {
       padding: 15px;

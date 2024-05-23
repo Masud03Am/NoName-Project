@@ -66,6 +66,15 @@
                 </li>
 
                 <li>
+                    <a href="#" data-menu="cars-cargo">
+                        <span class="icon">
+                            <ion-icon name="car-sport-outline"></ion-icon>
+                        </span>
+                        <span class="title">Авто-Карго</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="#" data-menu="settings">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
@@ -94,7 +103,7 @@
 
                 <div class="search">
                     <label>
-                        <input type="text" placeholder="Search here">
+                        <input type="text" placeholder="Поиск">
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
                 </div>
@@ -584,6 +593,202 @@
             </div>
 
             <!-- ================ Order Details List ================= -->
+            <div data-page="cars-cargo" class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Добавить новый автомобиль</h2> 
+                    </div>
+                    <form id="addCarsForm">
+                        <div class="form-group">
+                            <label for="mark">Марка</label>
+                            <input type="text" id="mark" name="mark" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Модель</label>
+                            <input type="text" id="model" name="model" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="model_year">Год выпуска</label>
+                            <input type="text" id="model_year" name="model_year" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="body">Тип кузова</label>
+                            <input type="text" id="body" name="body" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="engine_type">Тип двигателя</label>
+                            <input type="text" id="engine_type" name="engine_type" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="engine_volume">Объем двигателя</label>
+                            <input type="text" id="engine_volume" name="engine_volume" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="transmission">Коробка передач</label>
+                            <input type="text" id="transmission" name="transmission" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mileage">Пробег</label>
+                            <input type="text" id="mileage" name="mileage" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Цвет</label>
+                            <input type="text" id="color" name="color" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cylinders">Цилиндры</label>
+                            <input type="text" id="cylinders" name="cylinders" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Количество</label>
+                            <input type="text" id="amount" name="amount" class="form-input" required>
+                        </div>
+                        <button style="background-color: rgb(59, 175, 59);" type="submit" class="form-submit">Отправить</button>
+                    </form>
+                </div>
+
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Удалить автомобиль</h2> 
+                    </div>
+                    <form id="deleteCarsForm">
+                        <div class="form-group">
+                            <label for="id">ID автомобиля:</label>
+                            <input style="width: 88%;" type="text" id="id" name="id" class="form-input" required>
+                            <button style="background-color: #f44336;" type="submit" class="form-submit">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Данные автомобилей</h2>
+                        <a href="" id="getAllCarsBtn" class="btn">Все</a>
+                    </div>
+                    <div class="carsData">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Марка</th>
+                                    <th>Модель</th>
+                                    <th>Год выпуска</th>
+                                    <th>Тип кузова</th>
+                                    <th>Тип двигателя</th>
+                                    <th>Объем двигателя</th>
+                                    <th>Коробка передач</th>
+                                    <th>Пробег</th>
+                                    <th>Цвет</th>
+                                    <th>Цилиндры</th>
+                                    <th>Количество</th>
+                                </tr>
+                            </thead>
+                            <tbody id="carsTableBody">
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Марка</td>
+                                    <td>Модель</td>
+                                    <td>Год выпуска</td>
+                                    <td>Тип кузова</td>
+                                    <td>Тип двигателя</td>
+                                    <td>Объем двигателя</td>
+                                    <td>Коробка передач</td>
+                                    <td>Пробег</td>
+                                    <td>Цвет</td>
+                                    <td>Цилиндры</td>
+                                    <td>Количество</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Марка</td>
+                                    <td>Модель</td>
+                                    <td>Год выпуска</td>
+                                    <td>Тип кузова</td>
+                                    <td>Тип двигателя</td>
+                                    <td>Объем двигателя</td>
+                                    <td>Коробка передач</td>
+                                    <td>Пробег</td>
+                                    <td>Цвет</td>
+                                    <td>Цилиндры</td>
+                                    <td>Количество</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Марка</td>
+                                    <td>Модель</td>
+                                    <td>Год выпуска</td>
+                                    <td>Тип кузова</td>
+                                    <td>Тип двигателя</td>
+                                    <td>Объем двигателя</td>
+                                    <td>Коробка передач</td>
+                                    <td>Пробег</td>
+                                    <td>Цвет</td>
+                                    <td>Цилиндры</td>
+                                    <td>Количество</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Марка</td>
+                                    <td>Модель</td>
+                                    <td>Год выпуска</td>
+                                    <td>Тип кузова</td>
+                                    <td>Тип двигателя</td>
+                                    <td>Объем двигателя</td>
+                                    <td>Коробка передач</td>
+                                    <td>Пробег</td>
+                                    <td>Цвет</td>
+                                    <td>Цилиндры</td>
+                                    <td>Количество</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Марка</td>
+                                    <td>Модель</td>
+                                    <td>Год выпуска</td>
+                                    <td>Тип кузова</td>
+                                    <td>Тип двигателя</td>
+                                    <td>Объем двигателя</td>
+                                    <td>Коробка передач</td>
+                                    <td>Пробег</td>
+                                    <td>Цвет</td>
+                                    <td>Цилиндры</td>
+                                    <td>Количество</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Марка</td>
+                                    <td>Модель</td>
+                                    <td>Год выпуска</td>
+                                    <td>Тип кузова</td>
+                                    <td>Тип двигателя</td>
+                                    <td>Объем двигателя</td>
+                                    <td>Коробка передач</td>
+                                    <td>Пробег</td>
+                                    <td>Цвет</td>
+                                    <td>Цилиндры</td>
+                                    <td>Количество</td>
+                                </tr>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Марка</td>
+                                    <td>Модель</td>
+                                    <td>Год выпуска</td>
+                                    <td>Тип кузова</td>
+                                    <td>Тип двигателя</td>
+                                    <td>Объем двигателя</td>
+                                    <td>Коробка передач</td>
+                                    <td>Пробег</td>
+                                    <td>Цвет</td>
+                                    <td>Цилиндры</td>
+                                    <td>Количество</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================ Order Details List ================= -->
             <div data-page="settings" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -664,6 +869,9 @@
 
     <script src="assets/js/fetchs/fetchShopCategory.js"></script>
     <script src="assets/js/fetchs/fetchAddPartnerAdmin.js"></script>
+    <script src="assets/js/fetchs/fetchAdminShop.js"></script>
+    <script src="assets/js/fetchs/fetchUsers.js"></script>
+    <script src="assets/js/fetchs/fetchAddCars.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
