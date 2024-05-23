@@ -2679,6 +2679,34 @@ hr {
   margin: 0 auto;
   display: inline-block;
 }
+
+
+/*--------------------------------------------------------------
+#0.7	cars-slider-section
+--------------------------------------------------------------*/
+.cars-section .container {
+  position: relative;
+  padding: 25px 15px 18px;
+}
+
+.cars-section .separator {
+  background: #f4f4f4;
+  width: calc(100% - 30px);
+  height: 1px;
+  position: absolute;
+  left: 15px;
+  top: 0;
+}
+
+.cars-section .grid {
+  text-align: center;
+}
+
+/*.cars-section .grid img {
+  width: auto;
+  margin: 0 auto;
+  display: inline-block;
+}*/
 /*--------------------------------------------------------------
 	#home style 2
 --------------------------------------------------------------*/

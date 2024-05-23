@@ -147,3 +147,37 @@ document.getElementById('getAllCarsBtn').addEventListener('click', function(even
             alert('Ошибка при получении данных автомобилей. Пожалуйста, попробуйте снова.');
         });
 });
+
+// Выполняем запрос на получение данных о машинах
+/*fetch('http://185.121.2.208/hi-usa/private/cars/getAll?page=1')
+    .then(response => response.json())
+    .then(data => {
+        // Получаем массив данных о машинах
+        const carsData = data.data;
+
+        // Получаем все элементы <p> с информацией о машинах
+        const carParagraphs = document.querySelectorAll('.cars-grids p');
+
+        // Обновляем каждый элемент <p> с новыми данными
+        carParagraphs.forEach((paragraph, index) => {
+            const carData = carsData[index]; // Данные для текущей машины
+
+            // Обновляем текст внутри <span> внутри текущего <p>
+            paragraph.innerHTML = `
+                <span>Марка: ${carData.mark}</span>
+                <span>Модель: ${carData.model}</span>
+                <span>Год выпуска: ${carData.model_year}</span>
+                <span>Тип двигателя: ${carData.engine_type}</span>
+                <span>Объем двигателя: ${carData.engine_volume}</span>
+                <span>Пробег: ${carData.mileage}</span>
+                <span>Коробка передач: ${carData.transmission}</span>
+                <span>Стоимость: ${carData.amount}</span>
+                <span>Тип кузова: ${carData.body}</span>
+                <span>Цвет: ${carData.color}</span>
+                <span>Цилиндры: ${carData.cylinders}</span>
+            `;
+        });
+    })
+    .catch(error => {
+        console.error('Ошибка при получении данных о машинах:', error);
+    });*/

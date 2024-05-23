@@ -75,6 +75,15 @@
                 </li>
 
                 <li>
+                    <a href="#" data-menu="images">
+                        <span class="icon">
+                            <ion-icon name="image-outline"></ion-icon>
+                        </span>
+                        <span class="title">Галерея</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="#" data-menu="settings">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
@@ -789,6 +798,24 @@
             </div>
 
             <!-- ================ Order Details List ================= -->
+            <div data-page="images" class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Управление изображениями</h2> 
+                    </div>
+                    <form id="">
+                        <input style="margin-bottom: 1.5rem;" class="form-input" type="text" id="filenameInput" placeholder="Введите путь к рисунку">
+                        <button style="margin-bottom: 1.5rem;" type="submit" class="form-submit" id="getImageButton">Получить Рисунок</button>
+                        <input style="margin-bottom: 1.5rem;" class="form-input" type="file" id="fileInput">
+                        <button style="margin-bottom: 1.5rem;" type="submit" class="form-submit" id="uploadImageButton">Заменить Рисунок</button>
+                    </form>
+                    <div>
+                        <img id="imageDisplay" src="" alt="Изображение" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================ Order Details List ================= -->
             <div data-page="settings" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -872,6 +899,7 @@
     <script src="assets/js/fetchs/fetchAdminShop.js"></script>
     <script src="assets/js/fetchs/fetchUsers.js"></script>
     <script src="assets/js/fetchs/fetchAddCars.js"></script>
+    <script src="assets/js/fetchs/fetchImagePath.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

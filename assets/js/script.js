@@ -291,6 +291,35 @@
     }
 
 
+    if ($(".cars-slider").length) {
+        $(".cars-slider").owlCarousel({
+            autoplay:true,
+            smartSpeed: 300,
+            margin: 30,
+            loop:true,
+            autoplayHoverPause:true,
+            dots: false,
+            responsive: {
+                0 : {
+                    items: 1
+                },
+
+                550 : {
+                    items: 1
+                },
+
+                992 : {
+                    items: 2
+                },
+
+                1200 : {
+                    items: 3
+                }
+            }
+        });
+    }
+
+
     /*------------------------------------------
         = TESTIMONIALS SLIDER S2    
     -------------------------------------------*/
