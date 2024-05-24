@@ -34,7 +34,7 @@
         <div class="or">ИЛИ</div>-->
 
         <label for="name">ФИО*</label>
-        <input type="text" placeholder="ФИО*" name="Fullname" required />
+        <input type="text" placeholder="Имя*" name="Fullname" required />
 
         <div class="form-group">
           <div class="select-wrapper">
@@ -78,19 +78,19 @@
         const element = document.getElementById('phone');
         const masks = {
             'TJ': {
-                mask: '+{992}(00)000-0000',
+                mask: '{992}000000000',
                 lazy: false,
             },
             'KZ': {
-                mask: '+{7}(000)000-00-00',
+                mask: '{7}0000000000',
                 lazy: false,
             },
             'UZ': {
-                mask: '+{998}(00)000-00-00',
+                mask: '{998}000000000',
                 lazy: false,
             },
             'RU': {
-                mask: '+{7}(000)000-00-00',
+                mask: '{7}0000000000',
                 lazy: false,
             },
         };
@@ -104,7 +104,7 @@
         $("#country").change(function() {
             const countryCode = $(this).val();
             mask.updateOptions(masks[countryCode]); // Update mask options  
-            $("#phone").val('+' + countryCode); // Set country code in input field
+            $("#phone").val(countryCode); // Set country code in input field
         });
     });
     </script>
