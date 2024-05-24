@@ -18,7 +18,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     fetch('http://185.121.2.208/hi-usa/public/auth/login', options)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
             }
             return response.json();
         })
