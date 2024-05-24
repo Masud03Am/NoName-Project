@@ -26,8 +26,17 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         })
         .then(data => {
             console.log('Success:', data);
-            alert('Успешный вход! Ваш токен: ' + data.token);
-            localStorage.setItem('authToken', data.token);
+            if (data.message) {
+                const token = data.message;
+                alert('Успешный вход! Ваш токен: ' + token);
+                
+                // Сохраняем токен в localStorage
+                localStorage.setItem('authToken', token);
+                
+                window.location.href = "/profile.html";
+            } else {
+                alert('Ошибка: токен не найден');
+            }
         })
         .catch(error => {
             console.error('There was a problem with your fetch operation:', error);

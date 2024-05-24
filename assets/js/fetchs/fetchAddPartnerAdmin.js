@@ -22,10 +22,12 @@ function addNewPartner() {
         body: formData
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
-        }
-        return response.json();
+      if (!response.ok) {
+          return response.json().then(errorData => {
+              throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+          });
+      }
+      return response.json();
     })
     .then(data => {
         console.log('Success:', data);
@@ -103,9 +105,10 @@ function fetchPartnerInformation() {
       body: JSON.stringify(requestBody) // Преобразуем тело запроса в формат JSON
     })
     .then(response => {
-      // Проверяем, успешен ли ответ
       if (!response.ok) {
-        throw new Error('Сетевой ответ не успешен: ' + response.statusText);
+          return response.json().then(errorData => {
+              throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+          });
       }
       return response.json();
     })
@@ -144,9 +147,10 @@ function addPartnerRequest() {
       body: JSON.stringify(requestData) // Преобразуем данные запроса в формат JSON
     })
     .then(response => {
-      // Проверяем, успешен ли ответ
       if (!response.ok) {
-        throw new Error('Сетевой ответ не успешен: ' + response.statusText);
+          return response.json().then(errorData => {
+              throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+          });
       }
       return response.json();
     })
@@ -189,9 +193,10 @@ function getPartnerRequests() {
       body: JSON.stringify(requestData) // Преобразуем данные запроса в формат JSON
     })
     .then(response => {
-      // Проверяем, успешен ли ответ
       if (!response.ok) {
-        throw new Error('Сетевой ответ не успешен: ' + response.statusText);
+          return response.json().then(errorData => {
+              throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+          });
       }
       return response.json();
     })
@@ -237,9 +242,10 @@ function updatePartnerRequest(command, id, status, file) {
       body: file ? formData : JSON.stringify(requestData) // Если предоставлен файл, отправляем FormData, иначе JSON
     })
     .then(response => {
-      // Проверяем, успешен ли ответ
       if (!response.ok) {
-        throw new Error('Сетевой ответ не успешен: ' + response.statusText);
+          return response.json().then(errorData => {
+              throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+          });
       }
       return response.json();
     })

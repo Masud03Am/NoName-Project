@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Ошибка сети: ' + response.statusText);
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
             }
             return response.json();
         })
@@ -63,7 +65,9 @@ fetch('http://185.121.2.208/hi-usa/private/user/getCurrent', {
 })
 .then(response => {
     if (!response.ok) {
-        throw new Error('Ошибка сети: ' + response.statusText);
+        return response.json().then(errorData => {
+            throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+        });
     }
     return response.json();
 })
@@ -100,7 +104,9 @@ fetch('http://185.121.2.208/hi-usa/private/user/raise', {
 })
 .then(response => {
     if (!response.ok) {
-        throw new Error('Ошибка сети: ' + response.statusText);
+        return response.json().then(errorData => {
+            throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+        });
     }
     return response.json();
 })

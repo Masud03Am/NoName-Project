@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Ошибка сети: ' + response.statusText);
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
             }
             return response.json();
         })
@@ -34,8 +36,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Функция для получения категорий и заполнения выпадающего списка
     function loadCategories() {
-        fetch('http://185.121.2.208/hi-usa/private/category/getAll') // Предположительный URL для получения списка категорий
-        .then(response => response.json())
+        fetch('http://185.121.2.208/hi-usa/private/category/getAll') // URL для получения списка категорий
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
+            }
+            return response.json();
+        })
         .then(data => {
             const categorySelect = document.getElementById('category');
             data.forEach(category => {
@@ -87,7 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Ошибка сети: ' + response.statusText);
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
             }
             return response.json();
         })
@@ -103,8 +114,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Функция для получения категорий и заполнения выпадающего списка
     function loadCategories() {
-        fetch('http://185.121.2.208/hi-usa/private/categories/list') // Предположительный URL для получения списка категорий
-        .then(response => response.json())
+        fetch('http://185.121.2.208/hi-usa/private/categories/list') // URL для получения списка категорий
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
+            }
+            return response.json();
+        })
         .then(data => {
             const categorySelect = document.getElementById('category');
             data.forEach(category => {
@@ -139,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Ошибка сети: ' + response.statusText);
+                return response.json().then(errorData => {
+                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                });
             }
             return response.json();
         })
@@ -168,6 +188,23 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Ошибка запроса:', error);
             // Обработка ошибки запроса
             storeList.innerHTML = '<p>Произошла ошибка при загрузке списка магазинов</p>';
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const storeLinks = document.querySelectorAll('.list-group-item-action');
+
+    storeLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // Отменяем стандартное поведение ссылки
+
+            window.location.href = "#editStoreForm";
+
+            // Получаем название магазина из текста ссылки
+            const storeName = this.textContent.trim().split(' ')[1]; // Получаем второе слово из текста ссылки
+
+            // Устанавливаем полученное название магазина в поле "Название Магазина" в форме редактирования
+            document.getElementById('storeName').value = storeName;
         });
     });
 });

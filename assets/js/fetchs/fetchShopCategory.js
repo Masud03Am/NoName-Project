@@ -19,7 +19,9 @@ function getAllCategories() {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
+            return response.json().then(errorData => {
+                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+            });
         }
         return response.json();
     })
@@ -85,7 +87,9 @@ function addCategory() {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
+            return response.json().then(errorData => {
+                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+            });
         }
         return response.json();
     })
@@ -152,7 +156,9 @@ function updateCategory(categoryId) {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
+            return response.json().then(errorData => {
+                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+            });
         }
         return response.json();
     })
@@ -168,12 +174,14 @@ function updateCategory(categoryId) {
 }
 
 fetch('http://185.121.2.208/hi-usa/public/category/get')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok: ' + response.statusText);
-    }
-    return response.json();
-  })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+            });
+        }
+        return response.json();
+    })
   .then(data => {
     console.log('Active Categories:', data);
     // Дальнейшая обработка полученных данных, например, отображение на странице
