@@ -43,6 +43,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
             console.log('Success:', data);
             // Здесь можно добавить код для обработки успешной регистрации
             alert('Успешная регистрация! Проверьте ваш email для получения OTP кода.');
+            window.location.href = "/register-1.html";
         })
         .catch(error => {
             console.error('There was a problem with your fetch operation:', error);
