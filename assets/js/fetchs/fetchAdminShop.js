@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();

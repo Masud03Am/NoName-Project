@@ -20,7 +20,7 @@ function getAllCategories() {
     .then(response => {
         if (!response.ok) {
             return response.json().then(errorData => {
-                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
             });
         }
         return response.json();
@@ -30,7 +30,7 @@ function getAllCategories() {
         updateCategoryList(data);
     })
     .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
+        console.error('Возникла проблема с операцией получения:', error);
         alert('Ошибка при получении категорий. Пожалуйста, попробуйте снова.');
     });
 }
@@ -88,19 +88,19 @@ function addCategory() {
     .then(response => {
         if (!response.ok) {
             return response.json().then(errorData => {
-                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
             });
         }
         return response.json();
     })
     .then(data => {
-        console.log('Success:', data);
+        console.log('Успех:', data);
         alert('Категория успешно добавлена.');
         addCategoryToList(categoryName);
         document.getElementById('newCategoryName').value = ''; // Clear input field
     })
     .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
+        console.error('Возникла проблема с операцией получения:', error);
         alert('Ошибка при добавлении категории. Пожалуйста, попробуйте снова.');
     });
 }
@@ -157,18 +157,18 @@ function updateCategory(categoryId) {
     .then(response => {
         if (!response.ok) {
             return response.json().then(errorData => {
-                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
             });
         }
         return response.json();
     })
     .then(data => {
-        console.log('Success:', data);
+        console.log('Успех:', data);
         alert('Категория успешно обновлена.');
         getAllCategories(); // Refresh category list
     })
     .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
+        console.error('Возникла проблема с операцией получения:', error);
         alert('Ошибка при обновлении категории. Пожалуйста, попробуйте снова.');
     });
 }
@@ -177,16 +177,16 @@ fetch('http://185.121.2.208/hi-usa/public/category/get')
     .then(response => {
         if (!response.ok) {
             return response.json().then(errorData => {
-                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
             });
         }
         return response.json();
     })
   .then(data => {
-    console.log('Active Categories:', data);
+    console.log('Активные категории:', data);
     // Дальнейшая обработка полученных данных, например, отображение на странице
   })
   .catch(error => {
-    console.error('There was a problem with your fetch operation:', error);
+    console.error('Возникла проблема с операцией получения:', error);
     // Обработка ошибки, например, вывод сообщения пользователю
   });

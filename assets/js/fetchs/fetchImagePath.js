@@ -22,17 +22,17 @@ document.getElementById('uploadImageButton').addEventListener('click', function(
     .then(response => {
         if (!response.ok) {
             return response.json().then(errorData => {
-                throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
             });
         }
         return response.json();
     })
     .then(data => {
-        console.log('Image replaced successfully:', data);
+        console.log('Изображение успешно заменено:', data);
         alert('Рисунок успешно заменен.');
     })
     .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
+        console.error('Возникла проблема с операцией получения:', error);
         alert('Ошибка при замене рисунка. Пожалуйста, попробуйте снова.');
     });
 });
@@ -52,7 +52,7 @@ document.getElementById('getImageButton').addEventListener('click', function() {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.blob();
@@ -65,7 +65,7 @@ document.getElementById('getImageButton').addEventListener('click', function() {
             imageDisplay.style.display = 'block';
         })
         .catch(error => {
-            console.error('There was a problem with your fetch operation:', error);
+            console.error('Возникла проблема с операцией получения:', error);
             alert('Ошибка при получении изображения. Пожалуйста, попробуйте снова.');
         });
 });

@@ -12,7 +12,7 @@ document.getElementById('registrationForm').addEventListener('submit', function(
     };
 
     // Логирование данных перед отправкой
-    console.log('Data to be sent:', data);
+    console.log('Данные для отправки:', data);
 
     // Проверка на заполненность всех полей
     if (!data.name || !data.country || !data.phone || !data.email || !data.password) {
@@ -34,19 +34,19 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
         })
         .then(data => {
-            console.log('Success:', data);
+            console.log('Успех:', data);
             // Здесь можно добавить код для обработки успешной регистрации
             alert('Успешная регистрация! Проверьте ваш email для получения OTP кода.');
             window.location.href = "/register-1.html";
         })
         .catch(error => {
-            console.error('There was a problem with your fetch operation:', error);
+            console.error('Возникла проблема с операцией получения:', error);
             alert('Ошибка при регистрации. Пожалуйста, попробуйте снова.');
         });
 });

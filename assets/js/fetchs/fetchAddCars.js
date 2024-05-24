@@ -18,7 +18,7 @@ document.getElementById('addCarsForm').addEventListener('submit', function(event
     };
 
     // Логирование данных перед отправкой
-    console.log('Data to be sent:', data);
+    console.log('Данные для отправки:', data);
 
     // Проверка на заполненность всех полей
     if (!data.amount || !data.body || !data.color || !data.cylinders || !data.engine_type || !data.engine_volume || !data.mark || !data.model || !data.model_year || !data.transmission) {
@@ -40,18 +40,18 @@ document.getElementById('addCarsForm').addEventListener('submit', function(event
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
         })
         .then(data => {
-            console.log('Success:', data);
+            console.log('Успех:', data);
             // Здесь можно добавить код для обработки успешного добавления автомобиля
             alert('Автомобиль успешно добавлен!');
         })
         .catch(error => {
-            console.error('There was a problem with your fetch operation:', error);
+            console.error('Возникла проблема с операцией получения:', error);
             alert('Ошибка при добавлении автомобиля. Пожалуйста, попробуйте снова.');
         });
 });
@@ -75,18 +75,18 @@ document.getElementById('deleteCarsForm').addEventListener('submit', function(ev
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
         })
         .then(data => {
-            console.log('Success:', data);
+            console.log('Успех:', data);
             // Здесь можно добавить код для обработки успешного удаления автомобиля
             alert('Автомобиль успешно удален!');
         })
         .catch(error => {
-            console.error('There was a problem with your fetch operation:', error);
+            console.error('Возникла проблема с операцией получения:', error);
             alert('Ошибка при удалении автомобиля. Пожалуйста, попробуйте снова.');
         });
 });
@@ -107,13 +107,13 @@ document.getElementById('getAllCarsBtn').addEventListener('click', function(even
         .then(response => {
             if (!response.ok) {
                 return response.json().then(errorData => {
-                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
                 });
             }
             return response.json();
         })
         .then(data => {
-            console.log('Success:', data);
+            console.log('Успех:', data);
 
             // Обновление таблицы с данными автомобилей
             const cars = data.data; // Получаем массив с данными автомобилей
@@ -143,7 +143,7 @@ document.getElementById('getAllCarsBtn').addEventListener('click', function(even
             });
         })
         .catch(error => {
-            console.error('There was a problem with your fetch operation:', error);
+            console.error('Возникла проблема с операцией получения:', error);
             alert('Ошибка при получении данных автомобилей. Пожалуйста, попробуйте снова.');
         });
 });
