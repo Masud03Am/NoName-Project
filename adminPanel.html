@@ -135,7 +135,7 @@
                             <div class="table-item">Email</div>
                             <div class="table-item">Username</div>
                             <div class="table-item">Nickname</div>
-                            <div class="table-item">Статус</div>
+                            <div class="table-item">Ур. Пол.</div>
                             <div class="table-item">Количество Заказов</div>
                         </div>
                         <div class="users-item">
@@ -143,7 +143,7 @@
                             <div class="table-item">user1@example.com</div>
                             <div class="table-item">User1</div>
                             <div class="table-item">Nick1</div>
-                            <div class="table-item">Активен</div>
+                            <div class="table-item">Консультант</div>
                             <div class="table-item">5</div>
                         </div>
                         <div class="users-item">
@@ -151,7 +151,7 @@
                             <div class="table-item">user2@example.com</div>
                             <div class="table-item">User2</div>
                             <div class="table-item">Nick2</div>
-                            <div class="table-item">Неактивен</div>
+                            <div class="table-item">Клиент</div>
                             <div class="table-item">10</div>
                         </div>
                         <div class="users-item">
@@ -159,7 +159,7 @@
                             <div class="table-item">user1@example.com</div>
                             <div class="table-item">User1</div>
                             <div class="table-item">Nick1</div>
-                            <div class="table-item">Активен</div>
+                            <div class="table-item">Партнёр</div>
                             <div class="table-item">5</div>
                         </div>
                         <div class="users-item">
@@ -167,7 +167,7 @@
                             <div class="table-item">user2@example.com</div>
                             <div class="table-item">User2</div>
                             <div class="table-item">Nick2</div>
-                            <div class="table-item">Неактивен</div>
+                            <div class="table-item">Админ</div>
                             <div class="table-item">10</div>
                         </div>
                         <div class="users-item">
@@ -175,7 +175,7 @@
                             <div class="table-item">user1@example.com</div>
                             <div class="table-item">User1</div>
                             <div class="table-item">Nick1</div>
-                            <div class="table-item">Активен</div>
+                            <div class="table-item">Консультант</div>
                             <div class="table-item">5</div>
                         </div>
                         <div class="users-item">
@@ -183,7 +183,7 @@
                             <div class="table-item">user2@example.com</div>
                             <div class="table-item">User2</div>
                             <div class="table-item">Nick2</div>
-                            <div class="table-item">Неактивен</div>
+                            <div class="table-item">Клиент</div>
                             <div class="table-item">10</div>
                         </div>
                         <div class="users-item">
@@ -191,10 +191,22 @@
                             <div class="table-item">user1@example.com</div>
                             <div class="table-item">User1</div>
                             <div class="table-item">Nick1</div>
-                            <div class="table-item">Активен</div>
+                            <div class="table-item">Партнёр</div>
                             <div class="table-item">5</div>
                         </div>
                     </div>
+                </div>
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Изменить уровень Пользователя</h2> 
+                    </div>
+                    <form id="RoleUsersForm">
+                        <div class="form-group">
+                            <label for="role">Уровень Пользователя:</label>
+                            <input style="width: 85%;" type="text" role="" id="role" name="role" class="form-input" required>
+                            <button type="submit" class="form-submit">Изменить</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -228,6 +240,23 @@
                 </div>
                 <div class="recentOrders">
                     <div class="cardHeader">
+                        <h2>Список всех магазинов</h2>
+                        <a href="" id="loadAllStoresBtn" class="btn">Все</a>
+                    </div>
+                    <div style="margin-top: 2rem;" id="storeList" class="store-list">
+                        <div class="list-group">
+                            <a href="store-settings.html?store=1" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 1</a>
+                            <a href="store-settings.html?store=2" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 2</a>
+                            <a href="store-settings.html?store=3" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 3</a>
+                            <a href="store-settings.html?store=4" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 4</a>
+                            <a href="store-settings.html?store=5" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 5</a>
+                            <a href="store-settings.html?store=1" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 6</a>
+                            <a href="store-settings.html?store=2" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 7</a>
+                        </div>
+                    </div>
+                </div>  
+                <div class="recentOrders">
+                    <div class="cardHeader">
                         <h2>Меню магазина</h2>
                     </div>
                     <form id="editStoreForm">
@@ -247,10 +276,10 @@
                             <label for="category">Категория Магазина</label>
                             <select id="category" name="category" class="form-input" required></select>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="active">Активный</label>
                             <input type="checkbox" id="active" name="active" class="form-input">
-                        </div>
+                        </div>-->
                         <button type="submit" class="form-submit">Сохранить Изменения</button>
                     </form>
                     <form style="margin-top: 2rem;" id="updateStoreImageForm">
@@ -265,23 +294,6 @@
                         <button type="submit" class="form-submit">Обновить Логотип</button>
                     </form>
                 </div>
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Список всех магазинов</h2>
-                        <a href="" id="loadAllStoresBtn" class="btn">Все</a>
-                    </div>
-                    <div style="margin-top: 2rem;" id="storeList" class="store-list">
-                        <div class="list-group">
-                            <a href="store-settings.html?store=1" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 1</a>
-                            <a href="store-settings.html?store=2" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 2</a>
-                            <a href="store-settings.html?store=3" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 3</a>
-                            <a href="store-settings.html?store=4" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 4</a>
-                            <a href="store-settings.html?store=5" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 5</a>
-                            <a href="store-settings.html?store=1" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 6</a>
-                            <a href="store-settings.html?store=2" class="list-group-item list-group-item-action"><ion-icon name="pricetags-outline"></ion-icon> Store 7</a>
-                        </div>
-                    </div>
-                </div>  
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Список всех категорий</h2>
@@ -651,6 +663,10 @@
                         <div class="form-group">
                             <label for="amount">Количество</label>
                             <input type="text" id="amount" name="amount" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="icon">Изображение/Иконка</label>
+                            <input type="file" id="icon" name="icon" class="form-input" required>
                         </div>
                         <button style="background-color: rgb(59, 175, 59);" type="submit" class="form-submit">Отправить</button>
                     </form>
