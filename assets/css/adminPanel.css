@@ -911,3 +911,115 @@ div.details.active {
     background: var(--accent-primary);
   }
 }
+
+/*--------------------------------------------------------------
+pagination-store
+--------------------------------------------------------------*/
+
+.pagination{
+  width: 490px;
+  height: 66px;
+  background: #e0e0e0;
+  border-radius: 50px;
+  -webkit-box-shadow: inset 5px 5px 1px #717171,
+  inset -5px -5px 1px #ffffff;
+          box-shadow: inset 5px 5px 1px #717171,
+  inset -5px -5px 1px #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 1em 2em;
+  margin-top: 1rem;
+}
+.ul-pag{
+  margin: 0 auto;
+  text-align: center;
+  
+}
+.ul-pag li{
+  display: inline-block;
+  list-style-type: none;
+  margin-left: 5px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  line-height: 35px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-weight: 400;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-position: 0 -35px;
+  -webkit-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+
+}
+
+.ul-pag li:hover,
+.pag-btn:hover
+{
+  -webkit-transform: scale(0.96);
+      -ms-transform: scale(0.96);
+          transform: scale(0.96);
+}
+
+#next{
+  line-height: 35px;
+  width: 75px;
+  border: 0;
+  background-color: hsla(220, 15%, 58%, .1);
+  background-image: hsla(220, 15%, 58%, .1);
+  border-radius: 50px;
+  font-weight: 600;
+  background-position: 0 -45px;
+  -webkit-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+#previous{
+  line-height: 35px;
+  width: 75px;
+  border: 0;
+  background-color: hsla(220, 15%, 58%, .1);
+  background-image: hsla(220, 15%, 58%, .1);
+  border-radius: 50px;
+  font-weight: 600;
+  background-position: 0 -45px;
+  -webkit-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+.ul-pag .active{
+  background-color: var(--blue);
+  color: #fff;
+  font-weight: 600;
+}
+
+#next.active{
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+#previous.active{ 
+}
+
+@media screen and (max-width: 667px){
+  .pagination{
+    padding: 1em 1.2em;
+  }
+  .pag-btn{
+    width: 60px;
+  }
+  .ul-pag li:last-child{
+    display: none;
+
+  }
+}

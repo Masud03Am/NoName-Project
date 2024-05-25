@@ -1,15 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('getAllCategory').addEventListener('click', function(event) {
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('getAllCategory').addEventListener('click', function (event) {
         event.preventDefault();
         getAllCategories();
     });
 
-    document.querySelector('.form-submit').addEventListener('click', function(event) {
+    document.querySelector('.form-submit').addEventListener('click', function (event) {
         event.preventDefault();
         addCategory();
     });
 });
 
+// Функция для получения всех категорий
 function getAllCategories() {
     fetch('http://185.121.2.208/hi-usa/private/category/getAll', {
         method: 'GET',
@@ -17,27 +18,18 @@ function getAllCategories() {
             'accept': 'application/json'
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(errorData => {
-                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-            });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        updateCategoryList(data);
-    })
-    .catch(error => {
-        console.error('Возникла проблема с операцией получения:', error);
-        alert('Ошибка при получении категорий. Пожалуйста, попробуйте снова.');
-    });
+        .then(handleResponse)
+        .then(data => {
+            console.log('Success:', data);
+            updateCategoryList(data);
+        })
+        .catch(handleError);
 }
 
+// Функция для обновления списка категорий
 function updateCategoryList(categories) {
     const categoryList = document.querySelector('.category-list');
-    categoryList.innerHTML = ''; // Clear existing categories
+    categoryList.innerHTML = ''; // Очистить существующие категории
 
     categories.forEach(category => {
         const newCategoryItem = document.createElement('li');
@@ -48,12 +40,12 @@ function updateCategoryList(categories) {
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'delete-btn';
         deleteBtn.textContent = 'Удалить';
-        // Add event listener for delete button if needed
+        // Добавить обработчик события для кнопки удаления
 
         const editBtn = document.createElement('button');
         editBtn.className = 'edit-btn';
         editBtn.textContent = 'Изменить';
-        editBtn.addEventListener('click', function() {
+        editBtn.addEventListener('click', function () {
             updateCategory(category.id);
         });
 
@@ -65,17 +57,16 @@ function updateCategoryList(categories) {
     });
 }
 
+// Функция для добавления новой категории
 function addCategory() {
-    const categoryName = document.getElementById('newCategoryName').value;
+    const categoryName = document.getElementById('newCategoryName').value.trim();
 
-    if (categoryName.trim() === '') {
+    if (!categoryName) {
         alert('Пожалуйста, введите название категории.');
         return;
     }
 
-    const data = {
-        name: categoryName
-    };
+    const data = { name: categoryName };
 
     fetch('http://185.121.2.208/hi-usa/private/category/add', {
         method: 'POST',
@@ -85,26 +76,17 @@ function addCategory() {
         },
         body: JSON.stringify(data)
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(errorData => {
-                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-            });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Успех:', data);
-        alert('Категория успешно добавлена.');
-        addCategoryToList(categoryName);
-        document.getElementById('newCategoryName').value = ''; // Clear input field
-    })
-    .catch(error => {
-        console.error('Возникла проблема с операцией получения:', error);
-        alert('Ошибка при добавлении категории. Пожалуйста, попробуйте снова.');
-    });
+        .then(handleResponse)
+        .then(data => {
+            console.log('Успех:', data);
+            alert('Категория успешно добавлена.');
+            addCategoryToList(categoryName);
+            document.getElementById('newCategoryName').value = ''; // Очистить поле ввода
+        })
+        .catch(handleError);
 }
 
+// Функция для добавления категории в список на странице
 function addCategoryToList(categoryName) {
     const categoryList = document.querySelector('.category-list');
     const newCategoryItem = document.createElement('li');
@@ -115,12 +97,12 @@ function addCategoryToList(categoryName) {
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-btn';
     deleteBtn.textContent = 'Удалить';
-    // Add event listener for delete button if needed
+    // Добавить обработчик события для кнопки удаления
 
     const editBtn = document.createElement('button');
     editBtn.className = 'edit-btn';
     editBtn.textContent = 'Изменить';
-    editBtn.addEventListener('click', function() {
+    editBtn.addEventListener('click', function () {
         updateCategory(category.id);
     });
 
@@ -131,9 +113,10 @@ function addCategoryToList(categoryName) {
     categoryList.appendChild(newCategoryItem);
 }
 
+// Функция для обновления категории
 function updateCategory(categoryId) {
-    const newName = prompt('Введите новое название категории:');
-    if (newName === null || newName.trim() === '') {
+    const newName = prompt('Введите новое название категории:').trim();
+    if (!newName) {
         alert('Название категории не может быть пустым.');
         return;
     }
@@ -154,39 +137,36 @@ function updateCategory(categoryId) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(errorData => {
-                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-            });
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Успех:', data);
-        alert('Категория успешно обновлена.');
-        getAllCategories(); // Refresh category list
-    })
-    .catch(error => {
-        console.error('Возникла проблема с операцией получения:', error);
-        alert('Ошибка при обновлении категории. Пожалуйста, попробуйте снова.');
-    });
+        .then(handleResponse)
+        .then(data => {
+            console.log('Успех:', data);
+            alert('Категория успешно обновлена.');
+            getAllCategories(); // Обновить список категорий
+        })
+        .catch(handleError);
 }
 
+// Обработчик ответа от сервера
+function handleResponse(response) {
+    if (!response.ok) {
+        return response.json().then(errorData => {
+            throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
+        });
+    }
+    return response.json();
+}
+
+// Обработчик ошибок
+function handleError(error) {
+    console.error('Возникла проблема с операцией:', error);
+    alert('Произошла ошибка. Пожалуйста, попробуйте снова.');
+}
+
+// Функция для получения активных категорий
 fetch('http://185.121.2.208/hi-usa/public/category/get')
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(errorData => {
-                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-            });
-        }
-        return response.json();
+    .then(handleResponse)
+    .then(data => {
+        console.log('Активные категории:', data);
+        // Дальнейшая обработка полученных данных, например, отображение на странице
     })
-  .then(data => {
-    console.log('Активные категории:', data);
-    // Дальнейшая обработка полученных данных, например, отображение на странице
-  })
-  .catch(error => {
-    console.error('Возникла проблема с операцией получения:', error);
-    // Обработка ошибки, например, вывод сообщения пользователю
-  });
+    .catch(handleError);

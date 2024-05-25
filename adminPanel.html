@@ -104,7 +104,7 @@
         </div>
 
         <!-- ========================= Main ==================== -->
-        <div class="main">
+        <div class="main admin-only">
             <div class="topbar">
                 <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
@@ -127,72 +127,77 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Пользователи</h2>
-                        <a href="#" id="loadAllUsersBtn" class="btn">Все</a>
+                        <a href="" id="loadAllUsersBtn" class="btn">Все</a>
                     </div>
                     <div class="users-table">
                         <div class="users-item header">
                             <div class="table-item noflex">ID</div>
                             <div class="table-item">Email</div>
                             <div class="table-item">Username</div>
-                            <div class="table-item">Nickname</div>
                             <div class="table-item">Ур. Пол.</div>
                             <div class="table-item">Количество Заказов</div>
                         </div>
-                        <div class="users-item">
-                            <div class="table-item noflex">1</div>
-                            <div class="table-item">user1@example.com</div>
-                            <div class="table-item">User1</div>
-                            <div class="table-item">Nick1</div>
-                            <div class="table-item">Консультант</div>
-                            <div class="table-item">5</div>
+                        <div id="usersList">
+                            <div class="users-item">
+                                <div class="table-item noflex">1</div>
+                                <div class="table-item">user1@example.com</div>
+                                <div class="table-item">User1</div>
+                                <div class="table-item">Консультант</div>
+                                <div class="table-item">5</div>
+                            </div>
+                            <div class="users-item">
+                                <div class="table-item noflex">2</div>
+                                <div class="table-item">user2@example.com</div>
+                                <div class="table-item">User2</div>
+                                <div class="table-item">Клиент</div>
+                                <div class="table-item">10</div>
+                            </div>
+                            <div class="users-item">
+                                <div class="table-item noflex">3</div>
+                                <div class="table-item">user1@example.com</div>
+                                <div class="table-item">User1</div>
+                                <div class="table-item">Партнёр</div>
+                                <div class="table-item">5</div>
+                            </div>
+                            <div class="users-item">
+                                <div class="table-item noflex">4</div>
+                                <div class="table-item">user2@example.com</div>
+                                <div class="table-item">User2</div>
+                                <div class="table-item">Админ</div>
+                                <div class="table-item">10</div>
+                            </div>
+                            <div class="users-item">
+                                <div class="table-item noflex">5</div>
+                                <div class="table-item">user1@example.com</div>
+                                <div class="table-item">User1</div>
+                                <div class="table-item">Консультант</div>
+                                <div class="table-item">5</div>
+                            </div>
+                            <div class="users-item">
+                                <div class="table-item noflex">6</div>
+                                <div class="table-item">user2@example.com</div>
+                                <div class="table-item">User2</div>
+                                <div class="table-item">Клиент</div>
+                                <div class="table-item">10</div>
+                            </div>
+                            <div class="users-item">
+                                <div class="table-item noflex">7</div>
+                                <div class="table-item">user1@example.com</div>
+                                <div class="table-item">User1</div>
+                                <div class="table-item">Партнёр</div>
+                                <div class="table-item">5</div>
+                            </div>
                         </div>
-                        <div class="users-item">
-                            <div class="table-item noflex">2</div>
-                            <div class="table-item">user2@example.com</div>
-                            <div class="table-item">User2</div>
-                            <div class="table-item">Nick2</div>
-                            <div class="table-item">Клиент</div>
-                            <div class="table-item">10</div>
-                        </div>
-                        <div class="users-item">
-                            <div class="table-item noflex">3</div>
-                            <div class="table-item">user1@example.com</div>
-                            <div class="table-item">User1</div>
-                            <div class="table-item">Nick1</div>
-                            <div class="table-item">Партнёр</div>
-                            <div class="table-item">5</div>
-                        </div>
-                        <div class="users-item">
-                            <div class="table-item noflex">4</div>
-                            <div class="table-item">user2@example.com</div>
-                            <div class="table-item">User2</div>
-                            <div class="table-item">Nick2</div>
-                            <div class="table-item">Админ</div>
-                            <div class="table-item">10</div>
-                        </div>
-                        <div class="users-item">
-                            <div class="table-item noflex">5</div>
-                            <div class="table-item">user1@example.com</div>
-                            <div class="table-item">User1</div>
-                            <div class="table-item">Nick1</div>
-                            <div class="table-item">Консультант</div>
-                            <div class="table-item">5</div>
-                        </div>
-                        <div class="users-item">
-                            <div class="table-item noflex">6</div>
-                            <div class="table-item">user2@example.com</div>
-                            <div class="table-item">User2</div>
-                            <div class="table-item">Nick2</div>
-                            <div class="table-item">Клиент</div>
-                            <div class="table-item">10</div>
-                        </div>
-                        <div class="users-item">
-                            <div class="table-item noflex">7</div>
-                            <div class="table-item">user1@example.com</div>
-                            <div class="table-item">User1</div>
-                            <div class="table-item">Nick1</div>
-                            <div class="table-item">Партнёр</div>
-                            <div class="table-item">5</div>
+                        <div id="pagination" class="pagination">
+                            <button class="pag-btn" id="previous">Пред.</button>
+                            <ul class="ul-pag">
+                              <li class="active">1</li>
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                              <li>5</li>
+                            </ul>
+                            <button class="pag-btn" id="next">След.</button>
                         </div>
                     </div>
                 </div>
@@ -201,6 +206,10 @@
                         <h2>Изменить уровень Пользователя</h2> 
                     </div>
                     <form id="RoleUsersForm">
+                        <div class="form-group">
+                            <label for="userEmail">Email Пользователя:</label>
+                            <input type="email" id="userEmail" name="userEmail" class="form-input" autocomplete="on" required>
+                        </div>
                         <div class="form-group">
                             <label for="role">Уровень Пользователя:</label>
                             <input style="width: 85%;" type="text" role="" id="role" name="role" class="form-input" required>
@@ -218,22 +227,29 @@
                     </div>
                     <form id="addStoreForm">
                         <div class="form-group">
+                            <label for="storeName">Название Магазина</label>
+                            <input type="text" id="storeName" name="storeName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="storeDescription">Описание Магазина</label>
+                            <input type="text" id="storeDescription" name="storeDescription" class="form-input" required>
+                        </div>
+                        <div class="form-group">
                             <label for="storeLink">Ссылка На магазин</label>
                             <input type="text" id="storeLink" name="storeLink" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="initials">Инициалы</label>
-                            <input type="text" id="initials" name="initials" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="icon">Изображение/Иконка</label>
-                            <input type="file" id="icon" name="icon" class="form-input">
                         </div>
                         <div class="form-group">
                             <label for="category">Категория Магазина</label>
                             <select id="category" name="category" class="form-input" required>
                                 <!-- Options will be populated here by JavaScript -->
+                                <option value="default">Выберите категорию</option>
+                                <option value="Досуг">Досуг</option>
+                                <option value="">Досуг</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="icon">Изображение/Иконка</label>
+                            <input type="file" id="icon" name="icon" class="form-input">
                         </div>
                         <button type="submit" class="form-submit">Отправить</button>
                     </form>
@@ -274,7 +290,10 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Категория Магазина</label>
-                            <select id="category" name="category" class="form-input" required></select>
+                            <select id="category" name="category" class="form-input" required>
+                                <option value="default">Выберите категорию</option>
+                                <option value="Досуг">Досуг</option>
+                            </select>
                         </div>
                         <button type="submit" class="form-submit">Сохранить Изменения</button>
                     </form>
@@ -906,12 +925,14 @@
         });
     </script>
 
-    <script src="assets/js/fetchs/fetchShopCategory.js"></script>
-    <script src="assets/js/fetchs/fetchAddPartnerAdmin.js"></script>
-    <script src="assets/js/fetchs/fetchAdminShop.js"></script>
+
+    <script src="assets/js/adminPanel.js"></script>
     <script src="assets/js/fetchs/fetchUsers.js"></script>
+    <script src="assets/js/fetchs/fetchAdminShop.js"></script>
+    <!--<script src="assets/js/fetchs/fetchShopCategory.js"></script>
+    <script src="assets/js/fetchs/fetchAddPartnerAdmin.js"></script>
     <script src="assets/js/fetchs/fetchAddCars.js"></script>
-    <script src="assets/js/fetchs/fetchImagePath.js"></script>
+    <script src="assets/js/fetchs/fetchImagePath.js"></script>-->
 
     <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
