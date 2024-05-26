@@ -1,15 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Добавляем обработчики событий для кнопок
     document.getElementById('uploadImageButton').addEventListener('click', uploadImage);
     document.getElementById('getImageButton').addEventListener('click', getImage);
 });
 
-// Функция для загрузки изображения на сервер
 function uploadImage() {
     const filename = document.getElementById('filenameInput').value.trim();
     const fileInput = document.getElementById('fileInput');
 
-    // Проверяем, что поле не пустое и файл выбран
     if (!filename || !fileInput.files.length) {
         alert('Пожалуйста, введите путь к рисунку и выберите файл.');
         return;
@@ -19,29 +16,51 @@ function uploadImage() {
     formData.append('path', filename);
     formData.append('file', fileInput.files[0]);
 
+    const uploadButton = document.getElementById('uploadImageButton');
+    uploadButton.disabled = true;
+    uploadButton.classList.add('loading');
+    clearMessage();
+
     fetch('http://185.121.2.208/hi-usa/private/replaceFile', {
         method: 'POST',
+        headers: {
+            'Authorization': 'Bearer YOUR_TOKEN_HERE'
+        },
         body: formData
     })
     .then(handleResponse)
     .then(data => {
         console.log('Изображение успешно заменено:', data);
-        alert('Рисунок успешно заменен.');
+        displayMessage('Рисунок успешно заменен.', 'success');
+        document.getElementById('filenameInput').value = '';
+        document.getElementById('fileInput').value = '';
     })
-    .catch(handleError);
+    .catch(handleError)
+    .finally(() => {
+        uploadButton.disabled = false;
+        uploadButton.classList.remove('loading');
+    });
 }
 
-// Функция для получения изображения с сервера
 function getImage() {
     const filename = document.getElementById('filenameInput').value.trim();
 
-    // Проверяем, что поле не пустое
     if (!filename) {
         alert('Пожалуйста, введите путь к рисунку.');
         return;
     }
 
-    fetch(`http://185.121.2.208/hi-usa/public/upload?filename=${encodeURIComponent(filename)}`)
+    const getButton = document.getElementById('getImageButton');
+    getButton.disabled = true;
+    getButton.classList.add('loading');
+    clearMessage();
+
+    fetch(`http://185.121.2.208/hi-usa/public/upload?filename=${encodeURIComponent(filename)}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer YOUR_TOKEN_HERE'
+        }
+    })
     .then(response => {
         if (!response.ok) {
             return response.json().then(errorData => {
@@ -55,11 +74,15 @@ function getImage() {
         const imageDisplay = document.getElementById('imageDisplay');
         imageDisplay.src = imageUrl;
         imageDisplay.style.display = 'block';
+        displayMessage('Изображение успешно загружено.', 'success');
     })
-    .catch(handleError);
+    .catch(handleError)
+    .finally(() => {
+        getButton.disabled = false;
+        getButton.classList.remove('loading');
+    });
 }
 
-// Функция для обработки ответа сервера
 function handleResponse(response) {
     if (!response.ok) {
         return response.json().then(errorData => {
@@ -69,8 +92,19 @@ function handleResponse(response) {
     return response.json();
 }
 
-// Функция для обработки ошибок
 function handleError(error) {
     console.error('Возникла проблема с операцией:', error);
-    alert('Произошла ошибка. Пожалуйста, попробуйте снова.');
+    displayMessage('Произошла ошибка. Пожалуйста, попробуйте снова.', 'error');
+}
+
+function displayMessage(message, type) {
+    const messageDiv = document.getElementById('message');
+    messageDiv.textContent = message;
+    messageDiv.className = type;
+}
+
+function clearMessage() {
+    const messageDiv = document.getElementById('message');
+    messageDiv.textContent = '';
+    messageDiv.className = '';
 }

@@ -33,17 +33,23 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 // Распарсим токен
                 const claims = parseJwt(token);
                 
-                // Сохраняем токен и роль в localStorage
-                localStorage.setItem('authToken', token);
-                localStorage.setItem('userRole', claims.role);
-                
-                // Перенаправляем на страницу в зависимости от роли
-                if (claims.role === 'admin') {
-                    window.location.href = "/adminPanel.html";
-                } else if (claims.role === 'user') {
-                    window.location.href = "/profile.html";
+                if (claims) {
+                    console.log('Claims:', claims); // Добавлено для отладки
+
+                    // Сохраняем токен и роль в localStorage
+                    localStorage.setItem('authToken', token);
+                    localStorage.setItem('userRole', claims.user_role);
+                    
+                    // Перенаправляем на страницу в зависимости от роли
+                    if (claims.user_role === 'admin') {
+                        window.location.href = "/adminPanel.html";
+                    } else if (claims.user_role === 'user') {
+                        window.location.href = "/profile.html";
+                    } else {
+                        alert('Неизвестная роль пользователя');
+                    }
                 } else {
-                    alert('Неизвестная роль пользователя');
+                    alert('Ошибка при расшифровке токена.');
                 }
             } else {
                 alert('Ошибка: токен не найден');
@@ -57,11 +63,19 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
 // Функция для распарсивания JWT токена и извлечения информации о пользователе
 function parseJwt(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+    try {
+        // Используем jsrsasign для верификации и декодирования токена
+        const secretKey = 'b*}y~IPYReC$';
+        const isValid = KJUR.jws.JWS.verifyJWT(token, secretKey, { alg: ["HS256"] });
+        if (!isValid) {
+            console.log('Неверный токен');
+            return null;
+        }
 
-    return JSON.parse(jsonPayload);
+        const decoded = KJUR.jws.JWS.parse(token);
+        return JSON.parse(decoded.payloadPP);
+    } catch (err) {
+        console.error('Ошибка при расшифровке токена:', err);
+        return null;
+    }
 }

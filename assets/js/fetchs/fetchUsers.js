@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const usersList = document.getElementById('usersList');
     const pagination = document.getElementById('pagination');
 
+    // Загрузка пользователей
     function loadUsers(page = 1) {
         const options = {
             method: 'GET',
@@ -20,18 +21,14 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     
         fetch(`http://185.121.2.208/hi-usa/private/user/getAll?page=${page}`, options)
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                    });
+            .then(response => response.json().then(data => ({status: response.status, body: data})))
+            .then(({status, body}) => {
+                if (status !== 200) {
+                    throw new Error(`Ошибка ${status}: ${body.message}`);
                 }
-                return response.json();
-            })
-            .then(data => {
-                const users = Array.isArray(data.records) ? data.records : [];
+                const users = Array.isArray(body.records) ? body.records : [];
                 renderUsers(users);
-                renderPagination(data.totalPages, page);
+                renderPagination(body.totalPages, page);
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
@@ -39,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
+    // Отображение пользователей
     function renderUsers(users) {
         usersList.innerHTML = '';
         if (Array.isArray(users)) {
@@ -59,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Отображение пагинации
     function renderPagination(totalPages, currentPage) {
         pagination.innerHTML = '';
         for (let i = 1; i <= totalPages; i++) {
@@ -70,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // События для кнопок пагинации
     document.getElementById('previous').addEventListener('click', () => {
         if (currentPage > 1) {
             loadUsers(--currentPage);
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loadUsers(1);
     });
 
+    // Событие для формы изменения роли пользователя
     document.getElementById('RoleUsersForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const userEmail = document.getElementById('userEmail').value;
@@ -100,15 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         fetch('http://185.121.2.208/hi-usa/private/user/raise', options)
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                    });
+            .then(response => response.json().then(data => ({status: response.status, body: data})))
+            .then(({status, body}) => {
+                if (status !== 200) {
+                    throw new Error(`Ошибка ${status}: ${body.message}`);
                 }
-                return response.json();
-            })
-            .then(data => {
                 alert('Уровень пользователя успешно изменен.');
                 loadUsers(currentPage); // Перезагружаем текущую страницу
             })
@@ -118,5 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    loadUsers(currentPage); // Initial load
+    // Начальная загрузка пользователей
+    loadUsers(currentPage);
 });

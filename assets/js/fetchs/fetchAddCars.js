@@ -1,7 +1,6 @@
 document.getElementById('addCarsForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Предотвратить стандартное поведение формы
+    event.preventDefault();
 
-    // Получение данных с формы
     const formData = new FormData(event.target);
     const data = {
         amount: formData.get('amount'),
@@ -17,84 +16,101 @@ document.getElementById('addCarsForm').addEventListener('submit', function(event
         transmission: formData.get('transmission')
     };
 
-    // Логирование данных перед отправкой
-    console.log('Данные для отправки:', data);
-
-    // Проверка на заполненность всех полей
     if (!data.amount || !data.body || !data.color || !data.cylinders || !data.engine_type || !data.engine_volume || !data.mark || !data.model || !data.model_year || !data.transmission) {
         alert('Пожалуйста, заполните все обязательные поля.');
         return;
     }
 
-    // Настройки запроса
-    const options = {
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const messageDiv = document.getElementById('addCarMessage');
+    submitButton.disabled = true;
+    submitButton.classList.add('loading');
+    messageDiv.textContent = '';
+
+    fetch('http://185.121.2.208/hi-usa/private/cars/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    };
-
-    // Выполнение запроса
-    fetch('http://185.121.2.208/hi-usa/private/cars/add', options)
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Успех:', data);
-            // Здесь можно добавить код для обработки успешного добавления автомобиля
-            alert('Автомобиль успешно добавлен!');
-        })
-        .catch(error => {
-            console.error('Возникла проблема с операцией получения:', error);
-            alert('Ошибка при добавлении автомобиля. Пожалуйста, попробуйте снова.');
-        });
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Успех:', data);
+        messageDiv.textContent = 'Автомобиль успешно добавлен!';
+        messageDiv.className = 'success';
+        event.target.reset();
+        document.getElementById('getAllCarsBtn').click(); // Обновление таблицы автомобилей
+    })
+    .catch(error => {
+        console.error('Возникла проблема с операцией получения:', error);
+        messageDiv.textContent = 'Ошибка при добавлении автомобиля. Пожалуйста, попробуйте снова.';
+        messageDiv.className = 'error';
+    })
+    .finally(() => {
+        submitButton.disabled = false;
+        submitButton.classList.remove('loading');
+    });
 });
 
 document.getElementById('deleteCarsForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Предотвратить стандартное поведение формы
+    event.preventDefault();
 
-    // Получить ID автомобиля из формы
-    const carId = document.getElementById('id').value;
+    const carId = document.getElementById('carId').value.trim();
 
-    // Настройки запроса
-    const options = {
+    if (!carId) {
+        alert('Пожалуйста, введите ID автомобиля.');
+        return;
+    }
+
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const messageDiv = document.getElementById('deleteCarMessage');
+    submitButton.disabled = true;
+    submitButton.classList.add('loading');
+    messageDiv.textContent = '';
+
+    fetch(`http://185.121.2.208/hi-usa/private/cars/delete?id=${carId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         }
-    };
-
-    // Выполнение запроса
-    fetch(`http://185.121.2.208/hi-usa/private/cars/delete?id=${carId}`, options)
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Успех:', data);
-            // Здесь можно добавить код для обработки успешного удаления автомобиля
-            alert('Автомобиль успешно удален!');
-        })
-        .catch(error => {
-            console.error('Возникла проблема с операцией получения:', error);
-            alert('Ошибка при удалении автомобиля. Пожалуйста, попробуйте снова.');
-        });
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Успех:', data);
+        messageDiv.textContent = 'Автомобиль успешно удален!';
+        messageDiv.className = 'success';
+        event.target.reset();
+        document.getElementById('getAllCarsBtn').click(); // Обновление таблицы автомобилей
+    })
+    .catch(error => {
+        console.error('Возникла проблема с операцией получения:', error);
+        messageDiv.textContent = 'Ошибка при удалении автомобиля. Пожалуйста, попробуйте снова.';
+        messageDiv.className = 'error';
+    })
+    .finally(() => {
+        submitButton.disabled = false;
+        submitButton.classList.remove('loading');
+    });
 });
 
 document.getElementById('getAllCarsBtn').addEventListener('click', function(event) {
-    event.preventDefault(); // Предотвратить стандартное поведение ссылки
+    event.preventDefault();
 
-    // Настройки запроса
     const options = {
         method: 'GET',
         headers: {
@@ -102,7 +118,6 @@ document.getElementById('getAllCarsBtn').addEventListener('click', function(even
         }
     };
 
-    // Выполнение запроса
     fetch('http://185.121.2.208/hi-usa/private/cars/getAll?page=1', options)
         .then(response => {
             if (!response.ok) {
@@ -115,14 +130,10 @@ document.getElementById('getAllCarsBtn').addEventListener('click', function(even
         .then(data => {
             console.log('Успех:', data);
 
-            // Обновление таблицы с данными автомобилей
-            const cars = data.data; // Получаем массив с данными автомобилей
+            const cars = data.data;
             const carsTableBody = document.getElementById('carsTableBody');
-
-            // Очищаем таблицу перед добавлением новых данных
             carsTableBody.innerHTML = '';
 
-            // Проходимся по каждому автомобилю и добавляем его данные в таблицу
             cars.forEach(car => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -147,37 +158,3 @@ document.getElementById('getAllCarsBtn').addEventListener('click', function(even
             alert('Ошибка при получении данных автомобилей. Пожалуйста, попробуйте снова.');
         });
 });
-
-// Выполняем запрос на получение данных о машинах
-/*fetch('http://185.121.2.208/hi-usa/private/cars/getAll?page=1')
-    .then(response => response.json())
-    .then(data => {
-        // Получаем массив данных о машинах
-        const carsData = data.data;
-
-        // Получаем все элементы <p> с информацией о машинах
-        const carParagraphs = document.querySelectorAll('.cars-grids p');
-
-        // Обновляем каждый элемент <p> с новыми данными
-        carParagraphs.forEach((paragraph, index) => {
-            const carData = carsData[index]; // Данные для текущей машины
-
-            // Обновляем текст внутри <span> внутри текущего <p>
-            paragraph.innerHTML = `
-                <span>Марка: ${carData.mark}</span>
-                <span>Модель: ${carData.model}</span>
-                <span>Год выпуска: ${carData.model_year}</span>
-                <span>Тип двигателя: ${carData.engine_type}</span>
-                <span>Объем двигателя: ${carData.engine_volume}</span>
-                <span>Пробег: ${carData.mileage}</span>
-                <span>Коробка передач: ${carData.transmission}</span>
-                <span>Стоимость: ${carData.amount}</span>
-                <span>Тип кузова: ${carData.body}</span>
-                <span>Цвет: ${carData.color}</span>
-                <span>Цилиндры: ${carData.cylinders}</span>
-            `;
-        });
-    })
-    .catch(error => {
-        console.error('Ошибка при получении данных о машинах:', error);
-    });*/

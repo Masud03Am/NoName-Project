@@ -199,6 +199,24 @@ label {
   color: #eee;
 }
 
+.change-password-btn {
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 24px;
+  margin: 12px 0 24px;
+  border: 2px solid #6b7280;
+  border-radius: 5px;
+  background-color: #f6f6f6;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.change-password-btn:hover {
+  background-color: #000;
+  color: #eee;
+}
+
 /* Links */
 
 .links {

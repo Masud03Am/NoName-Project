@@ -241,9 +241,8 @@
                         <div class="form-group">
                             <label for="category">Категория Магазина</label>
                             <select id="category" name="category" class="form-input" required>
-                                <!-- Options will be populated here by JavaScript -->
-                                <option value="default">Выберите категорию</option>
-                                <option value="Досуг">Досуг</option>
+                                <option value="">Досуг</option>
+                                <option value="">Досуг</option>
                                 <option value="">Досуг</option>
                             </select>
                         </div>
@@ -291,8 +290,7 @@
                         <div class="form-group">
                             <label for="category">Категория Магазина</label>
                             <select id="category" name="category" class="form-input" required>
-                                <option value="default">Выберите категорию</option>
-                                <option value="Досуг">Досуг</option>
+                                <option value="">Выберите категорию</option>
                             </select>
                         </div>
                         <button type="submit" class="form-submit">Сохранить Изменения</button>
@@ -634,7 +632,7 @@
                     <div class="cardHeader">
                         <h2>Добавить новый автомобиль</h2> 
                     </div>
-                    <form id="addCarsForm">
+                    <form id="addCarsForm" aria-label="Добавить новую машину">
                         <div class="form-group">
                             <label for="mark">Марка</label>
                             <input type="text" id="mark" name="mark" class="form-input" required>
@@ -691,7 +689,7 @@
                     <div class="cardHeader">
                         <h2>Удалить автомобиль</h2> 
                     </div>
-                    <form id="deleteCarsForm">
+                    <form id="deleteCarsForm" aria-label="Удалить машину">
                         <div class="form-group">
                             <label for="id">ID автомобиля:</label>
                             <input style="width: 88%;" type="text" id="id" name="id" class="form-input" required>
@@ -874,7 +872,7 @@
                 <div class="dialog-block">
                   <h2>Вы уверены, что хотите выйти ?</h2>
                   <div class="controls">
-                    <a href="./adminForm.html" class="button">Выйти</a>
+                    <a href="./login.html" class="button">Выйти</a>
                     <a data-dialog-action="cancel" href="" class="button">Назад</a>
                   </div>
                 </div>

@@ -7,10 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // Декодирование токена и извлечение роли
-    const decodedToken = parseJwt(authToken);
-    const userRole = decodedToken.role;
-
     // Функция для декодирования JWT
     function parseJwt(token) {
         const base64Url = token.split('.')[1];
@@ -18,22 +14,134 @@ document.addEventListener('DOMContentLoaded', function () {
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
-
         return JSON.parse(jsonPayload);
     }
+
+    // Декодирование токена и извлечение роли
+    const decodedToken = parseJwt(authToken);
+    const userRole = decodedToken.user_role;
 
     // Управление видимостью элементов на основе роли пользователя
     function manageVisibilityBasedOnRole() {
         if (userRole === 'admin') {
-            // Показываем или скрываем элементы для роли администратора
+            // Показываем элементы для роли администратора
             document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
         } else {
-            // Показываем или скрываем элементы для других ролей
+            // Скрываем элементы для других ролей
             document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
         }
     }
 
     manageVisibilityBasedOnRole();
+
+    let currentPage = 1;
+    const usersList = document.getElementById('usersList');
+    const pagination = document.getElementById('pagination');
+
+    // Загрузка пользователей
+    function loadUsers(page = 1) {
+        const options = {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
+            }
+        };
+    
+        fetch(`http://185.121.2.208/hi-usa/private/user/getAll?page=${page}`, options)
+            .then(response => response.json().then(data => ({status: response.status, body: data})))
+            .then(({status, body}) => {
+                if (status !== 200) {
+                    throw new Error(`Ошибка ${status}: ${body.message}`);
+                }
+                const users = Array.isArray(body.records) ? body.records : [];
+                renderUsers(users);
+                renderPagination(body.totalPages, page);
+            })
+            .catch(error => {
+                console.error('Возникла проблема с операцией получения:', error);
+                alert('Ошибка при загрузке списка пользователей. Пожалуйста, попробуйте снова.');
+            });
+    }
+
+    // Отображение пользователей
+    function renderUsers(users) {
+        usersList.innerHTML = '';
+        if (Array.isArray(users)) {
+            users.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'users-item';
+                userItem.innerHTML = `
+                    <div class="table-item noflex">${user.id}</div>
+                    <div class="table-item">${user.email}</div>
+                    <div class="table-item">${user.username}</div>
+                    <div class="table-item">${user.userRole}</div>
+                    <div class="table-item">${user.orderCount}</div>
+                `;
+                usersList.appendChild(userItem);
+            });
+        } else {
+            console.error('Данные пользователей не являются массивом:', users);
+        }
+    }
+
+    // Отображение пагинации
+    function renderPagination(totalPages, currentPage) {
+        pagination.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement('li');
+            pageItem.className = i === currentPage ? 'active' : '';
+            pageItem.textContent = i;
+            pageItem.addEventListener('click', () => loadUsers(i));
+            pagination.appendChild(pageItem);
+        }
+    }
+
+    // События для кнопок пагинации
+    document.getElementById('previous').addEventListener('click', () => {
+        if (currentPage > 1) {
+            loadUsers(--currentPage);
+        }
+    });
+
+    document.getElementById('next').addEventListener('click', () => {
+        loadUsers(++currentPage);
+    });
+
+    document.getElementById('loadAllUsersBtn').addEventListener('click', (event) => {
+        event.preventDefault();
+        loadUsers(1);
+    });
+
+    // Событие для формы изменения роли пользователя
+    document.getElementById('RoleUsersForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const userEmail = document.getElementById('userEmail').value;
+        const newRole = document.getElementById('role').value;
+
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: userEmail, role: newRole })
+        };
+
+        fetch('http://185.121.2.208/hi-usa/private/user/raise', options)
+            .then(response => response.json().then(data => ({status: response.status, body: data})))
+            .then(({status, body}) => {
+                if (status !== 200) {
+                    throw new Error(`Ошибка ${status}: ${body.message}`);
+                }
+                alert('Уровень пользователя успешно изменен.');
+                loadUsers(currentPage); // Перезагружаем текущую страницу
+            })
+            .catch(error => {
+                console.error('Возникла проблема с операцией получения:', error);
+                alert('Ошибка при изменении уровня пользователя. Пожалуйста, попробуйте снова.');
+            });
+    });
 
     // Добавление нового магазина
     const addStoreForm = document.getElementById('addStoreForm');
@@ -49,16 +157,12 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: formData,
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                });
+        .then(response => response.json().then(data => ({status: response.status, body: data})))
+        .then(({status, body}) => {
+            if (status !== 200) {
+                throw new Error(`Ошибка ${status}: ${body.message}`);
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Успешный ответ:', data);
+            console.log('Успешный ответ:', body);
             // Обработка успешного ответа от сервера
         })
         .catch(error => {
@@ -68,6 +172,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Загрузка категорий
+    document.addEventListener('DOMContentLoaded', () => {
+        loadCategories();
+    });
+    
     function loadCategories() {
         fetch('http://185.121.2.208/hi-usa/private/category/getAll', {
             method: 'GET',
@@ -76,17 +184,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                });
+        .then(response => response.json().then(data => ({status: response.status, body: data})))
+        .then(({status, body}) => {
+            if (status !== 200) {
+                throw new Error(`Ошибка ${status}: ${body.message}`);
             }
-            return response.json();
-        })
-        .then(data => {
+    
+            // Логируем полученные данные для отладки
+            console.log('Ответ от API для категорий:', body);
+    
+            // Извлекаем массив категорий из свойства data
+            const categories = body.data;
+            if (!Array.isArray(categories)) {
+                throw new Error('Полученные категории не являются массивом');
+            }
+    
             const categorySelect = document.getElementById('category');
-            data.forEach(category => {
+            categorySelect.innerHTML = ''; // Очищаем текущие опции
+            categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category.id;
                 option.textContent = category.name;
@@ -97,8 +212,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Ошибка при загрузке категорий:', error);
         });
     }
-
-    loadCategories();
 
     // Редактирование магазина
     const editStoreForm = document.getElementById('editStoreForm');
@@ -128,16 +241,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                });
+        .then(response => response.json().then(data => ({status: response.status, body: data})))
+        .then(({status, body}) => {
+            if (status !== 200) {
+                throw new Error(`Ошибка ${status}: ${body.message}`);
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Успешный ответ:', data);
+            console.log('Успешный ответ:', body);
             // Обработка успешного ответа от сервера
         })
         .catch(error => {
@@ -159,19 +268,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Accept': 'application/json'
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                });
+        .then(response => response.json().then(data => ({status: response.status, body: data})))
+        .then(({status, body}) => {
+            if (status !== 200) {
+                throw new Error(`Ошибка ${status}: ${body.message}`);
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Успешный ответ:', data);
+            console.log('Успешный ответ:', body);
             storeList.innerHTML = '';
-            if (data.code === 0 && Array.isArray(data.data)) {
-                data.data.forEach(store => {
+            if (body.code === 0 && Array.isArray(body.data)) {
+                body.data.forEach(store => {
                     const storeItem = document.createElement('a');
                     storeItem.href = `store-settings.html?store=${store.id}`;
                     storeItem.classList.add('list-group-item', 'list-group-item-action');
@@ -189,13 +294,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Установка названия магазина в форме редактирования при клике на магазин
-    const storeLinks = document.querySelectorAll('.list-group-item-action');
-    storeLinks.forEach(link => {
-        link.addEventListener('click', function (event) {
+    storeList.addEventListener('click', function (event) {
+        if (event.target.classList.contains('list-group-item-action')) {
             event.preventDefault();
             window.location.href = "#editStoreForm";
-            const storeName = this.textContent.trim().split(' ')[1];
+            const storeId = event.target.href.split('store=')[1];
+            document.getElementById('storeId').value = storeId;
+            const storeName = event.target.textContent.trim().split(' ')[1];
             document.getElementById('storeName').value = storeName;
-        });
+        }
     });
+
+    loadUsers(currentPage); // Initial load
 });
