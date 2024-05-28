@@ -30,16 +30,15 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 const token = data.message;
                 alert('Успешный вход! Ваш токен: ' + token);
                 
+                // Сохранение токена в куки
+                document.cookie = `authToken=${token}; path=/;`;
+                
                 // Распарсим токен
                 const claims = parseJwt(token);
                 
                 if (claims) {
                     console.log('Claims:', claims); // Добавлено для отладки
 
-                    // Сохраняем токен и роль в localStorage
-                    localStorage.setItem('authToken', token);
-                    localStorage.setItem('userRole', claims.user_role);
-                    
                     // Перенаправляем на страницу в зависимости от роли
                     if (claims.user_role === 'admin') {
                         window.location.href = "/adminPanel.html";

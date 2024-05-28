@@ -3,14 +3,13 @@ document.getElementById('contact-form-main').addEventListener('submit', function
     
     // Получение значений полей формы
     const companyName = document.getElementById('company_name').value.trim();
-    const userName = document.getElementById('user_name').value.trim();
     const bossName = document.getElementById('boss_name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const messageDiv = document.getElementById('message');
 
     // Валидация полей формы
-    if (!companyName || !userName || !bossName || !email || !phone) {
+    if (!companyName || !bossName || !email || !phone) {
         messageDiv.textContent = 'Пожалуйста, заполните все поля.';
         messageDiv.className = 'error';
         return;
@@ -21,8 +20,7 @@ document.getElementById('contact-form-main').addEventListener('submit', function
         ceo_name: bossName,
         email: email,
         org_name: companyName,
-        phone: phone,
-        sender_name: userName
+        phone: phone
     };
 
     // Отключение кнопки отправки и добавление индикатора загрузки

@@ -324,16 +324,55 @@
 
     <!-- All JavaScript files
     ================================================== -->
+
+    <script src="assets/js/fetchs/fetchAddPartner.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
 
     <!-- Plugins for this webpage(NoName) -->
     <script src="assets/js/jquery-plugin-collection.js"></script>
 
-    <!-- ImaskJs-for Country_Phone_Code -->
-    <script src="https://unpkg.com/imask"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/7.6.0/imask.min.js" integrity="sha512-nTNcq3y76KV0waC+4blkE81acF83+Q0wmdNlDfpXgzpswh6FbhemEYoIV3TH+tOhadNeviCA+WPD5FEuXeF6mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/JavaScript">
 
-    <script src="assets/js/fetchs/fetchAddPartner.js"></script>
+        /*==========================================================================
+        ImaskJs-for Country_Phone_Code
+        ==========================================================================*/
+
+    $(document).ready(function() {
+        const element = document.getElementById('phone');
+        const masks = {
+            'TJ': {
+                mask: '{992}(00)0000000',
+                lazy: false,
+            },
+            'KZ': {
+                mask: '{7}(000)0000000',
+                lazy: false,
+            },
+            'UZ': {
+                mask: '{998}(00)0000000',
+                lazy: false,
+            },
+            'RU': {
+                mask: '{7}(000)0000000',
+                lazy: false,
+            },
+        };
+    
+        const maskOptions = masks['TJ']; // Default mask options for initial load
+    
+        // Initialize mask
+        const mask = IMask(element, maskOptions);
+    
+        // Change mask and set country code when country selection changes
+        $("#country").change(function() {
+            const countryCode = $(this).val();
+            mask.updateOptions(masks[countryCode]); // Update mask options
+            $("#phone").val(countryCode); // Set country code in input field
+        });
+    });
+    </script>
 
     <!-- Custom script for this webpage(NoName) -->
     <script src="assets/js/script.js"></script>

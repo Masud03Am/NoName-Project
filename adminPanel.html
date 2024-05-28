@@ -241,9 +241,7 @@
                         <div class="form-group">
                             <label for="category">Категория Магазина</label>
                             <select id="category" name="category" class="form-input" required>
-                                <option value="">Досуг</option>
-                                <option value="">Досуг</option>
-                                <option value="">Досуг</option>
+                                <option value="">Выберите категорию</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -683,6 +681,7 @@
                         </div>
                         <button style="background-color: rgb(59, 175, 59);" type="submit" class="form-submit">Отправить</button>
                     </form>
+                    <div id="addCarMessage"></div>
                 </div>
 
                 <div class="recentOrders">
@@ -723,105 +722,32 @@
                             </thead>
                             <tbody id="carsTableBody">
                                 <tr>
-                                    <td>ID</td>
-                                    <td>Марка</td>
-                                    <td>Модель</td>
-                                    <td>Год выпуска</td>
-                                    <td>Тип кузова</td>
-                                    <td>Тип двигателя</td>
-                                    <td>Объем двигателя</td>
-                                    <td>Коробка передач</td>
-                                    <td>Пробег</td>
-                                    <td>Цвет</td>
-                                    <td>Цилиндры</td>
-                                    <td>Количество</td>
-                                </tr>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Марка</td>
-                                    <td>Модель</td>
-                                    <td>Год выпуска</td>
-                                    <td>Тип кузова</td>
-                                    <td>Тип двигателя</td>
-                                    <td>Объем двигателя</td>
-                                    <td>Коробка передач</td>
-                                    <td>Пробег</td>
-                                    <td>Цвет</td>
-                                    <td>Цилиндры</td>
-                                    <td>Количество</td>
-                                </tr>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Марка</td>
-                                    <td>Модель</td>
-                                    <td>Год выпуска</td>
-                                    <td>Тип кузова</td>
-                                    <td>Тип двигателя</td>
-                                    <td>Объем двигателя</td>
-                                    <td>Коробка передач</td>
-                                    <td>Пробег</td>
-                                    <td>Цвет</td>
-                                    <td>Цилиндры</td>
-                                    <td>Количество</td>
-                                </tr>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Марка</td>
-                                    <td>Модель</td>
-                                    <td>Год выпуска</td>
-                                    <td>Тип кузова</td>
-                                    <td>Тип двигателя</td>
-                                    <td>Объем двигателя</td>
-                                    <td>Коробка передач</td>
-                                    <td>Пробег</td>
-                                    <td>Цвет</td>
-                                    <td>Цилиндры</td>
-                                    <td>Количество</td>
-                                </tr>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Марка</td>
-                                    <td>Модель</td>
-                                    <td>Год выпуска</td>
-                                    <td>Тип кузова</td>
-                                    <td>Тип двигателя</td>
-                                    <td>Объем двигателя</td>
-                                    <td>Коробка передач</td>
-                                    <td>Пробег</td>
-                                    <td>Цвет</td>
-                                    <td>Цилиндры</td>
-                                    <td>Количество</td>
-                                </tr>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Марка</td>
-                                    <td>Модель</td>
-                                    <td>Год выпуска</td>
-                                    <td>Тип кузова</td>
-                                    <td>Тип двигателя</td>
-                                    <td>Объем двигателя</td>
-                                    <td>Коробка передач</td>
-                                    <td>Пробег</td>
-                                    <td>Цвет</td>
-                                    <td>Цилиндры</td>
-                                    <td>Количество</td>
-                                </tr>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>Марка</td>
-                                    <td>Модель</td>
-                                    <td>Год выпуска</td>
-                                    <td>Тип кузова</td>
-                                    <td>Тип двигателя</td>
-                                    <td>Объем двигателя</td>
-                                    <td>Коробка передач</td>
-                                    <td>Пробег</td>
-                                    <td>Цвет</td>
-                                    <td>Цилиндры</td>
-                                    <td>Количество</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div id="pagination" class="pagination">
+                            <button class="pag-btn" id="previous">Пред.</button>
+                            <ul class="ul-pag">
+                              <li class="active">1</li>
+                              <li>2</li>
+                              <li>3</li>
+                              <li>4</li>
+                              <li>5</li>
+                            </ul>
+                            <button class="pag-btn" id="next">След.</button>
+                        </div>
                     </div>
                 </div>
             </div>
