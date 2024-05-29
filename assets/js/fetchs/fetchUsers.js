@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Проверяем, есть ли токен в localStorage
-    const authToken = localStorage.getItem('authToken');
-    if (!authToken) {
+    // Проверяем, есть ли токен и роль пользователя в куках
+    const authToken = getCookie('authToken');
+    const userRole = getCookie('userRole');
+
+    // Если токена или роли нет, перенаправляем на страницу логина
+    if (!authToken || userRole !== 'admin') {
         window.location.href = "/login.html";
         return;
     }
@@ -9,6 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentPage = 1;
     const usersList = document.getElementById('usersList');
     const pagination = document.getElementById('pagination');
+
+    // Функция для получения куки по имени
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
 
     // Загрузка пользователей
     function loadUsers(page = 1) {
@@ -19,13 +30,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             }
         };
-    
+
         fetch(`http://185.121.2.208/hi-usa/private/user/getAll?page=${page}`, options)
-            .then(response => response.json().then(data => ({status: response.status, body: data})))
-            .then(({status, body}) => {
-                if (status !== 200) {
-                    throw new Error(`Ошибка ${status}: ${body.message}`);
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    });
                 }
+                return response.json();
+            })
+            .then(body => {
                 const users = Array.isArray(body.records) ? body.records : [];
                 renderUsers(users);
                 renderPagination(body.totalPages, page);
@@ -59,13 +74,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Отображение пагинации
     function renderPagination(totalPages, currentPage) {
-        pagination.innerHTML = '';
+        const ulPag = pagination.querySelector('.ul-pag');
+        ulPag.innerHTML = '';
         for (let i = 1; i <= totalPages; i++) {
             const pageItem = document.createElement('li');
             pageItem.className = i === currentPage ? 'active' : '';
             pageItem.textContent = i;
-            pageItem.addEventListener('click', () => loadUsers(i));
-            pagination.appendChild(pageItem);
+            pageItem.addEventListener('click', () => {
+                loadUsers(i);
+                currentPage = i;
+            });
+            ulPag.appendChild(pageItem);
         }
     }
 
@@ -101,16 +120,20 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         fetch('http://185.121.2.208/hi-usa/private/user/raise', options)
-            .then(response => response.json().then(data => ({status: response.status, body: data})))
-            .then(({status, body}) => {
-                if (status !== 200) {
-                    throw new Error(`Ошибка ${status}: ${body.message}`);
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
+                    });
                 }
+                return response.json();
+            })
+            .then(body => {
                 alert('Уровень пользователя успешно изменен.');
                 loadUsers(currentPage); // Перезагружаем текущую страницу
             })
             .catch(error => {
-                console.error('Возникла проблема с операцией получения:', error);
+                console.error('Возникла проблема с операцией изменения:', error);
                 alert('Ошибка при изменении уровня пользователя. Пожалуйста, попробуйте снова.');
             });
     });

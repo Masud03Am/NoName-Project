@@ -38,6 +38,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                 
                 if (claims) {
                     console.log('Claims:', claims); // Добавлено для отладки
+                    
+                    // Сохранение роли пользователя в куки
+                    document.cookie = `userRole=${claims.user_role}; path=/;`;
 
                     // Перенаправляем на страницу в зависимости от роли
                     if (claims.user_role === 'admin') {

@@ -4,8 +4,7 @@ document.getElementById('otpForm').addEventListener('submit', function(event) {
     const formData = new FormData(event.target);
     const data = {
         email: document.querySelector('input[name="email"]').value,
-        code: formData.get('otp'),
-        password: document.querySelector('input[name="password"]').value
+        code: formData.get('otpCode')
     };
 
     const options = {
@@ -28,6 +27,7 @@ document.getElementById('otpForm').addEventListener('submit', function(event) {
         .then(data => {
             console.log('Успех:', data);
             alert('Успешная регистрация! Ваш аккаунт был создан.');
+            window.location.href = './login.html';
         })
         .catch(error => {
             console.error('Возникла проблема с операцией получения:', error);
