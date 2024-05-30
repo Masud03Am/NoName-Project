@@ -83,15 +83,18 @@ document.addEventListener('DOMContentLoaded', function () {
     function createCategory(categoryName) {
         const authToken = getCookie('authToken'); // Получаем токен из куки
         return new Promise((resolve, reject) => {
-            fetch('http://185.121.2.208/hi-usa/private/category/add', {
+            fetch(`http://185.121.2.208/hi-usa/private/category/add?name=${encodeURIComponent(categoryName)}`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify({ name: categoryName })
+                }
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => { throw new Error(err.message); });
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.code === 0) {
                     resolve();
@@ -192,4 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (parts.length === 2) return parts.pop().split(';').shift();
         return null;
     }
+
+    // Привязываем функцию addCategory к кнопке добавления новой категории
+    document.getElementById('addCategoryButton').addEventListener('click', addCategory);
 });

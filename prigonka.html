@@ -85,25 +85,14 @@
                             <li class="menu-item">
                                 <a href="./prigonka.html">Авто-Карго</a>
                             </li>
-                            <li class="menu-item-1">
+                            <li id="loginRegister" class="menu-item-1">
                                 <a href="./login.html">Войти / Регистрация</a>
                             </li>
                         </ul>
                     </div><!-- end of nav-collapse -->
 
                     <div class="search-contact">
-                        <!--<div class="header-search-form-wrapper">
-                            <button class="search-toggle-btn"><i class="ti-search"></i></button>
-                            <div class="header-search-form">
-                                <form>
-                                    <div>
-                                        <input type="text" class="form-control" placeholder="Поиск ...">
-                                        <button type="submit"><i class="ti-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>-->
-                        <div class="contact-btn">
+                        <div id="loginRegisterBtnSearch" class="contact-btn">
                             <a href="./login.html" class="theme-btn">Войти / Регистрация</a>
                         </div>
                     </div>
@@ -148,38 +137,9 @@
                 <div class="row">
                     <div class="col col-xs-12">
                         <div class="cars-grids cars-slider" id="cars-slider">
-                            <div class="grid" id="car-1">
-                                <a href="./404.html"><img src="assets/images/partners/img-1.jpg" alt=""></a>
-                                <p style="text-align: left; padding: 5px;"> <span>Марка:<br></span> <span>Модель:<br></span> <span>Год выпуска:<br></span> 
-                                    <span>Тип двигателя:<br></span> <span>Объем двигателя:<br></span> <span>Пробег:<br></span> <span>Коробка передач:<br></span>
-                                    <span>Стоимость:<br></span> <span>Тип кузова:<br></span> <span>Цвет:<br></span> <span>Цилиндры:<br></span></p>
-                            </div>
-                            <div class="grid" id="car-2">
-                                <a href="./404.html"><img src="assets/images/partners/img-2.jpg" alt=""></a>
-                                <p style="text-align: left; padding: 5px;"> <span>Марка:<br></span> <span>Модель:<br></span> <span>Год выпуска:<br></span> 
-                                    <span>Тип двигателя:<br></span> <span>Объем двигателя:<br></span> <span>Пробег:<br></span> <span>Коробка передач:<br></span>
-                                    <span>Стоимость:<br></span> <span>Тип кузова:<br></span> <span>Цвет:<br></span> <span>Цилиндры:<br></span></p>
-                            </div>
-                            <div class="grid" id="car-3">
-                                <a href="./404.html"><img src="assets/images/partners/img-3.jpg" alt=""></a>
-                                <p style="text-align: left; padding: 5px;"> <span>Марка:<br></span> <span>Модель:<br></span> <span>Год выпуска:<br></span> 
-                                    <span>Тип двигателя:<br></span> <span>Объем двигателя:<br></span> <span>Пробег:<br></span> <span>Коробка передач:<br></span>
-                                    <span>Стоимость:<br></span> <span>Тип кузова:<br></span> <span>Цвет:<br></span> <span>Цилиндры:<br></span></p>
-                            </div>
-                            <div class="grid" id="car-4">
-                                <a href="./404.html"><img src="assets/images/partners/img-4.jpg" alt=""></a>
-                                <p style="text-align: left; padding: 5px;"> <span>Марка:<br></span> <span>Модель:<br></span> <span>Год выпуска:<br></span> 
-                                    <span>Тип двигателя:<br></span> <span>Объем двигателя:<br></span> <span>Пробег:<br></span> <span>Коробка передач:<br></span>
-                                    <span>Стоимость:<br></span> <span>Тип кузова:<br></span> <span>Цвет:<br></span> <span>Цилиндры:<br></span></p>>
-                            </div>
-                            <div class="grid" id="car-5">
-                                <a href="./404.html"><img src="assets/images/partners/img-5.jpg" alt=""></a>
-                                <p style="text-align: left; padding: 5px;"> <span>Марка:<br></span> <span>Модель:<br></span> <span>Год выпуска:<br></span> 
-                                    <span>Тип двигателя:<br></span> <span>Объем двигателя:<br></span> <span>Пробег:<br></span> <span>Коробка передач:<br></span>
-                                    <span>Стоимость:<br></span> <span>Тип кузова:<br></span> <span>Цвет:<br></span> <span>Цилиндры:<br></span></p>
-                            </div>
+                            <!-- Автомобили будут добавляться здесь -->
                         </div>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="separator"></div>
             </div> <!-- end container -->
@@ -370,43 +330,49 @@
         /*==========================================================================
         ImaskJs-for Country_Phone_Code
         ==========================================================================*/
-
-    $(document).ready(function() {
-        const element = document.getElementById('phone');
-        const masks = {
-            'TJ': {
-                mask: '+{992}(00)000-0000',
-                lazy: false,
-            },
-            'KZ': {
-                mask: '+{7}(000)000-00-00',
-                lazy: false,
-            },
-            'UZ': {
-                mask: '+{998}(00)000-00-00',
-                lazy: false,
-            },
-            'RU': {
-                mask: '+{7}(000)000-00-00',
-                lazy: false,
-            },
-        };
     
-        const maskOptions = masks['TJ']; // Default mask options for initial load
+        $(document).ready(function() {
+            const element = document.getElementById('phone');
+            const masks = {
+                'TJ': {
+                    mask: '{992}(00)0000000',
+                    lazy: false,
+                },
+                'KZ': {
+                    mask: '{7}(000)0000000',
+                    lazy: false,
+                },
+                'UZ': {
+                    mask: '{998}(00)0000000',
+                    lazy: false,
+                },
+                'RU': {
+                    mask: '{7}(000)0000000',
+                    lazy: false,
+                },
+            };
     
-        // Initialize mask
-        const mask = IMask(element, maskOptions);
+            const maskOptions = masks['TJ']; // Default mask options for initial load
     
-        // Change mask and set country code when country selection changes
-        $("#country").change(function() {
-            const countryCode = $(this).val();
-            mask.updateOptions(masks[countryCode]); // Update mask options
-            $("#phone").val('+' + countryCode); // Set country code in input field
+            // Initialize mask
+            const mask = IMask(element, maskOptions);
+    
+            // Change mask and set country code when country selection changes
+            $("#country").change(function() {
+                const countryCode = $(this).val();
+                // Check if phone number is not empty
+                const phoneNumber = $("#phone").val().trim();
+                if (phoneNumber) {
+                    mask.updateOptions(masks[countryCode]); // Update mask options
+                    $("#phone").val(countryCode); // Set country code in input field
+                }
+            });
         });
-    });
-    </script>
+    </script>    
 
     <!-- Custom script for this webpage(NoName) -->
     <script src="assets/js/script.js"></script>
+
+    <script src="assets/js/fetchs/fetchAllCars.js"></script>
 </body>
 </html>

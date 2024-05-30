@@ -171,39 +171,35 @@
             <div data-page="stores" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Добавить новый магазин</h2> 
+                        <h2>Добавить новый магазин</h2>
                     </div>
                     <form id="addStoreForm">
                         <div class="form-group">
                             <label for="storeName">Название Магазина</label>
-                            <input type="text" id="storeName" name="storeName" class="form-input" required>
+                            <input type="text" id="storeName" name="name" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="storeDescription">Описание Магазина</label>
-                            <input type="text" id="storeDescription" name="storeDescription" class="form-input" required>
+                            <input type="text" id="storeDescription" name="description" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="storeLink">Ссылка На магазин</label>
-                            <input type="text" id="storeLink" name="storeLink" class="form-input" required>
+                            <input type="text" id="storeLink" name="link" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="category">Категория Магазина</label>
-                            <select id="category" name="category" class="form-input" required>
+                            <select id="category" name="category_id" class="form-input" required>
                                 <option value="">Выберите категорию</option>
                                 <!-- Опции категорий будут загружены с помощью JavaScript -->
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="createCategory">Создать Категорию</label>
-                            <input type="text" id="createCategory" name="createCategory" class="form-input" required>
-                        </div>
-                        <div class="form-group">
                             <label for="icon">Изображение/Иконка</label>
-                            <input type="file" id="icon" name="icon" class="form-input">
+                            <input type="file" id="icon" name="file" class="form-input">
                         </div>
                         <button type="submit" class="form-submit">Отправить</button>
                     </form>
-                </div>
+                </div>                
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Список всех магазинов</h2>
@@ -268,7 +264,7 @@
                     </ul>
                     <div class="addCategory">
                         <input style="width: 100%; margin-bottom: 0.7rem;" type="text" id="newCategoryName" placeholder="Новая категория" class="form-input">
-                        <button onclick="addCategory()" class="form-submit">Добавить</button>
+                        <button id="addCategoryButton" class="form-submit">Добавить</button>
                     </div>
                 </div>
                 
@@ -385,51 +381,6 @@
 
             <!-- ================ Order Details List ================= -->
             <div style="grid-template-columns: 1fr;" data-page="partners" class="details">
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Список Партнеров</h2>
-                    </div>
-                    <div class="partnersList">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Имя</th>
-                                    <th>Email</th>
-                                    <th>Телефон</th>
-                                    <th>Страна</th>
-                                    <th>Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <button onclick="editPartner(1)">Редактировать</button>
-                                        <button onclick="deletePartner(1)">Удалить</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>   
-                <!-- Модальное окно для редактирования партнера -->
-                <div id="editPartnerModal" style="display: none;">
-                    <h3>Редактировать Партнера</h3>
-                    <form>
-                        <label for="partnerName">Имя:</label>
-                        <input type="text" id="partnerName" name="partnerName">
-                        <label for="partnerEmail">Email:</label>
-                        <input type="email" id="partnerEmail" name="partnerEmail">
-                        <label for="partnerPhone">Телефон:</label>
-                        <input type="text" id="partnerPhone" name="partnerPhone">
-                        <label for="partnerCountry">Страна:</label>
-                        <input type="text" id="partnerCountry" name="partnerCountry">
-                        <button type="submit">Сохранить</button>
-                    </form>
-                </div> 
                 <!-- Заявки на партнерство -->
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -439,6 +390,12 @@
                         <ul id="partnerRequestsList">
                             <!-- Динамически генерируемый список заявок -->
                         </ul>
+                        <div class="requestsActions">
+                            <input type="file" id="someFileInput" style="display: none;"> <!-- Инпут для выбора файла при принятии заявки -->
+                        </div>
+                        <div id="rejectedMessages" style="display: none;">
+                            <p>ДАННАЯ ЗАЯВКА БЫЛА ОТКЛОНЕНА</p>
+                        </div>
                     </div>
                 </div>
                 <!-- Данные Партнеров -->
@@ -461,28 +418,45 @@
                                 <!-- Динамически генерируемые данные партнера -->
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Добавления партнёра в ручную</h2>
+                    </div>
+                    <div class="partnerData">
                         <form class="" action="" id="addPartnerForm" enctype="multipart/form-data">
-                            <input type="hidden" id="partnerId" name="id">
+                            <input type="hidden" id="partnerId" name="id" required>
                             <div class="form-group">
                                 <label for="ceo_name">Имя Дир. Орг.</label>
-                                <input class="form-input" type="text" id="addCeoName" name="ceo_name" placeholder="Имя Дир. Орг." required>
+                                <input class="form-input" type="text" id="addCeoName" name="ceo_name" placeholder="Имя Дир. Орг.*" required>
                             </div>
                             <div class="form-group">
-                                <label for="ceo_name">Название Организации</label>
-                                <input class="form-input" type="text" id="addOrgName" name="org_name" placeholder="Название Организации" required>
+                                <label for="org_name">Название Организации</label>
+                                <input class="form-input" type="text" id="addOrgName" name="org_name" placeholder="Название Организации*" required>
                             </div>
                             <div class="form-group">
-                                <label for="ceo_name">Email</label>
-                                <input class="form-input" type="email" id="addEmail" name="email" placeholder="Email" required>
+                                <label for="email">Email</label>
+                                <input class="form-input" type="email" id="addEmail" name="email" placeholder="Email*" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Телефон</label>
-                                <input class="form-input" type="text" id="addPhone" name="phone" placeholder="Телефон" required>
+                                <input class="form-input" type="text" id="addPhone" name="phone" placeholder="Телефон*" required>
                             </div>
                             <div class="form-group">
                                 <label for="country">Страна</label>
-                                <input class="form-input" type="text" id="addCountry" name="country" placeholder="Страна" required>
+                                <input class="form-input" type="text" id="addCountry" name="country" placeholder="Страна*" required>
                             </div>
+                            <div class="form-group">
+                                <label for="status">Статус</label>
+                                <select class="form-input" id="addStatus" name="status" required>
+                                    <option value="pending">Pending</option>
+                                    <option value="accept">Accepted</option>
+                                    <option value="reject">Rejected</option>
+                                </select>
+                            </div>
+                            <!-- Скрытое поле command -->
+                            <input type="hidden" id="addCommand" name="command">
                             <div class="form-group">
                                 <label for="file">Файл</label>
                                 <input type="file" id="addFile" name="file">
@@ -490,7 +464,48 @@
                             <button type="submit">Добавить нового партнера</button>
                         </form>
                     </div>
+                </div>    
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Список Партнеров</h2>
+                    </div>
+                    <div class="partnersList">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Имя</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
+                                    <th>Страна</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="partnersTableBody">
+                                <!-- Партнеры будут добавлены сюда -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                
+                <!-- Модальное окно для редактирования партнера -->
+                <div id="editPartnerModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closeModal()">&times;</span>
+                        <h2>Редактировать Партнера</h2>
+                        <form id="editPartnerForm">
+                            <input type="hidden" id="partnerId">
+                            <label for="partnerName">Имя:</label>
+                            <input type="text" id="partnerName" name="partnerName" class="form-input" required>
+                            <label for="partnerEmail">Email:</label>
+                            <input type="email" id="partnerEmail" name="partnerEmail" class="form-input" required>
+                            <label for="partnerPhone">Телефон:</label>
+                            <input type="text" id="partnerPhone" name="partnerPhone" class="form-input" required>
+                            <label for="partnerCountry">Страна:</label>
+                            <input type="text" id="partnerCountry" name="partnerCountry" class="form-input" required>
+                            <button class="form-submit" type="submit">Сохранить</button>
+                        </form>
+                    </div>
+                </div>                     
             </div>
 
             <!-- ================ Order Details List ================= -->
@@ -661,6 +676,61 @@
                         </div>
                     </div>
                 </div>
+                <!-- Feedback List Section -->
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Список Фидбеков</h2>
+                    </div>
+                    <div class="feedbackList">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Имя</th>
+                                    <th>Email</th>
+                                    <th>Телефон</th>
+                                    <th>Тема</th>
+                                    <th>Сообщение</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedbackTableBody">
+                                <!-- Динамически генерируемые данные фидбеков -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Модальное окно для редактирования фидбека -->
+                <div id="editFeedbackModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closeModal()">&times;</span>
+                        <h2>Редактировать Фидбек</h2>
+                        <form id="editFeedbackForm">
+                            <label for="feedbackName">Имя:</label>
+                            <input type="text" id="feedbackName" name="feedbackName" class="form-input" required>
+                            <label for="feedbackEmail">Email:</label>
+                            <input type="email" id="feedbackEmail" name="feedbackEmail" class="form-input" required>
+                            <label for="feedbackPhone">Телефон:</label>
+                            <input type="text" id="feedbackPhone" name="feedbackPhone" class="form-input" required>
+                            <label for="feedbackTheme">Тема:</label>
+                            <input type="text" id="feedbackTheme" name="feedbackTheme" class="form-input" required>
+                            <label for="feedbackMessage">Сообщение:</label>
+                            <textarea id="feedbackMessage" name="feedbackMessage" class="form-input" required></textarea>
+                            <button class="form-submit" type="submit">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Модальное окно для подтверждения удаления фидбека -->
+                <div id="deleteFeedbackModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closeDeleteModal()">&times;</span>
+                        <h2>Удалить Фидбек</h2>
+                        <p>Вы уверены, что хотите удалить этот фидбек?</p>
+                        <button id="confirmDeleteFeedback" class="form-submit" type="button">Удалить</button>
+                        <button class="form-submit" type="button" onclick="closeDeleteModal()">Отмена</button>
+                    </div>
+                </div>
+
+
             </div>
 
             <div class="dialog">
@@ -723,8 +793,14 @@
     <script src="assets/js/fetchs/fetchUsers.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddStore.js"></script>
     <script src="assets/js/fetchs/fetchAdminCategory.js"></script>
-    <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
+    <script src="assets/js/fetchs/fetchAddCars.js"></script>
+    <script src="assets/js/fetchs/fetchAdminGetAndUpdatePartner.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddPartner.js"></script>
+    <script src="assets/js/fetchs/fetchAdminAllFeedBacks.js"></script>
+    
+    <!--<script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>-->
+    <!--<script src="assets/js/fetchs/fetchAdminAllStores.js"></script>-->
+    <!--<script src="assets/js/fetchs/fetchAdminAddPartner.js"></script>-->
     <!--<script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
     <script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>
     <script src="assets/js/fetchs/fetchAdminUpdateStores.js"></script>

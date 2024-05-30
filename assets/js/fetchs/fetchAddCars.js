@@ -7,6 +7,7 @@ function handleAddCarFormSubmit(event) {
     event.preventDefault();  // Предотвращаем отправку формы по умолчанию
 
     const formData = new FormData(event.target);
+
     const carData = {
         mark: formData.get('mark'),
         model: formData.get('model'),
@@ -37,6 +38,7 @@ function uploadIconAndAddCar(iconFile, carData) {
     const iconFormData = new FormData();
     iconFormData.append('icon', iconFile);
 
+    console.log('Отправка запроса на загрузку иконки');
     fetch('http://185.121.2.208/hi-usa/private/cars/uploadIcon', {
         method: 'POST',
         headers: {
@@ -44,14 +46,19 @@ function uploadIconAndAddCar(iconFile, carData) {
         },
         body: iconFormData
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Ответ от сервера для загрузки иконки:', response);
+        return response.json();
+    })
     .then(iconData => {
-        if (!iconData || !iconData.iconUrl) {
+        if (!iconData || !iconData.data) {
             throw new Error('Ошибка при загрузке иконки');
         }
-        carData.icon = iconData.iconUrl;
+        console.log('Иконка успешно загружена:', iconData.data);
+        carData.images = [iconData.data];
 
         // Now add the car data
+        console.log('Отправка запроса на добавление автомобиля');
         return fetch('http://185.121.2.208/hi-usa/private/cars/add', {
             method: 'POST',
             headers: {
@@ -62,11 +69,12 @@ function uploadIconAndAddCar(iconFile, carData) {
         });
     })
     .then(response => {
+        console.log('Ответ от сервера для добавления автомобиля:', response);
         if (!response.ok) {
             return response.json().then(errorData => {
                 throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
             });
-        }   
+        }
         return response.json();
     })
     .then(data => {

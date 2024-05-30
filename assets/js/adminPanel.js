@@ -49,3 +49,29 @@ btn.addEventListener('click', () => {
     }, 600)
 })
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+    const authToken = getCookie('authToken');
+    const userRole = getCookie('userRole');
+    const currentPage = window.location.pathname;
+
+    if (authToken) {
+        // Если пользователь авторизован
+        if (currentPage === '/login' || currentPage === '/register') {
+            window.location.href = '/404.html';
+        }
+    } else {
+        // Если пользователь не авторизован
+        if (currentPage === '/adminPanel') {
+            window.location.href = '/404.html';
+        }
+    }
+});
+
+// Функция для получения куки по имени
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}

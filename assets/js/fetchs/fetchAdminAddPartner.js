@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/login.html';
             return;
         }
+
         fetch('http://185.121.2.208/hi-usa/private/partner/request/get', {
             method: 'POST',
             headers: {
@@ -49,13 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderPartnerRequests(data.data);
             } else {
                 console.log('Нет активных заявок на партнерство');
-                // Дополнительные действия, если нет активных заявок
+                partnerRequestsList.innerHTML = '<li>Нет активных заявок на партнерство</li>';
             }
         })
         .catch(error => {
             console.error('Ошибка при получении заявок на партнерство:', error);
+            alert('Ошибка при получении заявок на партнерство. Пожалуйста, попробуйте снова.');
         });
-
     }
 
     function renderPartnerRequests(requests) {
@@ -83,13 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${request.country}</td>
             </tr>
         `;
-        // Заполнение формы данными партнера
         document.getElementById('partnerId').value = request.id;
         document.getElementById('addCeoName').value = request.ceo_name;
         document.getElementById('addOrgName').value = request.org_name;
         document.getElementById('addEmail').value = request.email;
         document.getElementById('addPhone').value = request.phone;
         document.getElementById('addCountry').value = request.country;
+        document.getElementById('addStatus').value = request.status || 'pending'; // Assuming 'pending' as a default status if not provided
     }
 
     addPartnerForm.addEventListener('submit', function(event) {
@@ -102,13 +103,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const formData = new FormData(addPartnerForm);
-        formData.append('command', 'accept');
         const id = formData.get('id');
+        const status = formData.get('status');
+        const command = formData.get('status') === 'accept' ? 'accept' : 'reject'; // Определение команды в зависимости от выбранного статуса
+        const file = formData.get('file');
 
+        // Проверяем, что необходимые поля заполнены
+        if (!id) {
+            alert('Ошибка: поле id не заполнено.');
+            return;
+        }
+        if (!status) {
+            alert('Ошибка: поле status не заполнено.');
+            return;
+        }
+
+        // Создаем объект данных для отправки
+        const data = {
+            command: command,
+            id: id,
+            status: status
+        };
+
+        if (command === 'accept') {
+            if (!file) {
+                alert('Ошибка: файл не выбран.');
+                return;
+            }
+            formData.append('file', file);
+        }
+
+        // Выполняем запрос на сервер
         fetch('http://185.121.2.208/hi-usa/private/partner/request/update', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`
             },
             body: formData
         })

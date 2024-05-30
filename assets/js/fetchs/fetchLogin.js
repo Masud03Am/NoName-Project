@@ -1,5 +1,13 @@
-document.getElementById('loginForm').addEventListener('submit', function(event) {
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
+
+    // Проверяем наличие токена в куках
+    const authToken = getCookie('authToken');
+    if (authToken) {
+        // Если токен уже есть, предотвращаем переход на страницу входа или регистрации
+        window.location.href = "/profile.html";
+        return;
+    }
 
     const formData = new FormData(event.target);
     const data = {
@@ -7,66 +15,51 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         password: formData.get('password')
     };
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    };
+    try {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
 
-    fetch('http://185.121.2.208/hi-usa/public/auth/login', options)
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Успех:', data);
-            if (data.message) {
-                const token = data.message;
-                alert('Успешный вход! Ваш токен: ' + token);
-                
-                // Сохранение токена в куки
-                document.cookie = `authToken=${token}; path=/;`;
-                
-                // Распарсим токен
-                const claims = parseJwt(token);
-                
-                if (claims) {
-                    console.log('Claims:', claims); // Добавлено для отладки
-                    
-                    // Сохранение роли пользователя в куки
-                    document.cookie = `userRole=${claims.user_role}; path=/;`;
+        const response = await fetch('http://185.121.2.208/hi-usa/public/auth/login', options);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
+        }
 
-                    // Перенаправляем на страницу в зависимости от роли
-                    if (claims.user_role === 'admin') {
-                        window.location.href = "/adminPanel.html";
-                    } else if (claims.user_role === 'user') {
-                        window.location.href = "/profile.html";
-                    } else {
-                        alert('Неизвестная роль пользователя');
-                    }
-                } else {
-                    alert('Ошибка при расшифровке токена.');
-                }
+        const responseData = await response.json();
+        console.log('Успех:', responseData);
+
+        const token = responseData.message;
+        document.cookie = `authToken=${token}; path=/;`;
+
+        const claims = parseJwt(token);
+        if (claims) {
+            console.log('Claims:', claims);
+            document.cookie = `userRole=${claims.user_role}; path=/;`;
+
+            if (claims.user_role === 'admin') {
+                window.location.href = "/adminPanel.html";
+            } else if (claims.user_role === 'user') {
+                window.location.href = "/profile.html";
             } else {
-                alert('Ошибка: токен не найден');
+                alert('Неизвестная роль пользователя');
             }
-        })
-        .catch(error => {
-            console.error('Возникла проблема с операцией получения:', error);
-            alert('Ошибка при входе. Пожалуйста, попробуйте снова.');
-        });
+        } else {
+            alert('Ошибка при расшифровке токена.');
+        }
+    } catch (error) {
+        console.error('Возникла проблема с операцией получения:', error);
+        alert('Ошибка при входе. Пожалуйста, попробуйте снова.');
+    }
 });
 
 // Функция для распарсивания JWT токена и извлечения информации о пользователе
 function parseJwt(token) {
     try {
-        // Используем jsrsasign для верификации и декодирования токена
         const secretKey = 'b*}y~IPYReC$';
         const isValid = KJUR.jws.JWS.verifyJWT(token, secretKey, { alg: ["HS256"] });
         if (!isValid) {
@@ -80,4 +73,12 @@ function parseJwt(token) {
         console.error('Ошибка при расшифровке токена:', err);
         return null;
     }
+}
+
+// Функция для получения куки по имени
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
 }

@@ -4619,6 +4619,9 @@ hr {
   .settings-opt{
     gap: 0;
   }
+  .fedex-row-body-1 {
+    height: 75rem !important;
+  }
 } 
 
 @media only screen and (max-width: 414px) {
@@ -5026,6 +5029,7 @@ hr {
 /*--------------------------------------------------------------
 modal
 --------------------------------------------------------------*/
+
 
 .modal-content-label {
   display: block;

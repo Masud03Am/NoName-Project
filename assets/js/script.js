@@ -582,13 +582,50 @@
         LOGOUT
     ==========================================================================*/
 
-    $(document).ready(function(){
+    document.addEventListener('DOMContentLoaded', function() {
+        // Получаем ссылку на кнопку "Войти / Регистрация" из блока навигации
+        const loginRegisterBtnNav = document.getElementById('loginRegister');
+        // Получаем ссылку на кнопку "Войти / Регистрация" из блока search-contact
+        const loginRegisterBtnSearch = document.getElementById('loginRegisterBtnSearch');
+    
+        // Проверяем, есть ли токен в куках
+        const token = getCookie('authToken');
+    
+        // Если токен есть, значит пользователь авторизован
+        if (token) {
+            // Заменяем текст кнопки на "Профиль" в блоке навигации
+            loginRegisterBtnNav.innerHTML = '<a href="./profile.html" class="theme-btn">Профиль</a>';
+            // Заменяем текст кнопки на "Профиль" в блоке search-contact
+            loginRegisterBtnSearch.innerHTML = '<a href="./profile.html" class="theme-btn">Профиль</a>';
+            loginRegisterBtnSearch.style.right = "4rem";
+        } else {
+            // Если токена нет, выводим сообщение в блоке навигации
+            loginRegisterBtnNav.innerHTML = '<a href="./login.html" class="theme-btn">Войти / Регистрация</a>';
+            // Если токена нет, выводим сообщение в блоке search-contact
+            loginRegisterBtnSearch.innerHTML = '<a href="./login.html" class="theme-btn">Войти / Регистрация</a>';
+        }
+
         // При клике на кнопку Log Out
         $("#LogOutBtn").click(function(){
-            // Перенаправление на страницу входа (login.html)
-            window.location.href = "login.html";
+            const authToken = getCookie('authToken');
+            if (authToken) {
+                // Удаляем данные из куки
+                document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                document.cookie = 'userRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                // Перенаправляем на страницу входа
+                window.location.href = "/login.html";
+            }
         });
-    });
+    
+        // Функция для получения значения cookie по имени
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+    });    
+
 
     /*==========================================================================
         WHEN DOCUMENT LOADING

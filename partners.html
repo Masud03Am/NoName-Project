@@ -85,25 +85,14 @@
                             <li class="menu-item">
                                 <a href="./prigonka.html">Авто-Карго</a>
                             </li>
-                            <li class="menu-item-1">
+                            <li id="loginRegister" class="menu-item-1">
                                 <a href="./login.html">Войти / Регистрация</a>
                             </li>
                         </ul>
                     </div><!-- end of nav-collapse -->
 
                     <div class="search-contact">
-                        <!--<div class="header-search-form-wrapper">
-                            <button class="search-toggle-btn"><i class="ti-search"></i></button>
-                            <div class="header-search-form">
-                                <form>
-                                    <div>
-                                        <input type="text" class="form-control" placeholder="Поиск ...">
-                                        <button type="submit"><i class="ti-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>-->
-                        <div class="contact-btn">
+                        <div id="loginRegisterBtnSearch" class="contact-btn">
                             <a href="./login.html" class="theme-btn">Войти / Регистрация</a>
                         </div>
                     </div>
@@ -191,9 +180,6 @@
                             <div>
                                 <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Огранизация*">
                             </div>
-                            <!--<div>
-                                <input type="text" class="form-control" name="user_name" id="user_name" placeholder="ФИО*">
-                            </div>-->
                             <div>
                                 <input type="text" class="form-control" name="boss_name" id="boss_name" placeholder="ФИО - Генерального Директора*">
                             </div>
@@ -201,7 +187,7 @@
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Эл. Адрес*">
                             </div>
                             <div>
-                                <select id="country" name="country" onchange="$()" class="form-control">
+                                <select id="country" name="country" class="form-control">
                                     <option disabled="disabled" selected>Страна</option>
                                     <option value="TJ">Таджикистан</option>
                                     <option value="KZ">Казахстан</option>
@@ -214,16 +200,9 @@
                             </div>  
                             <div class="submit-area">
                                 <button type="submit" class="theme-btn" id="submitPartnerForm">Отправить</button>
-                                <!--<div id="loader">
-                                    <i class="ti-reload"></i>
-                                </div> need for remaking--> 
                             </div>
-                            <!--<div class="clearfix error-handling-messages">
-                                <div id="success">Спасибо</div>
-                                <div id="error"> Ошибка, повторите ещё раз попозже. </div>
-                            </div> need for remaking-->
                         </form>
-                    </div>                   
+                    </div>                      
                 </div>
             </div> <!-- end container -->
         </section>
@@ -333,46 +312,51 @@
     <script src="assets/js/jquery-plugin-collection.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/7.6.0/imask.min.js" integrity="sha512-nTNcq3y76KV0waC+4blkE81acF83+Q0wmdNlDfpXgzpswh6FbhemEYoIV3TH+tOhadNeviCA+WPD5FEuXeF6mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script type="text/JavaScript">
 
         /*==========================================================================
         ImaskJs-for Country_Phone_Code
         ==========================================================================*/
-
-    $(document).ready(function() {
-        const element = document.getElementById('phone');
-        const masks = {
-            'TJ': {
-                mask: '{992}(00)0000000',
-                lazy: false,
-            },
-            'KZ': {
-                mask: '{7}(000)0000000',
-                lazy: false,
-            },
-            'UZ': {
-                mask: '{998}(00)0000000',
-                lazy: false,
-            },
-            'RU': {
-                mask: '{7}(000)0000000',
-                lazy: false,
-            },
-        };
     
-        const maskOptions = masks['TJ']; // Default mask options for initial load
+        $(document).ready(function() {
+            const element = document.getElementById('phone');
+            const masks = {
+                'TJ': {
+                    mask: '{992}(00)0000000',
+                    lazy: false,
+                },
+                'KZ': {
+                    mask: '{7}(000)0000000',
+                    lazy: false,
+                },
+                'UZ': {
+                    mask: '{998}(00)0000000',
+                    lazy: false,
+                },
+                'RU': {
+                    mask: '{7}(000)0000000',
+                    lazy: false,
+                },
+            };
     
-        // Initialize mask
-        const mask = IMask(element, maskOptions);
+            const maskOptions = masks['TJ']; // Default mask options for initial load
     
-        // Change mask and set country code when country selection changes
-        $("#country").change(function() {
-            const countryCode = $(this).val();
-            mask.updateOptions(masks[countryCode]); // Update mask options
-            $("#phone").val(countryCode); // Set country code in input field
+            // Initialize mask
+            const mask = IMask(element, maskOptions);
+    
+            // Change mask and set country code when country selection changes
+            $("#country").change(function() {
+                const countryCode = $(this).val();
+                // Check if phone number is not empty
+                const phoneNumber = $("#phone").val().trim();
+                if (phoneNumber) {
+                    mask.updateOptions(masks[countryCode]); // Update mask options
+                    $("#phone").val(countryCode); // Set country code in input field
+                }
+            });
         });
-    });
-    </script>
+    </script>    
 
     <!-- Custom script for this webpage(NoName) -->
     <script src="assets/js/script.js"></script>
