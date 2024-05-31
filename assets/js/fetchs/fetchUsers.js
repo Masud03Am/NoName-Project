@@ -41,9 +41,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(body => {
-                const users = Array.isArray(body.records) ? body.records : [];
+                console.log('Ответ сервера:', body); // Логирование ответа сервера
+                if (!body || !body.data || !Array.isArray(body.data.records)) {
+                    console.error('Ответ не содержит данных пользователей:', body);
+                    alert('Ошибка при загрузке списка пользователей. Пожалуйста, попробуйте снова.');
+                    return;
+                }
+                const users = body.data.records;
+                if (users.length === 0) {
+                    console.log('Нет данных пользователей для отображения.');
+                }
                 renderUsers(users);
-                renderPagination(body.totalPages, page);
+                renderPagination(body.data.total_pages, page);
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
@@ -61,9 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 userItem.innerHTML = `
                     <div class="table-item noflex">${user.id}</div>
                     <div class="table-item">${user.email}</div>
-                    <div class="table-item">${user.username}</div>
-                    <div class="table-item">${user.userRole}</div>
-                    <div class="table-item">${user.orderCount}</div>
+                    <div class="table-item">${user.name}</div>
+                    <div class="table-item">${user.role}</div>
+                    <div class="table-item">${user.phone}</div>
                 `;
                 usersList.appendChild(userItem);
             });
@@ -76,67 +85,83 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderPagination(totalPages, currentPage) {
         const ulPag = pagination.querySelector('.ul-pag');
         ulPag.innerHTML = '';
-        for (let i = 1; i <= totalPages; i++) {
-            const pageItem = document.createElement('li');
-            pageItem.className = i === currentPage ? 'active' : '';
-            pageItem.textContent = i;
-            pageItem.addEventListener('click', () => {
-                loadUsers(i);
-                currentPage = i;
-            });
-            ulPag.appendChild(pageItem);
+        if (totalPages && currentPage) {
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement('li');
+                pageItem.className = i === currentPage ? 'active' : '';
+                pageItem.textContent = i;
+                pageItem.addEventListener('click', () => {
+                    loadUsers(i);
+                    currentPage = i;
+                });
+                ulPag.appendChild(pageItem);
+            }
+        } else {
+            console.error('Ошибка при рендеринге пагинации. Некорректные данные totalPages или currentPage:', totalPages, currentPage);
         }
     }
 
     // События для кнопок пагинации
-    document.getElementById('previous').addEventListener('click', () => {
-        if (currentPage > 1) {
-            loadUsers(--currentPage);
-        }
-    });
+    const previousBtn = document.getElementById('previous');
+    const nextBtn = document.getElementById('next');
+    const loadAllUsersBtn = document.getElementById('loadAllUsersBtn');
+    const roleUsersForm = document.getElementById('RoleUsersForm');
 
-    document.getElementById('next').addEventListener('click', () => {
-        loadUsers(++currentPage);
-    });
+    if (previousBtn) {
+        previousBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                loadUsers(--currentPage);
+            }
+        });
+    }
 
-    document.getElementById('loadAllUsersBtn').addEventListener('click', (event) => {
-        event.preventDefault();
-        loadUsers(1);
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            loadUsers(++currentPage);
+        });
+    }
 
-    // Событие для формы изменения роли пользователя
-    document.getElementById('RoleUsersForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const userEmail = document.getElementById('userEmail').value;
-        const newRole = document.getElementById('role').value;
+    if (loadAllUsersBtn) {
+        loadAllUsersBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            loadUsers(1);
+        });
+    }
 
-        const options = {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${authToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: userEmail, role: newRole })
-        };
+    if (roleUsersForm) {
+        roleUsersForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const userEmail = document.getElementById('userEmail').value;
+            const newRole = document.getElementById('role').value;
 
-        fetch('http://185.121.2.208/hi-usa/private/user/raise', options)
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
-                    });
-                }
-                return response.json();
-            })
-            .then(body => {
-                alert('Уровень пользователя успешно изменен.');
-                loadUsers(currentPage); // Перезагружаем текущую страницу
-            })
-            .catch(error => {
-                console.error('Возникла проблема с операцией изменения:', error);
-                alert('Ошибка при изменении уровня пользователя. Пожалуйста, попробуйте снова.');
-            });
-    });
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: userEmail, role: newRole })
+            };
+
+            fetch('http://185.121.2.208/hi-usa/private/user/raise', options)
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(body => {
+                    alert('Уровень пользователя успешно изменен.');
+                    loadUsers(currentPage); // Перезагружаем текущую страницу
+                })
+                .catch(error => {
+                    console.error('Возникла проблема с операцией изменения:', error);
+                    alert('Ошибка при изменении уровня пользователя. Пожалуйста, попробуйте снова.');
+                });
+        });
+    }
 
     // Начальная загрузка пользователей
     loadUsers(currentPage);

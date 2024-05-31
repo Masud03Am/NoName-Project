@@ -40,24 +40,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const feedbackTableBody = document.getElementById('feedbackTableBody');
         feedbackTableBody.innerHTML = ''; // Очистка таблицы перед добавлением новых элементов
 
-        feedbacks.forEach(feedback => {
-            const row = document.createElement('tr');
-
-            row.innerHTML = `
-                <td>${feedback.name}</td>
-                <td>${feedback.email}</td>
-                <td>${feedback.phone}</td>
-                <td>${feedback.theme}</td>
-                <td>${feedback.message}</td>
-                <td>
-                    <button onclick="editFeedback(${feedback.id})">Редактировать</button>
-                    <button onclick="deleteFeedback(${feedback.id})">Удалить</button>
-                </td>
-            `;
-
-            feedbackTableBody.appendChild(row);
-        });
+        if (Array.isArray(feedbacks)) {
+            feedbacks.forEach(feedback => {
+                addRowToTable(feedbackTableBody, feedback);
+            });
+        } else if (typeof feedbacks === 'object') {
+            // Если фидбеки возвращаются как объект, то добавляем только одну строку
+            addRowToTable(feedbackTableBody, feedbacks);
+        } else {
+            console.error('Ошибка: данные фидбеков имеют некорректный формат');
+        }
     }
+
+    // Функция для добавления строки в таблицу фидбеков
+    function addRowToTable(tableBody, feedback) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${feedback.name}</td>
+            <td>${feedback.email}</td>
+            <td>${feedback.phone}</td>
+            <td>${feedback.theme}</td>
+            <td>${feedback.message}</td>
+            <td>
+                <button onclick="editFeedback(${feedback.id})">Редактировать</button>
+                <button onclick="deleteFeedback(${feedback.id})">Удалить</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    }
+
 
     // Функции для открытия и закрытия модальных окон
     function openModal() {
@@ -68,13 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('editFeedbackModal').style.display = 'none';
     }
 
-    function openDeleteModal() {
+    /*function openDeleteModal() {
         document.getElementById('deleteFeedbackModal').style.display = 'block';
     }
 
     function closeDeleteModal() {
         document.getElementById('deleteFeedbackModal').style.display = 'none';
-    }
+    }*/
 
     // Функция для редактирования фидбека
     window.editFeedback = function(id) {
@@ -84,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Функция для удаления фидбека
-    window.deleteFeedback = function(id) {
+    /*window.deleteFeedback = function(id) {
         const confirmDeleteFeedbackButton = document.getElementById('confirmDeleteFeedback');
         confirmDeleteFeedbackButton.onclick = function() {
             fetch(`http://185.121.2.208/hi-usa/private/feedback/delete?id=${id}`, {
@@ -109,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         openDeleteModal();
-    }
+    }*/
 
     // Функция для получения значения cookie по имени
     function getCookie(name) {

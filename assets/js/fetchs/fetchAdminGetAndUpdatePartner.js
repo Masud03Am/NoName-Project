@@ -15,12 +15,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     .then(response => {
+        console.log('Ответ от сервера:', response); // Логируем полный ответ от сервера
         if (!response.ok) {
             throw new Error('Ошибка при получении заявок');
         }
-        return response.json();
+        return response.json(); // Конвертируем тело ответа в JSON
     })
     .then(data => {
+        console.log('Данные от сервера:', data); // Логируем данные от сервера
+
+        // Проверяем, что данные действительно содержат заявки
         if (data && data.status === 'SUCCESS') {
             if (data.data && data.data.length > 0) {
                 renderRequests(data.data);
@@ -71,11 +75,19 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        const fileInput = document.getElementById('someFileInput');
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert('Пожалуйста, выберите файл для принятия заявки.');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('command', 'accept');
         formData.append('id', requestId);
         formData.append('status', 'accepted');
-        formData.append('file', document.getElementById('someFileInput').files[0]);
+        formData.append('file', file);
 
         fetch('http://185.121.2.208/hi-usa/private/partner/request/update', {
             method: 'POST',
@@ -86,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'SUCCESS') {
+            console.log('Ответ сервера при принятии заявки:', data); // Логируем ответ сервера
+            if (data && data.status === 'SUCCESS') {
                 alert('Заявка успешно принята');
                 location.reload(); 
             } else {
@@ -124,7 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'SUCCESS') {
+            console.log('Ответ сервера при отклонении заявки:', data); // Логируем ответ сервера
+            if (data && data.status === 'SUCCESS') {
                 alert('Заявка успешно отклонена');
                 location.reload();
             } else {

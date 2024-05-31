@@ -32,19 +32,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     const li = document.createElement('li');
                     li.innerHTML = `
                         <h4>${category.name}</h4>
-                        <button class="delete-btn" data-id="${category.id}">Удалить</button>
                         <button class="edit-btn" data-id="${category.id}" data-name="${category.name}">Изменить</button>
                     `;
                     categoryList.appendChild(li);
                 });
 
                 // Добавляем обработчики событий для кнопок
-                document.querySelectorAll('.delete-btn').forEach(button => {
+                /*document.querySelectorAll('.delete-btn').forEach(button => {
                     button.addEventListener('click', function () {
                         const categoryId = this.getAttribute('data-id');
                         deleteCategory(categoryId);
                     });
-                });
+                });*/
 
                 document.querySelectorAll('.edit-btn').forEach(button => {
                     button.addEventListener('click', function () {
@@ -109,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Функция для удаления категории
-    function deleteCategory(categoryId) {
+    /*function deleteCategory(categoryId) {
         const authToken = getCookie('authToken'); // Получаем токен из куки
         fetch(`http://185.121.2.208/hi-usa/private/category/delete/${categoryId}`, {
             method: 'DELETE',
@@ -129,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Произошла ошибка при удалении категории:', error);
             alert('Произошла ошибка при удалении категории. Пожалуйста, попробуйте снова.');
         });
-    }
+    }*/
 
     // Открыть модальное окно для редактирования категории
     function openEditModal(categoryId, categoryName) {
@@ -138,10 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('editCategoryModal').style.display = 'block';
     }
 
-    // Закрыть модальное окно
-    function closeModal() {
-        document.getElementById('editCategoryModal').style.display = 'none';
-    }
+    
+
 
     // Обработка отправки формы редактирования категории
     document.getElementById('editCategoryForm').addEventListener('submit', function (event) {

@@ -34,9 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     ceo_name: bossName,
                     email: email,
                     org_name: companyName,
+                    country: country,
                     phone: phone,
                     sender_name: user.name
                 };
+
+                console.log('Отправляемые данные:', requestData); // Логируем отправляемые данные
 
                 const options = {
                     method: 'POST',
@@ -58,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
+                console.log('Ответ сервера:', data); // Логируем ответ сервера
                 if (data && data.status === 'SUCCESS') {
                     alert('Запрос на партнёрство успешно отправлен.');
                     document.getElementById('contact-form-main').reset();

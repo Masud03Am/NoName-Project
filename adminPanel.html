@@ -283,7 +283,13 @@
                         </form>
                     </div>
                 </div>
-                
+                <script>
+                    // Закрыть модальное окно и очистить форму
+                    function closeModal() {
+                        document.getElementById('editCategoryModal').style.display = 'none';
+                        document.getElementById('editCategoryForm').reset(); // Очищаем содержимое формы
+                    }
+                </script>
                 <style>
                     .modal {
                         position: fixed;
@@ -681,7 +687,7 @@
                     <div class="cardHeader">
                         <h2>Список Фидбеков</h2>
                     </div>
-                    <div class="feedbackList">
+                    <div class="carsData">
                         <table>
                             <thead>
                                 <tr>
@@ -705,16 +711,26 @@
                         <span class="close-btn" onclick="closeModal()">&times;</span>
                         <h2>Редактировать Фидбек</h2>
                         <form id="editFeedbackForm">
-                            <label for="feedbackName">Имя:</label>
-                            <input type="text" id="feedbackName" name="feedbackName" class="form-input" required>
-                            <label for="feedbackEmail">Email:</label>
-                            <input type="email" id="feedbackEmail" name="feedbackEmail" class="form-input" required>
-                            <label for="feedbackPhone">Телефон:</label>
-                            <input type="text" id="feedbackPhone" name="feedbackPhone" class="form-input" required>
-                            <label for="feedbackTheme">Тема:</label>
-                            <input type="text" id="feedbackTheme" name="feedbackTheme" class="form-input" required>
-                            <label for="feedbackMessage">Сообщение:</label>
-                            <textarea id="feedbackMessage" name="feedbackMessage" class="form-input" required></textarea>
+                            <div class="form-group">
+                                <label for="feedbackName">Имя:</label>
+                                <input type="text" id="feedbackName" name="feedbackName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackEmail">Email:</label>
+                                <input type="email" id="feedbackEmail" name="feedbackEmail" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackPhone">Телефон:</label>
+                                <input type="text" id="feedbackPhone" name="feedbackPhone" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackTheme">Тема:</label>
+                                <input type="text" id="feedbackTheme" name="feedbackTheme" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackMessage">Сообщение:</label>
+                                <textarea id="feedbackMessage" name="feedbackMessage" class="form-input" required></textarea>
+                            </div>
                             <button class="form-submit" type="submit">Сохранить</button>
                         </form>
                     </div>
@@ -797,6 +813,9 @@
     <script src="assets/js/fetchs/fetchAdminGetAndUpdatePartner.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddPartner.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllFeedBacks.js"></script>
+    <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
+    <script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>
+    <script src="assets/js/fetchs/fetchUsers.js"></script>
     
     <!--<script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>-->
     <!--<script src="assets/js/fetchs/fetchAdminAllStores.js"></script>-->
