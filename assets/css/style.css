@@ -4931,7 +4931,7 @@ hr {
 .profile-input input:-webkit-autofill:focus, .profile-input select:-webkit-autofill:focus,
 .profile-input input:-webkit-autofill:active, .profile-input select:-webkit-autofill:active {
   -webkit-background-clip: text;
-  -webkit-text-fill-color: #000;
+  -webkit-text-fill-color: #fff;
   transition: background-color 5000s ease-in-out 0s;
 }
 

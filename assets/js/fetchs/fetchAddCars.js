@@ -7,26 +7,12 @@ function handleAddCarFormSubmit(event) {
     event.preventDefault();  // Предотвращаем отправку формы по умолчанию
 
     const formData = new FormData(event.target);
+    formData.append('amount', '1');  // Добавляем поле amount с значением 1
 
-    const carData = {
-        mark: formData.get('mark'),
-        model: formData.get('model'),
-        model_year: formData.get('model_year'),
-        body: formData.get('body'),
-        engine_type: formData.get('engine_type'),
-        engine_volume: formData.get('engine_volume'),
-        transmission: formData.get('transmission'),
-        mileage: parseInt(formData.get('mileage')),
-        color: formData.get('color'),
-        cylinders: parseInt(formData.get('cylinders')),
-        amount: parseFloat(formData.get('amount'))
-    };
-
-    const iconFile = formData.get('icon');
-    uploadIconAndAddCar(iconFile, carData);
+    uploadIconAndAddCar(formData);
 }
 
-function uploadIconAndAddCar(iconFile, carData) {
+function uploadIconAndAddCar(formData) {
     const authToken = getCookie('authToken');
 
     if (!authToken) {
@@ -34,39 +20,13 @@ function uploadIconAndAddCar(iconFile, carData) {
         return;
     }
 
-    // Upload the icon file first
-    const iconFormData = new FormData();
-    iconFormData.append('icon', iconFile);
-
-    console.log('Отправка запроса на загрузку иконки');
-    fetch('http://185.121.2.208/hi-usa/private/cars/uploadIcon', {
+    console.log('Отправка запроса на добавление автомобиля');
+    fetch('http://185.121.2.208/hi-usa/private/cars/add', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${authToken}`
         },
-        body: iconFormData
-    })
-    .then(response => {
-        console.log('Ответ от сервера для загрузки иконки:', response);
-        return response.json();
-    })
-    .then(iconData => {
-        if (!iconData || !iconData.data) {
-            throw new Error('Ошибка при загрузке иконки');
-        }
-        console.log('Иконка успешно загружена:', iconData.data);
-        carData.images = [iconData.data];
-
-        // Now add the car data
-        console.log('Отправка запроса на добавление автомобиля');
-        return fetch('http://185.121.2.208/hi-usa/private/cars/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${authToken}`
-            },
-            body: JSON.stringify(carData)
-        });
+        body: formData
     })
     .then(response => {
         console.log('Ответ от сервера для добавления автомобиля:', response);

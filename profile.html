@@ -197,14 +197,21 @@
                                                 <hr>
                                                 <ul class="body-group-main">
                                                     <li id="" class="body-group-main-item">
-                                                        <p class="body-group-main-item-desc">Адрес 1</p>
+                                                        <p class="body-group-main-item-desc">ID</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
                                                         <button class="body-group-top-btn">Копировать</button>
                                                     </li>
                                                     <li id="" class="body-group-main-item">
-                                                        <p class="body-group-main-item-desc">Адрес 2</p>
+                                                        <p class="body-group-main-item-desc">Почта</p>
+                                                        <div class="body-group-main-item-2">
+                                                            <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
+                                                        </div>
+                                                        <button class="body-group-top-btn">Копировать</button>
+                                                    </li>
+                                                    <li id="" class="body-group-main-item">
+                                                        <p class="body-group-main-item-desc">Страна</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
@@ -218,7 +225,7 @@
                                                         <button class="body-group-top-btn">Копировать</button>
                                                     </li>
                                                     <li id="" class="body-group-main-item">
-                                                        <p class="body-group-main-item-desc">Штат</p>
+                                                        <p class="body-group-main-item-desc">Адрес</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
@@ -226,13 +233,6 @@
                                                     </li>
                                                     <li id="" class="body-group-main-item">
                                                         <p class="body-group-main-item-desc">ZIP-код</p>
-                                                        <div class="body-group-main-item-2">
-                                                            <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
-                                                        </div>
-                                                        <button class="body-group-top-btn">Копировать</button>
-                                                    </li>
-                                                    <li id="" class="body-group-main-item">
-                                                        <p class="body-group-main-item-desc">Страна</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
@@ -347,20 +347,36 @@
                                                 <span class="close">&times;</span>
                                                 <label class="modal-content-label" for="email"> 
                                                     Введите Эл.Адрес*
-                                                    <input type="text" placeholder="Эл.Адрес*" id="" name="email" class="modal-content-input" autocomplete="on" required>
+                                                    <input type="text" placeholder="Эл.Адрес*" id="email" name="email" class="modal-content-input" autocomplete="on" readonly required>
                                                 </label>
                                                 <label class="modal-content-label" for="id"> 
                                                     Введите ID*
-                                                    <input type="text" placeholder="ID*" id="id" name="id" class="modal-content-input" autocomplete="on" required>
+                                                    <input type="text" placeholder="ID*" id="id" name="id" class="modal-content-input" autocomplete="on" readonly required>
                                                 </label>
                                                 <label class="modal-content-label" for="role"> 
                                                     Введите Role*
-                                                    <input type="text" placeholder="Role*" id="role" name="role" class="modal-content-input" autocomplete="on" required>
+                                                    <input type="text" placeholder="Role*" id="role" name="role" class="modal-content-input" autocomplete="on" readonly required>
+                                                </label>
+                                                <label class="modal-content-label" for="name"> 
+                                                    Название товара*
+                                                    <input type="text" placeholder="Название товара*" id="name" name="name" class="modal-content-input" required>
+                                                </label>
+                                                <label class="modal-content-label" for="link"> 
+                                                    Ссылка на товар*
+                                                    <input type="text" placeholder="Ссылка на товар*" id="link" name="link" class="modal-content-input" required>
+                                                </label>
+                                                <label class="modal-content-label" for="quantity"> 
+                                                    Количество*
+                                                    <input type="number" placeholder="Количество*" id="quantity" name="quantity" class="modal-content-input" required>
+                                                </label>
+                                                <label class="modal-content-label" for="comment"> 
+                                                    Комментарий
+                                                    <textarea placeholder="Комментарий" id="comment" name="comment" class="modal-content-input"></textarea>
                                                 </label>
                                                 <button class="modal-content-btn" type="submit">Заказать</button>
                                             </div>
                                         </div>
-                                    </form>
+                                    </form>                                    
                                     <!--<script type="text/JavaScript">
                                         document.getElementById('orderParcelForm').addEventListener('submit', function(event) {
                                             event.preventDefault();
@@ -612,7 +628,7 @@
                                                             <div class="settings-content">
                                                                 <form class="row setting-forms" id="userUpdateForm">
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="userId" type="text" placeholder="ID*" class="profile-input" value="">
+                                                                        <input id="" name="userId" type="text" placeholder="ID*" class="profile-input" value="" readonly>
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
                                                                         <input id="" name="firstName" type="text" placeholder="ФИО*" class="profile-input" value="">
@@ -625,7 +641,7 @@
                                                                     <div class="row" style="width: 100%; margin: 0px auto;">
                                                                         <div class="col col-md-4 profile-input" style="margin-top: 0; padding-right: 0px;">
                                                                             <select name="" id="" class="form-control">
-                                                                                <option value="">Year</option>
+                                                                                <option value="">Год</option>
                                                                                 <script>
                                                                                     var currentYear = new Date().getFullYear();
                                                                                     for (var i = currentYear; i >= currentYear - 100; i--) {
@@ -636,9 +652,9 @@
                                                                         </div>
                                                                         <div class="col col-md-4 profile-input" style="padding-right: 0px;">
                                                                             <select name="" id="" class="form-control">
-                                                                                <option value="">Month</option>
+                                                                                <option value="">Месяц</option>
                                                                                 <script>
-                                                                                    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                                                                    var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
                                                                                     for (var i = 0; i < months.length; i++) {
                                                                                         document.write('<option value="' + (i + 1) + '">' + months[i] + '</option>');
                                                                                     }
@@ -647,7 +663,7 @@
                                                                         </div>
                                                                         <div class="col col-md-4 profile-input">
                                                                             <select id="" name="" class="form-control">
-                                                                                <option value="">Day</option>
+                                                                                <option value="">День</option>
                                                                                 <script>
                                                                                     for (var i = 1; i <= 31; i++) {
                                                                                         document.write('<option value="' + i + '">' + i + '</option>');
@@ -658,9 +674,9 @@
                                                                         <div class="settings-opt row">
                                                                             <div class="col col-md-4 profile-input">
                                                                                 <select id="" name="country" style="width: max-content" class="form-control">
-                                                                                    <option value="">Country</option>
+                                                                                    <option value="">Страна</option>
                                                                                     <script>
-                                                                                        var countries = ['USA', 'Canada', 'UK', 'Australia', 'Germany', 'France', 'Japan', 'China'];
+                                                                                        var countries = ['Таджикистан', 'Казахстан', 'Узбекистан', 'Россия'];
                                                                                         for (var i = 0; i < countries.length; i++) {
                                                                                             document.write('<option value="' + countries[i] + '">' + countries[i] + '</option>');
                                                                                         }
@@ -669,11 +685,11 @@
                                                                             </div>
                                                                             <div class="col col-md-4 profile-input">
                                                                                 <select id="" style="width: max-content;" class="form-control">
-                                                                                    <option value="">City/Region</option>
+                                                                                    <option value="">Город/Посёлки</option>
                                                                                     <script>
-                                                                                        var countries = ['USA', 'Canada', 'UK', 'Australia', 'Germany', 'France', 'Japan', 'China'];
-                                                                                        for (var i = 0; i < countries.length; i++) {
-                                                                                            document.write('<option value="' + countries[i] + '">' + countries[i] + '</option>');
+                                                                                        var cities = ['Душанбе', 'Алмата', 'Ташкент', 'Москва'];
+                                                                                        for (var i = 0; i < cities.length; i++) {
+                                                                                            document.write('<option value="' + cities[i] + '">' + cities[i] + '</option>');
                                                                                         }
                                                                                     </script>
                                                                                 </select>
@@ -718,7 +734,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col col-md-4">
-                                                                        <button type="button" class="isotope-toolbar-btn-1" id="saveChangesButton">
+                                                                        <button style="font-weight: 600; background-color: #ff5e01; color: white; padding: 5px; border: 2px solid #ff5e01; border-radius: 5px;" type="button" class="" id="saveChangesButton">
                                                                             <span>Сохранить изменения</span>
                                                                         </button>
                                                                     </div>
@@ -916,5 +932,6 @@
     <!-- fetchs -->
     <script src="assets/js/fetchs/fetchUserProfile.js"></script>
     <script src="assets/js/fetchs/fetchUserProfileUpdate.js"></script>
+    <script src="assets/js/fetchs/fetchUserAddParcel.js"></script>
 </body>
 </html>
