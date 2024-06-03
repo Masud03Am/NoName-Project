@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.code !== 0 || !Array.isArray(data.data)) {
+            if (data.code !== 0 || !Array.isArray(data.data.records)) {
                 throw new Error(data.message || 'Ошибка при получении данных автомобилей');
             }
-            renderCars(data.data);
+            renderCars(data.data.records);
         })
         .catch(error => {
             console.error('Возникла проблема с получением данных автомобилей:', error);
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             carElement.className = 'grid';
             carElement.id = `car-${index + 1}`;
             carElement.innerHTML = `
-                <a href=""><img src="${car.images[0] || 'assets/images/default-car.jpg'}" alt="${car.mark} ${car.model}"></a>
+                <a href=""><img src="${(car.images && car.images[0]) || 'assets/images/default-car.jpg'}" alt="${car.mark} ${car.model}"></a>
                 <p style="text-align: left; padding: 5px;">
                     <span>Марка: ${car.mark}<br></span>
                     <span>Модель: ${car.model}<br></span>

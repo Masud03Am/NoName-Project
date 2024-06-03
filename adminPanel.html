@@ -332,57 +332,48 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Список Заказов</h2>
+                        <button class="btn" onclick="fetchOrders()">Обновить список заказов</button>
                     </div>
                     <div class="ordersList">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Пользователь</th>
+                                    <th>Название</th>
                                     <th>URL адрес товара</th>
                                     <th>Код товара</th>
                                     <th>Цена товара</th>
                                     <th>Окончательная Цена</th>
                                     <th>Адрес доставки</th>
                                     <th>Состояние заказа</th>
+                                    <th>Действия</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Иванов Иван</td>
-                                    <td>http://example.com/product1</td>
-                                    <td>12345</td>
-                                    <td>100</td>
-                                    <td>120</td>
-                                    <td>ул. Пушкина, д. Колотушкина, г. Москва, Россия, 123456</td>
-                                    <td>На проверке</td>
-                                </tr>
-                                <!-- Другие заказы будут добавлены здесь -->
+                            <tbody id="ordersTableBody">
+                                <!-- Заказы будут добавлены здесь -->
                             </tbody>
                         </table>
                     </div>
-                    <div class="orderDetails">
+                    <div class="orderDetails" id="orderDetails" style="display: none;">
                         <h2>Данные Заказа</h2>
-                        <div class="orderInfo">
-                            <!-- Здесь будут данные о заказе -->
-                            <p><strong>Номер заказа:</strong> #123456</p>
-                            <p><strong>Пользователь:</strong> Иванов Иван</p>
-                            <p><strong>URL адрес товара:</strong> http://example.com/product1</p>
-                            <p><strong>Код товара:</strong> 12345</p>
-                            <p><strong>Цена товара:</strong> $100</p>
-                            <p><strong>Окончательная Цена:</strong> $120</p>
-                            <p><strong>Адрес доставки:</strong> ул. Пушкина, д. Колотушкина, г. Москва, Россия, 123456</p>
-                            <p><strong>Состояние заказа:</strong> На проверке</p>
+                        <div class="orderInfo" id="orderInfo">
+                            <!-- Данные о заказе будут добавлены здесь -->
                         </div>
                         <div class="orderActions">
-                            <!-- Кнопки для выполнения действий с заказом -->
-                            <button style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
-                            <button onclick="acceptOrder()">Принять Заказ</button>
+                            <button class="btn" style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
+                            <button class="btn" onclick="acceptOrder()">Принять Заказ</button>
                         </div>
                         <div id="rejectedMessage" style="display: none;">
                             <p>ДАННЫЕ ЗАКАЗ БЫЛ ОТКЛОНЕН</p>
                         </div>
                     </div>
-                </div>    
+                    <div id="pagination" class="pagination">
+                        <button class="pag-btn" id="previous">Пред.</button>
+                        <ul class="ul-pag">
+                            <!-- Кнопки пагинации будут загружены сюда -->
+                        </ul>
+                        <button class="pag-btn" id="next">След.</button>
+                    </div>
+                </div>                    
             </div>
 
             <!-- ================ Order Details List ================= -->
@@ -812,7 +803,8 @@
     <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
     <script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>
     <script src="assets/js/fetchs/fetchUsers.js"></script>
-    <script src="assets/js/fetchs/fetchAllCars.js"></script>
+    <script src="assets/js/fetchs/fetchAdminAllCars.js"></script>
+    <script src="assets/js/fetchs/fetchAdminAllParcels.js"></script>
     
     <!--<script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>-->
     <!--<script src="assets/js/fetchs/fetchAdminAllStores.js"></script>-->
