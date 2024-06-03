@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const token = getCookie('authToken');
     if (!token) {
-        alert('Токен не найден. Пожалуйста, войдите снова.');
         window.location.href = '/login.html';
         return;
     }
@@ -32,11 +31,24 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Ошибка при загрузке информации о пользователе:', error);
-            alert('Ошибка при загрузке информации о пользователе. Пожалуйста, попробуйте снова.');
         });
 
     document.getElementById('orderParcelForm').addEventListener('submit', function(event) {
         event.preventDefault();
+
+        // Function to calculate full price based on price and markup constant
+        function calculateFullPrice() {
+            const priceInput = document.getElementById('price');
+            const fullPriceInput = document.getElementById('full_price');
+            const markupConstant = 1.5; // Change this to your markup constant
+
+            const price = parseFloat(priceInput.value) || 0; // Get price value, default to 0 if not a number
+            const fullPrice = price * markupConstant; // Calculate full price
+            fullPriceInput.value = fullPrice.toFixed(2); // Set full price with 2 decimal places
+        }
+
+        // Event listener to calculate full price when price input changes
+        document.getElementById('price').addEventListener('input', calculateFullPrice);
 
         const form = document.getElementById('orderParcelForm');
         const formData = new FormData(form);
@@ -65,14 +77,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data && data.status === 'SUCCESS') {
-                    alert('Заказ успешно создан.');
                 } else {
                     throw new Error(data.message || 'Не удалось создать заказ.');
                 }
             })
             .catch(error => {
                 console.error('Ошибка при создании заказа:', error);
-                alert('Ошибка при создании заказа. Пожалуйста, попробуйте снова.');
             });
     });
 });

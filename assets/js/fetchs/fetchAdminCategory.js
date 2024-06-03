@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Произошла ошибка при загрузке категорий:', error);
-            alert('Произошла ошибка при загрузке категорий. Пожалуйста, попробуйте снова.');
         });
     }
 
@@ -75,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
             loadCategories(); // Перезагрузить категории после добавления новой
         }).catch(error => {
             console.error('Произошла ошибка при добавлении категории:', error);
-            alert('Произошла ошибка при добавлении категории. Пожалуйста, попробуйте снова.');
         });
     }
 

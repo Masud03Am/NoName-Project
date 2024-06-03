@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Произошла ошибка при загрузке магазинов:', error);
-            alert('Произошла ошибка при загрузке магазинов. Пожалуйста, попробуйте снова.');
         });
     }
 

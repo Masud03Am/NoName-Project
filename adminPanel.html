@@ -396,8 +396,9 @@
                         <ul id="partnerRequestsList">
                             <!-- Динамически генерируемый список заявок -->
                         </ul>
-                        <div class="requestsActions">
-                            <input type="file" id="someFileInput" style="display: none;"> <!-- Инпут для выбора файла при принятии заявки -->
+                        <div id="fileInputContainer" style="display: none;">
+                            <input type="file" id="someFileInput"> <!-- Инпут для выбора файла при принятии заявки -->
+                            <button id="submitFileButton">Загрузить файл</button>
                         </div>
                         <div id="rejectedMessages" style="display: none;">
                             <p>ДАННАЯ ЗАЯВКА БЫЛА ОТКЛОНЕНА</p>
@@ -492,7 +493,6 @@
                         </table>
                     </div>
                 </div>
-                
                 <!-- Модальное окно для редактирования партнера -->
                 <div id="editPartnerModal" class="modal" style="display: none;">
                     <div class="modal-content">
@@ -700,12 +700,10 @@
                                 </tr>
                             </thead>
                             <tbody id="feedbackTableBody">
-                                <!-- Динамически генерируемые данные фидбеков -->
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <!-- Модальное окно для редактирования фидбека -->
                 <div id="editFeedbackModal" class="modal" style="display: none;">
                     <div class="modal-content">
                         <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -735,7 +733,6 @@
                         </form>
                     </div>
                 </div>
-                <!-- Модальное окно для подтверждения удаления фидбека -->
                 <div id="deleteFeedbackModal" class="modal" style="display: none;">
                     <div class="modal-content">
                         <span class="close-btn" onclick="closeDeleteModal()">&times;</span>
@@ -753,7 +750,7 @@
                 <div class="dialog-block">
                   <h2>Вы уверены, что хотите выйти ?</h2>
                   <div class="controls">
-                    <a href="./login.html" class="button">Выйти</a>
+                    <a id="" href="./login.html" class="button">Выйти</a>
                     <a data-dialog-action="cancel" href="" class="button">Назад</a>
                   </div>
                 </div>
@@ -806,15 +803,16 @@
 
 
     <script src="assets/js/adminPanel.js"></script>
-    <script src="assets/js/fetchs/fetchUsers.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddStore.js"></script>
     <script src="assets/js/fetchs/fetchAdminCategory.js"></script>
     <script src="assets/js/fetchs/fetchAddCars.js"></script>
     <script src="assets/js/fetchs/fetchAdminGetAndUpdatePartner.js"></script>
+    <script src="assets/js/fetchs/fetchAdminAllPartners.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddPartner.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
     <script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>
     <script src="assets/js/fetchs/fetchUsers.js"></script>
+    <script src="assets/js/fetchs/fetchAllCars.js"></script>
     
     <!--<script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>-->
     <!--<script src="assets/js/fetchs/fetchAdminAllStores.js"></script>-->

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function fetchPartnerRequests() {
         const token = getUserToken();
         if (!token) {
-            alert('Токен не найден. Пожалуйста, войдите снова.');
+            console.log('Токен не найден. Пожалуйста, войдите снова.');
             window.location.href = '/login.html';
             return;
         }
@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Ошибка при получении заявок на партнерство:', error);
-            alert('Ошибка при получении заявок на партнерство. Пожалуйста, попробуйте снова.');
         });
     }
 
@@ -97,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const token = getUserToken();
         if (!token) {
-            alert('Токен не найден. Пожалуйста, войдите снова.');
+            console.log('Токен не найден. Пожалуйста, войдите снова.');
             window.location.href = '/login.html';
             return;
         }
@@ -110,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Проверяем, что необходимые поля заполнены
         if (!id) {
-            alert('Ошибка: поле id не заполнено.');
+            console.log('Ошибка: поле id не заполнено.');
             return;
         }
         if (!status) {
-            alert('Ошибка: поле status не заполнено.');
+            console.log('Ошибка: поле status не заполнено.');
             return;
         }
 
@@ -151,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data && data.status === 'SUCCESS') {
-                alert('Партнер успешно добавлен.');
                 addPartnerForm.reset();
                 fetchPartnerRequests(); // Обновить список заявок
             } else {
@@ -160,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Ошибка при добавлении партнера:', error);
-            alert('Ошибка при добавлении партнера. Пожалуйста, попробуйте снова.');
         });
     });
 

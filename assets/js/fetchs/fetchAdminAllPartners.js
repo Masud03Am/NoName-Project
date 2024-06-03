@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const token = getCookie('authToken');
 
     if (!token) {
-        alert('Токен не найден. Пожалуйста, войдите снова.');
+        console.log('Токен не найден. Пожалуйста, войдите снова.');
         window.location.href = '/login.html';
         return;
     }
@@ -16,14 +16,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     .then(response => {
+        console.log('Ответ от сервера (получение партнеров):', response); // Логируем полный ответ от сервера
         if (!response.ok) {
             throw new Error('Ошибка при получении партнеров');
         }
         return response.json();
     })
     .then(data => {
+        console.log('Данные от сервера (получение партнеров):', data); // Логируем данные от сервера
         if (data && data.status === 'SUCCESS') {
-            renderPartners(data.data);
+            renderPartners(data.data.records); // Используем data.data.records
         } else {
             console.error('Ошибка при получении партнеров:', data.message);
         }
@@ -34,13 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция для рендеринга списка партнеров
     function renderPartners(partners) {
-        const partnersTableBody = document.getElementById('partnersTableBody');
+        const partnersTableBody = document.getElementById('partnersTableBody'); // Убедитесь, что id совпадает
         partnersTableBody.innerHTML = '';
 
         partners.forEach(partner => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${partner.org_name}</td>
+                <td>${partner.ceo_name}</td>
                 <td>${partner.email}</td>
                 <td>${partner.phone}</td>
                 <td>${partner.country}</td>
@@ -67,18 +69,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data && data.status === 'SUCCESS') {
                 const partner = data.data;
                 document.getElementById('partnerId').value = partner.id;
-                document.getElementById('partnerName').value = partner.org_name;
+                document.getElementById('partnerName').value = partner.ceo_name;
                 document.getElementById('partnerEmail').value = partner.email;
                 document.getElementById('partnerPhone').value = partner.phone;
                 document.getElementById('partnerCountry').value = partner.country;
                 document.getElementById('editPartnerModal').style.display = 'block';
             } else {
-                alert('Ошибка при получении информации о партнере.');
+                console.log('Ошибка при получении информации о партнере.');
             }
         })
         .catch(error => {
             console.error('Ошибка при получении информации о партнере:', error);
-            alert('Ошибка при получении информации о партнере.');
         });
     };
 
@@ -93,7 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const id = document.getElementById('partnerId').value;
         const updatedPartner = {
-            org_name: document.getElementById('partnerName').value,
+            id: id,
+            ceo_name: document.getElementById('partnerName').value,
             email: document.getElementById('partnerEmail').value,
             phone: document.getElementById('partnerPhone').value,
             country: document.getElementById('partnerCountry').value
@@ -110,15 +112,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'SUCCESS') {
-                alert('Партнер успешно обновлен');
+                console.log('Партнер успешно обновлен');
                 location.reload();
             } else {
-                alert('Ошибка при обновлении партнера.');
+                console.log('Ошибка при обновлении партнера.');
             }
         })
         .catch(error => {
             console.error('Ошибка при обновлении партнера:', error);
-            alert('Ошибка при обновлении партнера. Пожалуйста, попробуйте снова.');
         });
     });
 
@@ -137,15 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.status === 'SUCCESS') {
-                alert('Партнер успешно удален');
+                console.log('Партнер успешно удален');
                 location.reload();
             } else {
-                alert('Ошибка при удалении партнера.');
+                console.log('Ошибка при удалении партнера.');
             }
         })
         .catch(error => {
             console.error('Ошибка при удалении партнера:', error);
-            alert('Ошибка при удалении партнера. Пожалуйста, попробуйте снова.');
         });
     };
 

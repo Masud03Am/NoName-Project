@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const token = getCookie('authToken');
 
     if (!token) {
-        alert('Токен не найден. Пожалуйста, войдите снова.');
+        console.log('Токен не найден. Пожалуйста, войдите снова.');
         window.location.href = '/login.html';
         return;
     }
@@ -26,20 +26,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Проверяем, что данные действительно содержат заявки
         if (data && data.status === 'SUCCESS') {
-            if (data.data && data.data.length > 0) {
-                renderRequests(data.data);
+            if (data.data && data.data.records && data.data.records.length > 0) {
+                renderRequests(data.data.records);
             } else {
                 console.log('Нет заявок на партнёрство.');
                 document.getElementById('partnerRequestsList').innerHTML = '<li>Нет заявок на партнёрство.</li>';
             }
         } else {
             console.error('Ошибка при получении заявок:', data.message);
-            alert('Ошибка при получении заявок.');
         }
     })
     .catch(error => {
         console.error('Ошибка при получении заявок:', error);
-        alert('Ошибка при получении заявок. Пожалуйста, попробуйте снова.');
     });
 
     function renderRequests(requests) {
@@ -53,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const acceptButton = document.createElement('button');
             acceptButton.textContent = 'Принять';
-            acceptButton.addEventListener('click', () => acceptRequest(request.id));
+            acceptButton.addEventListener('click', () => showFileInput(request.id));
 
             const rejectButton = document.createElement('button');
             rejectButton.textContent = 'Отклонить';
@@ -67,10 +65,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function showFileInput(requestId) {
+        const fileInputContainer = document.getElementById('fileInputContainer');
+        fileInputContainer.style.display = 'block';
+
+        const submitFileButton = document.getElementById('submitFileButton');
+        submitFileButton.onclick = () => acceptRequest(requestId);
+    }
+
     function acceptRequest(requestId) {
         const token = getCookie('authToken');
         if (!token) {
-            alert('Токен не найден. Пожалуйста, войдите снова.');
+            console('Токен не найден. Пожалуйста, войдите снова.');
             window.location.href = '/login.html';
             return;
         }
@@ -79,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const file = fileInput.files[0];
 
         if (!file) {
-            alert('Пожалуйста, выберите файл для принятия заявки.');
+            console.log('Пожалуйста, выберите файл для принятия заявки.');
             return;
         }
 
@@ -100,23 +106,21 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log('Ответ сервера при принятии заявки:', data); // Логируем ответ сервера
             if (data && data.status === 'SUCCESS') {
-                alert('Заявка успешно принята');
+                console.log('Заявка успешно принята');
                 location.reload(); 
             } else {
                 console.error('Ошибка при принятии заявки:', data.message);
-                alert('Ошибка при принятии заявки.');
             }
         })
         .catch(error => {
             console.error('Ошибка при принятии заявки:', error);
-            alert('Ошибка при принятии заявки. Пожалуйста, попробуйте снова.');
         });
     }
 
     function rejectRequest(requestId) {
         const token = getCookie('authToken');
         if (!token) {
-            alert('Токен не найден. Пожалуйста, войдите снова.');
+            console.log('Токен не найден. Пожалуйста, войдите снова.');
             window.location.href = '/login.html';
             return;
         }
@@ -139,16 +143,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log('Ответ сервера при отклонении заявки:', data); // Логируем ответ сервера
             if (data && data.status === 'SUCCESS') {
-                alert('Заявка успешно отклонена');
+                console.log('Заявка успешно отклонена');
                 location.reload();
             } else {
                 console.error('Ошибка при отклонении заявки:', data.message);
-                alert('Ошибка при отклонении заявки.');
             }
         })
         .catch(error => {
             console.error('Ошибка при отклонении заявки:', error);
-            alert('Ошибка при отклонении заявки. Пожалуйста, попробуйте снова.');
         });
     }
 

@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Проверка на заполненность обязательных полей
         if (!name || !email || !phone || !note) {
-            alert('Пожалуйста, заполните все обязательные поля.');
             return;
         }
 
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(data => {
                 if (data && data.status === 'SUCCESS') {
-                    alert('Ваш фидбек успешно отправлен.');
                     contactForm.reset(); // Очистить форму после успешной отправки
                 } else {
                     throw new Error(data.message || 'Ошибка при отправке фидбека');
@@ -60,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Ошибка при отправке фидбека:', error);
-                alert('Ошибка при отправке фидбека. Пожалуйста, попробуйте снова.');
             });
     });
 });

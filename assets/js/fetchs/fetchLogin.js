@@ -46,14 +46,13 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             } else if (claims.user_role === 'user') {
                 window.location.href = "/profile.html";
             } else {
-                alert('Неизвестная роль пользователя');
+                console.log('Неизвестная роль пользователя');
             }
         } else {
-            alert('Ошибка при расшифровке токена.');
+            console.log('Ошибка при расшифровке токена.');
         }
     } catch (error) {
         console.error('Возникла проблема с операцией получения:', error);
-        alert('Ошибка при входе. Пожалуйста, попробуйте снова.');
     }
 });
 

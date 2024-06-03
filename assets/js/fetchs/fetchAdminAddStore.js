@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Произошла ошибка при загрузке категорий:', error);
-            alert('Произошла ошибка при загрузке категорий. Пожалуйста, попробуйте снова.');
         });
     }
 
@@ -90,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Произошла ошибка при добавлении магазина:', error);
-            alert('Произошла ошибка при добавлении магазина. Пожалуйста, попробуйте снова.');
         });
     }
 

@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const token = getCookie('authToken');
     if (!token) {
-        alert('Токен не найден. Пожалуйста, войдите снова.');
         window.location.href = '/login.html';
         return;
     }
@@ -33,13 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Ошибка при загрузке информации о пользователе:', error);
-            alert('Ошибка при загрузке информации о пользователе. Пожалуйста, попробуйте снова.');
         });
 
     document.getElementById('saveChangesButton').addEventListener('click', function() {
         const token = getCookie('authToken');
         if (!token) {
-            alert('Токен не найден. Пожалуйста, войдите снова.');
             window.location.href = '/login.html';
             return;
         }
@@ -91,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log('Ответ от сервера:', data);
                 if (data && data.status === 'SUCCESS') {
-                    alert('Данные успешно обновлены.');
                     return fetch('http://185.121.2.208/hi-usa/private/user/getCurrent', {
                         method: 'GET',
                         headers: {
@@ -113,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Ошибка при обновлении данных пользователя:', error);
-                alert('Ошибка при обновлении данных. Пожалуйста, попробуйте снова.');
             });
     });
 });

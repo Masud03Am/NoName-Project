@@ -60,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
-                alert('Ошибка при загрузке списка пользователей. Пожалуйста, попробуйте снова.');
             });
     }
 
@@ -134,12 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (status !== 200) {
                     throw new Error(`Ошибка ${status}: ${body.message}`);
                 }
-                alert('Уровень пользователя успешно изменен.');
+                console.log('Уровень пользователя успешно изменен.');
                 loadUsers(currentPage); // Перезагружаем текущую страницу
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
-                alert('Ошибка при изменении уровня пользователя. Пожалуйста, попробуйте снова.');
             });
     });
 

@@ -346,15 +346,15 @@
                                             <div class="modal-content">
                                                 <span class="close">&times;</span>
                                                 <label class="modal-content-label" for="email"> 
-                                                    Введите Эл.Адрес*
+                                                    Ваш Эл.Адрес
                                                     <input type="text" placeholder="Эл.Адрес*" id="email" name="email" class="modal-content-input" autocomplete="on" readonly required>
                                                 </label>
                                                 <label class="modal-content-label" for="id"> 
-                                                    Введите ID*
+                                                    Ваш ID
                                                     <input type="text" placeholder="ID*" id="id" name="id" class="modal-content-input" autocomplete="on" readonly required>
                                                 </label>
                                                 <label class="modal-content-label" for="role"> 
-                                                    Введите Role*
+                                                    Ваш Role
                                                     <input type="text" placeholder="Role*" id="role" name="role" class="modal-content-input" autocomplete="on" readonly required>
                                                 </label>
                                                 <label class="modal-content-label" for="name"> 
@@ -364,6 +364,14 @@
                                                 <label class="modal-content-label" for="link"> 
                                                     Ссылка на товар*
                                                     <input type="text" placeholder="Ссылка на товар*" id="link" name="link" class="modal-content-input" required>
+                                                </label>
+                                                <label class="modal-content-label" for="price"> 
+                                                    Цена*
+                                                    <input type="number" placeholder="Цена*" id="price" name="price" class="modal-content-input" required>
+                                                </label>
+                                                <label class="modal-content-label" for="full_price"> 
+                                                    Полная-Цена
+                                                    <input type="number" placeholder="Полная-Цена" id="price" name="full_price" class="modal-content-input" readonly>
                                                 </label>
                                                 <label class="modal-content-label" for="quantity"> 
                                                     Количество*
@@ -377,49 +385,6 @@
                                             </div>
                                         </div>
                                     </form>                                    
-                                    <!--<script type="text/JavaScript">
-                                        document.getElementById('orderParcelForm').addEventListener('submit', function(event) {
-                                            event.preventDefault();
-                                            const formData = new FormData(event.target);
-                                            const data = {
-                                                email: formData.get('email') || null,
-                                                id: formData.get('id') ? parseInt(formData.get('id')) : null,
-                                                role: formData.get('role')
-                                            };
-                                            // Removing null values
-                                            Object.keys(data).forEach(key => {
-                                                if (data[key] === null) {
-                                                delete data[key];
-                                                }
-                                            });
-                                            const token = "our_access_token";
-                                            const options = {
-                                                method: 'POST',
-                                                headers: {
-                                                'Content-Type': 'application/json',
-                                                'Authorization': `Bearer ${token}`
-                                                },
-                                                body: JSON.stringify(data)
-                                            };
-                                            fetch('http://185.121.2.208/hi-usa/private/parcel/add', options)
-                                                .then(response => {
-                                                    if (!response.ok) {
-                                                        return response.json().then(errorData => {
-                                                            throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
-                                                        });
-                                                    }
-                                                    return response.json();
-                                                })
-                                                .then(data => {
-                                                console.log('Success:', data);
-                                                alert('Посылка успешно заказана.');
-                                                })
-                                                .catch(error => {
-                                                console.error('There was a problem with your fetch operation:', error);
-                                                alert('Ошибка при заказе посылки. Пожалуйста, попробуйте снова.');
-                                                });
-                                            });
-                                    </script>-->
                                     <div class="parcles-row-low-heading-1">
                                         <div class="isotope-toolbar-1">
                                             <label>

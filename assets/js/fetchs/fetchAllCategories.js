@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(error => {
             console.error('Произошла ошибка при загрузке активных категорий:', error);
-            alert('Произошла ошибка при загрузке активных категорий. Пожалуйста, попробуйте снова.');
         });
     }
 

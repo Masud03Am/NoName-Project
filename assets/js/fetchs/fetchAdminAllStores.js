@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Полный ответ от сервера:', data); // Логирование полного ответа сервера
+            console.log('Полный ответ от сервера :', data); // Логирование полного ответа сервера
             if (data && data.status === 'SUCCESS') {
                 if (Array.isArray(data.data.records)) {
                     renderStores(data.data.records);

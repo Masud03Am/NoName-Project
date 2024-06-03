@@ -79,7 +79,6 @@ function addCategory() {
         .then(handleResponse)
         .then(data => {
             console.log('Успех:', data);
-            alert('Категория успешно добавлена.');
             addCategoryToList(categoryName);
             document.getElementById('newCategoryName').value = ''; // Очистить поле ввода
         })
@@ -117,7 +116,6 @@ function addCategoryToList(categoryName) {
 function updateCategory(categoryId) {
     const newName = prompt('Введите новое название категории:').trim();
     if (!newName) {
-        alert('Название категории не может быть пустым.');
         return;
     }
 
@@ -140,7 +138,6 @@ function updateCategory(categoryId) {
         .then(handleResponse)
         .then(data => {
             console.log('Успех:', data);
-            alert('Категория успешно обновлена.');
             getAllCategories(); // Обновить список категорий
         })
         .catch(handleError);
@@ -159,7 +156,6 @@ function handleResponse(response) {
 // Обработчик ошибок
 function handleError(error) {
     console.error('Возникла проблема с операцией:', error);
-    alert('Произошла ошибка. Пожалуйста, попробуйте снова.');
 }
 
 // Функция для получения активных категорий

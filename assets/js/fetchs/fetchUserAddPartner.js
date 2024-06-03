@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const token = getCookie('authToken');
         
         if (!token) {
-            alert('Токен не найден. Пожалуйста, войдите снова.');
             window.location.href = '/login.html';
             return;
         }
@@ -63,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log('Ответ сервера:', data); // Логируем ответ сервера
                 if (data && data.status === 'SUCCESS') {
-                    alert('Запрос на партнёрство успешно отправлен.');
                     document.getElementById('contact-form-main').reset();
                 } else {
                     throw new Error(data.message || 'Ошибка при отправке запроса на партнёрство');
@@ -71,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Ошибка при отправке запроса на партнёрство:', error);
-                alert('Ошибка при отправке запроса на партнёрство. Пожалуйста, попробуйте снова.');
             });
     });
 

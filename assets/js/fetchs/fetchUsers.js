@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Ответ сервера:', body); // Логирование ответа сервера
                 if (!body || !body.data || !Array.isArray(body.data.records)) {
                     console.error('Ответ не содержит данных пользователей:', body);
-                    alert('Ошибка при загрузке списка пользователей. Пожалуйста, попробуйте снова.');
                     return;
                 }
                 const users = body.data.records;
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
-                alert('Ошибка при загрузке списка пользователей. Пожалуйста, попробуйте снова.');
             });
     }
 

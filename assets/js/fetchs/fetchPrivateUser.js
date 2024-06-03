@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
-                alert('Ошибка при загрузке профиля. Пожалуйста, попробуйте снова.');
                 window.location.href = "/login.html";
             });
     } else {

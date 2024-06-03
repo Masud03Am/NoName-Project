@@ -742,6 +742,8 @@ div.details.active {
   color: #0d0933;
   font-size: 1.2rem;
   padding: 5px;
+  display: inherit;
+  cursor: pointer;
 }
 
 .list-group-item:hover {

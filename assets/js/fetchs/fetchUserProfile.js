@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const token = getCookie('authToken');
     if (!token) {
-        alert('Токен не найден. Пожалуйста, войдите снова.');
         window.location.href = '/login.html';
         return;
     }
@@ -42,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Возникла проблема с операцией получения:', error);
-            alert('Ошибка при загрузке информации о пользователе. Пожалуйста, попробуйте снова.');
         });
 });
 

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const authToken = getCookie('authToken');
 
         if (!authToken) {
-            alert('Ошибка: токен не найден. Пожалуйста, войдите снова.');
+            console.log('Ошибка: токен не найден. Пожалуйста, войдите снова.');
             return;
         }
 
@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Возникла проблема с получением данных автомобилей:', error);
-            alert('Ошибка при получении данных автомобилей. Пожалуйста, попробуйте снова.');
             renderNoCarsMessage();
         });
     }

@@ -9,14 +9,18 @@ function handleAddCarFormSubmit(event) {
     const formData = new FormData(event.target);
     formData.append('amount', '1');  // Добавляем поле amount с значением 1
 
-    uploadIconAndAddCar(formData);
+    for (let [key, value] of formData.entries()) {
+        console.log(`${key}:`, value);
+    }
+
+    AddCar(formData);
 }
 
-function uploadIconAndAddCar(formData) {
+function AddCar(formData) {
     const authToken = getCookie('authToken');
 
     if (!authToken) {
-        alert('Ошибка: токен не найден. Пожалуйста, войдите снова.');
+        console.log('Ошибка: токен не найден. Пожалуйста, войдите снова.');
         return;
     }
 
@@ -39,12 +43,10 @@ function uploadIconAndAddCar(formData) {
     })
     .then(data => {
         console.log('Успех:', data);
-        alert('Автомобиль успешно добавлен!');
         document.getElementById('addCarMessage').textContent = 'Автомобиль успешно добавлен!';
     })
     .catch(error => {
         console.error('Возникла проблема с операцией добавления автомобиля:', error);
-        alert('Ошибка при добавлении автомобиля. Пожалуйста, попробуйте снова.');
         document.getElementById('addCarMessage').textContent = 'Ошибка при добавлении автомобиля. Пожалуйста, попробуйте снова.';
     });
 }
