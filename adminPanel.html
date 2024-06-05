@@ -7,8 +7,14 @@
     <title> NoName-Admin </title>
 </head>
 <body>
+
+    <!-- Лоадер -->
+    <div id="loader" class="loader-container">
+        <div class="loader"></div>
+    </div>
+
     <!-- =============== Navigation ================ -->
-    <div class="container">
+    <div id="content" class="container">
         <div class="navigation">
             <ul>
                 <li class="active hovered">
@@ -217,27 +223,27 @@
                             <button class="pag-btn" id="next">След.</button>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Меню магазина</h2>
                     </div>
                     <form id="editStoreForm">
                         <div class="form-group">
-                            <label for="storeName">Название Магазина</label>
-                            <input type="text" id="storeName" name="storeName" class="form-input" value="Название" readonly>
+                            <label for="storeName1">Название Магазина</label>
+                            <input type="text" id="storeName1" name="name" class="form-input" value="" autocomplete="on" required>
                         </div>
                         <div class="form-group">
-                            <label for="storeLink">Ссылка На Магазин</label>
-                            <input type="text" id="storeLink" name="storeLink" class="form-input" required>
+                            <label for="storeDescription1">Описание Магазина</label>
+                            <input type="text" id="storeDescription1" name="description" class="form-input" value="" autocomplete="on" required>
                         </div>
                         <div class="form-group">
-                            <label for="storeLink">Ссылка На Магазин</label>
-                            <input type="text" id="storeLink" name="storeLink" class="form-input" required>
+                            <label for="storeLink1">Ссылка На Магазин</label>
+                            <input type="text" id="storeLink1" name="link" class="form-input" value="" autocomplete="on" required>
                         </div>
                         <div class="form-group">
-                            <label for="category">Категория Магазина</label>
-                            <select id="category" name="category" class="form-input" required>
+                            <label for="category1">Категория Магазина</label>
+                            <select id="category1" name="category" class="form-input" required>
                                 <option value="">Выберите категорию</option>
                             </select>
                         </div>
@@ -245,16 +251,16 @@
                     </form>
                     <form style="margin-top: 2rem;" id="updateStoreImageForm">
                         <div class="form-group">
-                            <label for="storeId">ID Магазина</label>
-                            <input type="text" id="storeId" name="storeId" class="form-input" required>
+                            <label for="storeId1">ID Магазина</label>
+                            <input type="text" id="storeId1" name="storeId" class="form-input" value="" autocomplete="on" required>
                         </div>
                         <div class="form-group">
-                            <label for="icon">Изображение/Иконка</label>
-                            <input type="file" id="icon" name="icon" class="form-input" required>
+                            <label for="icon1">Изображение/Иконка</label>
+                            <input type="file" id="icon1" name="icon" class="form-input" required>
                         </div>
                         <button type="submit" class="form-submit">Обновить Логотип</button>
                     </form>
-                </div>
+                </div>                            
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Список всех категорий</h2>
@@ -387,10 +393,6 @@
                         <ul id="partnerRequestsList">
                             <!-- Динамически генерируемый список заявок -->
                         </ul>
-                        <div id="fileInputContainer" style="display: none;">
-                            <input type="file" id="someFileInput"> <!-- Инпут для выбора файла при принятии заявки -->
-                            <button id="submitFileButton">Загрузить файл</button>
-                        </div>
                         <div id="rejectedMessages" style="display: none;">
                             <p>ДАННАЯ ЗАЯВКА БЫЛА ОТКЛОНЕНА</p>
                         </div>
@@ -416,6 +418,10 @@
                                 <!-- Динамически генерируемые данные партнера -->
                             </tbody>
                         </table>
+                        <div id="fileInputContainer" style="display: none;">
+                            <input type="file" id="someFileInput" required> <!-- Инпут для выбора файла при принятии заявки -->
+                            <button id="submitFileButton">Принять</button>
+                        </div>
                     </div>
                 </div>
                 <div class="recentOrders">
@@ -423,46 +429,43 @@
                         <h2>Добавления партнёра в ручную</h2>
                     </div>
                     <div class="partnerData">
-                        <form class="" action="" id="addPartnerForm" enctype="multipart/form-data">
-                            <input type="hidden" id="partnerId" name="id" required>
+                        <form id="addPartnerForm" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="ceo_name">Имя Дир. Орг.</label>
+                                <label for="addCeoName">Имя Дир. Орг.</label>
                                 <input class="form-input" type="text" id="addCeoName" name="ceo_name" placeholder="Имя Дир. Орг.*" required>
                             </div>
                             <div class="form-group">
-                                <label for="org_name">Название Организации</label>
+                                <label for="addOrgName">Название Организации</label>
                                 <input class="form-input" type="text" id="addOrgName" name="org_name" placeholder="Название Организации*" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                <label for="addEmail">Email</label>
                                 <input class="form-input" type="email" id="addEmail" name="email" placeholder="Email*" required>
                             </div>
                             <div class="form-group">
-                                <label for="phone">Телефон</label>
+                                <label for="addPhone">Телефон</label>
                                 <input class="form-input" type="text" id="addPhone" name="phone" placeholder="Телефон*" required>
                             </div>
                             <div class="form-group">
-                                <label for="country">Страна</label>
+                                <label for="addCountry">Страна</label>
                                 <input class="form-input" type="text" id="addCountry" name="country" placeholder="Страна*" required>
                             </div>
                             <div class="form-group">
-                                <label for="status">Статус</label>
+                                <label for="addStatus">Статус</label>
                                 <select class="form-input" id="addStatus" name="status" required>
                                     <option value="pending">Pending</option>
                                     <option value="accept">Accepted</option>
                                     <option value="reject">Rejected</option>
                                 </select>
                             </div>
-                            <!-- Скрытое поле command -->
-                            <input type="hidden" id="addCommand" name="command">
                             <div class="form-group">
-                                <label for="file">Файл</label>
-                                <input type="file" id="addFile" name="file">
+                                <label for="addFile">Файл</label>
+                                <input type="file" id="addFile" name="file" required>
                             </div>
                             <button type="submit">Добавить нового партнера</button>
                         </form>
                     </div>
-                </div>    
+                </div>                
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Список Партнеров</h2>
@@ -577,7 +580,6 @@
                         </div>
                     </form>
                 </div>
-
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Данные автомобилей</h2>
@@ -601,36 +603,15 @@
                                     <th>Количество</th>
                                 </tr>
                             </thead>
-                            <tbody id="carsTableBody">
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
+                            <tbody id="carsTableBody"></tbody>
                         </table>
                         <div id="pagination" class="pagination">
                             <button class="pag-btn" id="previous">Пред.</button>
-                            <ul class="ul-pag">
-                              <li class="active">1</li>
-                              <li>2</li>
-                              <li>3</li>
-                              <li>4</li>
-                              <li>5</li>
-                            </ul>
+                            <ul class="ul-pag"></ul>
                             <button class="pag-btn" id="next">След.</button>
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
 
             <!-- ================ Order Details List ================= -->
@@ -741,11 +722,11 @@
                 <div class="dialog-block">
                   <h2>Вы уверены, что хотите выйти ?</h2>
                   <div class="controls">
-                    <a id="" href="./login.html" class="button">Выйти</a>
+                    <a id="logoutBtn" href="./login.html" class="button">Выйти</a>
                     <a data-dialog-action="cancel" href="" class="button">Назад</a>
                   </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 
@@ -801,7 +782,6 @@
     <script src="assets/js/fetchs/fetchAdminAllPartners.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddPartner.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
-    <script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>
     <script src="assets/js/fetchs/fetchUsers.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllCars.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllParcels.js"></script>

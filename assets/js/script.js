@@ -521,13 +521,18 @@
         });
     });
 
-    // Функция для получения значения cookie по имени
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
+
+    /*==========================================================================
+        ROLE
+    ==========================================================================*/
+
+        // Функция для получения значения cookie по имени
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
 
     /*==========================================================================
         LOGOUT
@@ -545,8 +550,7 @@
                 window.location.href = "/login.html";
             }
         });
-    });    
-
+    });      
 
     /*==========================================================================
         WHEN DOCUMENT LOADING

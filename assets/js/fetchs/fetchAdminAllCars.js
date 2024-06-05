@@ -2,7 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const getAllCarsBtn = document.getElementById('getAllCarsBtn');
     const carsTableBody = document.getElementById('carsTableBody');
     const pagination = document.getElementById('pagination');
+    const prevBtn = document.getElementById('previous');
+    const nextBtn = document.getElementById('next');
     let currentPage = 1;
+    let totalPages = 1;
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -13,13 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchCars(page = 1) {
         const authToken = getCookie('authToken');
-    
+
         if (!authToken) {
             console.log('Ошибка: токен не найден. Пожалуйста, войдите снова.');
             return;
         }
-    
-        fetch(`http://185.121.2.208/hi-usa/private/cars/getAll?page=${page}`, {
+
+        fetch(`http://185.121.2.208/hi-usa/private/cars/getAll?page=${page}&limit=6`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${authToken}`
@@ -31,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Сортируем по убыванию даты создания
                 const sortedCars = data.data.records.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
                 renderCars(sortedCars);
-                setupPagination(data.data.total_pages, page);
+                totalPages = data.data.total_pages;
+                setupPagination(totalPages, page);
             } else {
                 console.error('Ошибка получения данных автомобилей');
                 carsTableBody.innerHTML = '<tr><td colspan="12">Нет доступных данных</td></tr>';
@@ -43,11 +47,10 @@ document.addEventListener('DOMContentLoaded', function() {
             carsTableBody.innerHTML = '<tr><td colspan="12">Произошла ошибка</td></tr>';
             pagination.innerHTML = '';
         });
-    }    
+    }
 
     function renderCars(cars) {
         carsTableBody.innerHTML = '';
-        cars.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         cars.forEach(car => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -66,20 +69,41 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             carsTableBody.appendChild(row);
         });
-    }    
+    }
 
     function setupPagination(totalPages, currentPage) {
-        pagination.innerHTML = '';
+        const ulPag = pagination.querySelector('.ul-pag');
+        ulPag.innerHTML = '';
+        
         for (let i = 1; i <= totalPages; i++) {
             const li = document.createElement('li');
             li.className = i === currentPage ? 'active' : '';
             li.innerHTML = `<button onclick="fetchCars(${i})">${i}</button>`;
-            pagination.appendChild(li);
+            ulPag.appendChild(li);
         }
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
     }
 
-    getAllCarsBtn.addEventListener('click', function() {
+    getAllCarsBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        currentPage = 1;
         fetchCars(currentPage);
+    });
+
+    prevBtn.addEventListener('click', function() {
+        if (currentPage > 1) {
+            currentPage--;
+            fetchCars(currentPage);
+        }
+    });
+
+    nextBtn.addEventListener('click', function() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            fetchCars(currentPage);
+        }
     });
 
     fetchCars(currentPage);

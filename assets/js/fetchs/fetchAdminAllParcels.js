@@ -74,7 +74,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 console.log('Детали заказа:', data); // Логируем полученные данные заказа
                 if (data && data.status === 'SUCCESS') {
-                    displayOrderDetails(data.data);
+                    const orderDetails = data.data.records.find(order => order.id === orderId); // Ищем нужный заказ по ID
+                    if (orderDetails) {
+                        displayOrderDetails(orderDetails);
+                    } else {
+                        throw new Error('Не удалось найти заказ с указанным ID.');
+                    }
                 } else {
                     throw new Error(data.message || 'Не удалось получить данные заказа.');
                 }
@@ -85,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayOrderDetails(order) {
+        console.log('Заполняем данные заказа:', order); // Логируем данные заказа
         const orderInfo = document.getElementById('orderInfo');
         orderInfo.innerHTML = `
             <p><strong>Название:</strong> ${order.name ? order.name : 'Не указано'}</p>
@@ -94,12 +100,12 @@ document.addEventListener('DOMContentLoaded', function() {
             <p><strong>Окончательная Цена:</strong> ${order.full_price ? order.full_price : 'Не указано'}</p>
             <p><strong>Адрес доставки:</strong> ${order.user_address ? order.user_address : 'Не указано'}</p>
             <p><strong>Состояние заказа:</strong> ${order.status ? order.status : 'Не указано'}</p>
+            <p><strong>Комментарий:</strong> ${order.comment ? order.comment : 'Нет комментария'}</p>
         `;
         document.getElementById('orderDetails').style.display = 'block';
-    
-        // Store order id for later use
         document.getElementById('orderDetails').dataset.orderId = order.id;
-    }    
+        console.log('Элемент orderDetails после заполнения:', document.getElementById('orderDetails')); // Логируем состояние элемента
+    }
 
     function updateOrderStatus(orderId, command) {
         const options = {

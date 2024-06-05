@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Проверяем, что данные действительно содержат заявки
         if (data && data.status === 'SUCCESS') {
             if (data.data && data.data.records && data.data.records.length > 0) {
-                renderRequests(data.data.records);
+                // Фильтруем только необработанные заявки
+                const pendingRequests = data.data.records.filter(request => request.status !== 'accept' && request.status !== 'reject');
+                renderRequests(pendingRequests);
             } else {
                 console.log('Нет заявок на партнёрство.');
                 document.getElementById('partnerRequestsList').innerHTML = '<li>Нет заявок на партнёрство.</li>';
@@ -46,37 +48,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
         requests.forEach(request => {
             const listItem = document.createElement('li');
-            listItem.textContent = `Организация: ${request.org_name}, Страна: ${request.country}, Статус: ${request.status}`;
+            listItem.textContent = `Организация: ${request.org_name} отправила заявку, Страна: ${request.country}`;
             listItem.dataset.id = request.id; 
 
-            const acceptButton = document.createElement('button');
-            acceptButton.textContent = 'Принять';
-            acceptButton.addEventListener('click', () => showFileInput(request.id));
+            const viewButton = document.createElement('button');
+            viewButton.textContent = 'Просмотр';
+            viewButton.addEventListener('click', () => viewRequest(request));
 
             const rejectButton = document.createElement('button');
             rejectButton.textContent = 'Отклонить';
             rejectButton.style.backgroundColor = '#f44336';
             rejectButton.addEventListener('click', () => rejectRequest(request.id));
 
-            listItem.appendChild(acceptButton);
+            listItem.appendChild(viewButton);
             listItem.appendChild(rejectButton);
 
             requestsList.appendChild(listItem);
         });
     }
 
-    function showFileInput(requestId) {
+    function viewRequest(request) {
+        const partnerData = document.getElementById('partnerData');
+        partnerData.innerHTML = `
+            <tr>
+                <td>${request.ceo_name}</td>
+                <td>${request.org_name}</td>
+                <td>${request.email}</td>
+                <td>${request.phone}</td>
+                <td>${request.country}</td>
+            </tr>
+        `;
+
         const fileInputContainer = document.getElementById('fileInputContainer');
         fileInputContainer.style.display = 'block';
 
         const submitFileButton = document.getElementById('submitFileButton');
-        submitFileButton.onclick = () => acceptRequest(requestId);
+        submitFileButton.onclick = () => acceptRequest(request.id);
     }
 
     function acceptRequest(requestId) {
         const token = getCookie('authToken');
         if (!token) {
-            console('Токен не найден. Пожалуйста, войдите снова.');
+            console.log('Токен не найден. Пожалуйста, войдите снова.');
             window.location.href = '/login.html';
             return;
         }
