@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.getElementById('next');
     let currentPage = 1;
     let totalPages = 1;
+    const carsperPage = 6;
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`http://185.121.2.208/hi-usa/private/cars/getAll?page=${page}&limit=6`, {
+        fetch(`http://185.121.2.208/hi-usa/private/cars/getAll?page=${page}&limit=${carsperPage}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${authToken}`

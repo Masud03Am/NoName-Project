@@ -123,12 +123,12 @@
                     </label>
                 </div>
 
-                <div class="user">
+                <!--<div class="user">
                     <a href="./adminForm.html"><img src="assets/images/features/01.png" alt=""></a>
-                </div>
+                </div>-->
             </div>
 
-            <!-- ================ Order Details List ================= -->
+            <!-- ================ Users ================= -->
             <div style="grid-template-columns: 1fr;" data-page="users" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -154,7 +154,7 @@
                             <button class="pag-btn" id="next">След.</button>
                         </div>
                     </div>
-                </div>
+                </div>                
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Изменить уровень Пользователя</h2> 
@@ -173,7 +173,7 @@
                 </div>
             </div>            
 
-            <!-- ================ Order Details List ================= -->
+            <!-- ================ Stores Details List ================= -->
             <div data-page="stores" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -231,15 +231,15 @@
                     <form id="editStoreForm">
                         <div class="form-group">
                             <label for="storeName1">Название Магазина</label>
-                            <input type="text" id="storeName1" name="name" class="form-input" value="" autocomplete="on" required>
+                            <input type="text" id="storeName1" name="name" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="storeDescription1">Описание Магазина</label>
-                            <input type="text" id="storeDescription1" name="description" class="form-input" value="" autocomplete="on" required>
+                            <input type="text" id="storeDescription1" name="description" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="storeLink1">Ссылка На Магазин</label>
-                            <input type="text" id="storeLink1" name="link" class="form-input" value="" autocomplete="on" required>
+                            <input type="text" id="storeLink1" name="link" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="category1">Категория Магазина</label>
@@ -252,7 +252,7 @@
                     <form style="margin-top: 2rem;" id="updateStoreImageForm">
                         <div class="form-group">
                             <label for="storeId1">ID Магазина</label>
-                            <input type="text" id="storeId1" name="storeId" class="form-input" value="" autocomplete="on" required>
+                            <input type="text" id="storeId1" name="storeId" class="form-input" required>
                         </div>
                         <div class="form-group">
                             <label for="icon1">Изображение/Иконка</label>
@@ -277,7 +277,7 @@
                 <!-- Модальное окно для редактирования категории -->
                 <div id="editCategoryModal" class="modal" style="display: none;">
                     <div class="modal-content">
-                        <span class="close-btn" onclick="closeModal()">&times;</span>
+                        <span class="close-btn" onclick="closeModal1()">&times;</span>
                         <h2>Изменить категорию</h2>
                         <form id="editCategoryForm">
                             <input type="hidden" id="editCategoryId">
@@ -291,7 +291,7 @@
                 </div>
                 <script>
                     // Закрыть модальное окно и очистить форму
-                    function closeModal() {
+                    function closeModal1() {
                         document.getElementById('editCategoryModal').style.display = 'none';
                         document.getElementById('editCategoryForm').reset(); // Очищаем содержимое формы
                     }
@@ -308,28 +308,52 @@
                         background-color: rgb(0,0,0);
                         background-color: rgba(0,0,0,0.4);
                     }
-                
+
                     .modal-content {
                         background-color: #fefefe;
                         margin: 15% auto;
                         padding: 20px;
                         border: 1px solid #888;
                         width: 80%;
+                        max-width: 600px; /* Ограничение максимальной ширины для больших экранов */
                     }
-                
+
                     .close-btn {
                         color: #aaa;
                         float: right;
                         font-size: 28px;
                         font-weight: bold;
                     }
-                
+
                     .close-btn:hover,
                     .close-btn:focus {
                         color: black;
                         text-decoration: none;
                         cursor: pointer;
                     }
+
+                    /* Медиа-запросы для планшетов */
+                    @media screen and (max-width: 768px) {
+                        .modal-content {
+                            width: 90%; /* Увеличиваем ширину для планшетов */
+                            margin: 20% auto; /* Увеличиваем отступ сверху для планшетов */
+                            padding: 15px; /* Уменьшаем отступы внутри модального окна для планшетов */
+                        }
+                    }
+
+                    /* Медиа-запросы для смартфонов */
+                    @media screen and (max-width: 480px) {
+                        .modal-content {
+                            width: 95%; /* Увеличиваем ширину для смартфонов */
+                            margin: 25% auto; /* Увеличиваем отступ сверху для смартфонов */
+                            padding: 10px; /* Уменьшаем отступы внутри модального окна для смартфонов */
+                        }
+                        
+                        .close-btn {
+                            font-size: 24px; /* Уменьшаем размер кнопки закрытия для смартфонов */
+                        }
+                    }
+
                 </style>
             </div>
 
@@ -382,7 +406,7 @@
                 </div>                    
             </div>
 
-            <!-- ================ Order Details List ================= -->
+            <!-- ================ Partner Details List ================= -->
             <div style="grid-template-columns: 1fr;" data-page="partners" class="details">
                 <!-- Заявки на партнерство -->
                 <div class="recentOrders">
@@ -403,7 +427,7 @@
                     <div class="cardHeader">
                         <h2>Данные Партнеров</h2>
                     </div>
-                    <div class="partnerData">
+                    <div id="recentPartners" class="partnerData">
                         <table>
                             <thead>
                                 <tr>
@@ -491,7 +515,7 @@
                 <div id="editPartnerModal" class="modal" style="display: none;">
                     <div class="modal-content">
                         <span class="close-btn" onclick="closeModal()">&times;</span>
-                        <h2>Редактировать Партнера</h2>
+                        <h3>Редактировать Партнера</h3>
                         <form id="editPartnerForm">
                             <input type="hidden" id="partnerId">
                             <label for="partnerName">Имя:</label>
@@ -508,7 +532,7 @@
                 </div>                     
             </div>
 
-            <!-- ================ Order Details List ================= -->
+            <!-- ================ Cars Details List ================= -->
             <div data-page="cars-cargo" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -567,19 +591,6 @@
                     </form>
                     <div id="addCarMessage"></div>
                 </div>
-
-                <div class="recentOrders">
-                    <div class="cardHeader">
-                        <h2>Удалить автомобиль</h2> 
-                    </div>
-                    <form id="deleteCarsForm" aria-label="Удалить машину">
-                        <div class="form-group">
-                            <label for="id">ID автомобиля:</label>
-                            <input style="width: 88%;" type="text" id="id" name="id" class="form-input" required>
-                            <button style="background-color: #f44336;" type="submit" class="form-submit">Удалить</button>
-                        </div>
-                    </form>
-                </div>
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Данные автомобилей</h2>
@@ -612,9 +623,21 @@
                         </div>
                     </div>
                 </div>                
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Удалить автомобиль</h2> 
+                    </div>
+                    <form id="deleteCarsForm" aria-label="Удалить машину">
+                        <div class="form-group">
+                            <label for="id">ID автомобиля:</label>
+                            <input style="width: 88%;" type="text" id="id" name="id" class="form-input" required>
+                            <button style="background-color: #f44336;" type="submit" class="form-submit">Удалить</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <!-- ================ Order Details List ================= -->
+            <!-- ================ Images Details List ================= -->
             <div data-page="images" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -632,7 +655,7 @@
                 </div>
             </div>
 
-            <!-- ================ Order Details List ================= -->
+            <!-- ================ Settings ================= -->
             <div data-page="settings" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
@@ -775,6 +798,7 @@
 
 
     <script src="assets/js/adminPanel.js"></script>
+    <script src="assets/js/fetchs/fetchUsers.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddStore.js"></script>
     <script src="assets/js/fetchs/fetchAdminCategory.js"></script>
     <script src="assets/js/fetchs/fetchAddCars.js"></script>
@@ -782,7 +806,6 @@
     <script src="assets/js/fetchs/fetchAdminAllPartners.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddPartner.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
-    <script src="assets/js/fetchs/fetchUsers.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllCars.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllParcels.js"></script>
     

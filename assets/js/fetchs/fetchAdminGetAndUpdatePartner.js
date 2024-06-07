@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         requests.forEach(request => {
             const listItem = document.createElement('li');
-            listItem.textContent = `Организация: ${request.org_name} отправила заявку, Страна: ${request.country}`;
+            listItem.textContent = `Имя: ${request.ceo_name}, Организация: ${request.org_name}, Тел: ${request.phone}, Почта: ${request.email}, Страна: ${request.country}`;
             listItem.dataset.id = request.id; 
 
             const viewButton = document.createElement('button');
@@ -84,6 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const submitFileButton = document.getElementById('submitFileButton');
         submitFileButton.onclick = () => acceptRequest(request.id);
+        // Скролл к форме
+        document.getElementById('recentPartners').scrollIntoView({ behavior: 'smooth' });
     }
 
     function acceptRequest(requestId) {

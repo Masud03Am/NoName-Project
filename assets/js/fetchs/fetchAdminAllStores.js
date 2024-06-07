@@ -126,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция для заполнения формы данными выбранного магазина
     function fillStoreForm(store) {
+        console.log('Заполнение формы данными магазина:', store); // Логирование данных магазина
+
         const storeNameInput = document.getElementById('storeName1');
         const storeDescriptionInput = document.getElementById('storeDescription1');
         const storeLinkInput = document.getElementById('storeLink1');
@@ -133,11 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const storeIdInput = document.getElementById('storeId1');
 
         // Заполнение значений полей формы данными выбранного магазина
-        storeNameInput.value = store.name;
-        storeDescriptionInput.value = store.description;
-        storeLinkInput.value = store.link;
-        categoryIdInput.value = store.category_id;
-        storeIdInput.value = store.id;
+        storeNameInput.value = store.name || '';
+        storeDescriptionInput.value = store.description || '';
+        storeLinkInput.value = store.link || '';
+        categoryIdInput.value = store.category_id || '';
+        storeIdInput.value = store.id || '';
 
         // Скролл к форме
         document.getElementById('editStoreForm').scrollIntoView({ behavior: 'smooth' });
@@ -148,9 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const target = event.target;
         if (target.tagName === 'H3') {
             const storeId = target.dataset.storeId; // Предполагается, что вы добавили data атрибут для хранения id магазина
+            console.log('Клик по магазину с ID:', storeId); // Логирование ID магазина
+
             if (storeId) {
                 // Получение информации о магазине по его id и заполнение формы
                 fetchStoreById(storeId);
+            } else {
+                console.error('ID магазина не найден');
             }
         }
     });
@@ -166,9 +172,12 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log('Полный ответ о магазине:', data);
-            if (data && data.status === 'SUCCESS') {
-                fillStoreForm(data.data); // Заполнение формы данными о магазине
+            console.log('Полный ответ о магазине:', data); // Логирование полного ответа о магазине
+
+            if (data && data.status === 'SUCCESS' && data.data.records) {
+                // Поскольку данные магазина находятся в массиве records, выбираем первый элемент
+                const store = data.data.records[0];
+                fillStoreForm(store); // Заполнение формы данными о магазине
             } else {
                 console.error('Ошибка при получении информации о магазине:', data.message);
             }
@@ -191,6 +200,8 @@ document.addEventListener('DOMContentLoaded', function() {
             category_id: document.getElementById('category1').value
         };
 
+        console.log('Отправка данных для обновления магазина:', formData); // Логирование данных для обновления
+
         updateStoreInfo(formData);
     });
 
@@ -200,26 +211,30 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
 
         const formData = new FormData();
-        formData.append('storeId', document.getElementById('storeId').value);
-        formData.append('icon', document.getElementById('icon').files[0]);
+        formData.append('storeId', document.getElementById('storeId1').value);
+        formData.append('icon', document.getElementById('icon1').files[0]);
+
+        console.log('Отправка данных для обновления логотипа магазина:', formData); // Логирование данных для обновления логотипа
 
         updateStoreImage(formData);
     });
 
     // Функция для отправки обновленной информации о магазине на сервер
-    function updateStoreInfo(formData) {
+    function updateStoreInfo(data) {
         fetch('http://185.121.2.208/hi-usa/private/shop/update', {
             method: 'PUT',
-            body: JSON.stringify(formData),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}`
-            }
+            },
+            body: JSON.stringify(data)
         })
         .then(response => response.json())
         .then(data => {
             if (data && data.status === 'SUCCESS') {
                 console.log('Информация о магазине успешно обновлена');
+                // Загрузим обновленный список магазинов
+                loadStores(currentPage);
             } else {
                 console.error('Ошибка при обновлении информации о магазине:', data.message);
             }
@@ -242,6 +257,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data && data.status === 'SUCCESS') {
                 console.log('Логотип магазина успешно обновлен');
+                // Загрузим обновленный список магазинов
+                loadStores(currentPage);
             } else {
                 console.error('Ошибка при обновлении логотипа магазина:', data.message);
             }

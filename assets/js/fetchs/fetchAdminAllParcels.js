@@ -104,17 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.getElementById('orderDetails').style.display = 'block';
         document.getElementById('orderDetails').dataset.orderId = order.id;
+        document.getElementById('orderDetails').dataset.orderPrice = order.price;
+        // Скролл к форме
+        document.getElementById('orderDetails').scrollIntoView({ behavior: 'smooth' });
         console.log('Элемент orderDetails после заполнения:', document.getElementById('orderDetails')); // Логируем состояние элемента
     }
 
-    function updateOrderStatus(orderId, command) {
+    function updateOrderStatus(orderId, command, orderPrice) {
+        const payload = {
+            id: orderId,
+            command: command,
+            price: orderPrice
+        };
+
         const options = {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: orderId, command: command })
+            body: JSON.stringify(payload)
         };
 
         fetch('http://185.121.2.208/hi-usa/private/parcel/update', options)

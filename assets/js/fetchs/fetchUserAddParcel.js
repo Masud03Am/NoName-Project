@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
             comment: formData.get('comment') || "",
             name: formData.get('name'),
             link: formData.get('link'),
+            price: parseFloat(formData.get('price')), // Добавляем цену
+            full_price: parseFloat(formData.get('full_price')), // Добавляем полную цену
             quantity: parseInt(formData.get('quantity')),
             user_address: 0, // Assuming you need to add this value
             user_id: parseInt(formData.get('id'))

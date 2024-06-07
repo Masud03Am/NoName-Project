@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             'Authorization': `Bearer ${token}`,
                             'Content-Type': 'application/json'
                         }
-                    });
+                    });    
                 } else {
                     throw new Error(data.message || 'Не удалось обновить данные пользователя.');
                 }
@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     throw new Error('Не удалось получить обновленные данные о пользователе.');
                 }
+                alert("Успешно обновлён");
             })
             .catch(error => {
                 console.error('Ошибка при обновлении данных пользователя:', error);

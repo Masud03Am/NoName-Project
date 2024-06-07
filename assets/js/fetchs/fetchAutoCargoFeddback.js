@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     contactForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const name = document.getElementById('name').value.trim();
+        const name = document.getElementById('user_name').value.trim();
         const email = document.getElementById('email').value.trim();
         const country = document.getElementById('country').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const note = document.getElementById('note').value.trim();
+        const note = document.getElementById('note').value.trim(); // Предположим, что у вас есть поле с ID 'note'
 
         // Проверка на заполненность обязательных полей
         if (!name || !email || !phone || !note) {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             phone: phone,
             country: country,
             message: note,
-            theme: 'Обратная связь'
+            theme: 'Авто-Карго'
         };
 
         // Параметры запроса
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data && data.status === 'SUCCESS') {
                     contactForm.reset(); // Очистить форму после успешной отправки
+                    alert("Успешно отправлено");
                 } else {
                     throw new Error(data.message || 'Ошибка при отправке фидбека');
                 }

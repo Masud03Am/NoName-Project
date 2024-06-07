@@ -47,6 +47,6 @@ document.getElementById('registrationForm').addEventListener('submit', function(
         })
         .catch(error => {
             console.error('Возникла проблема с операцией получения:', error);
-            alert('Ошибка при регистрации. Пожалуйста, попробуйте снова.');
+            alert('Данная Почта уже используется');
         });
 });

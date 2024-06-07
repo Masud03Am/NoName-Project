@@ -207,6 +207,45 @@
     function cloneNavForSticyMenu($ele, $newElmClass) {
         $ele.addClass('original').clone().insertAfter($ele).addClass($newElmClass).removeClass('original');
     }
+    // Функция для получения значения cookie по имени
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
+
+    // Проверка наличия токена
+    const token = getCookie('authToken');
+
+    // Элементы, которые нужно изменить
+    const loginRegisterMenuItem = document.getElementById('loginRegister');
+    const loginRegisterBtn = document.getElementById('loginRegisterBtnSearch');
+    const loginRegisterBtnPosition = document.getElementsByClassName('search-contact');
+
+    if (token) {
+        // Изменяем текст и ссылку, если токен существует
+        if (loginRegisterMenuItem) {
+            const loginLink = loginRegisterMenuItem.querySelector('a');
+            if (loginLink) {
+                loginLink.textContent = 'Профиль';
+                loginLink.href = './profile.html';
+            }
+        }
+
+        if (loginRegisterBtn) {
+            const loginBtnLink = loginRegisterBtn.querySelector('a');
+            if (loginBtnLink) {
+                loginBtnLink.textContent = 'Профиль';
+                loginBtnLink.href = './profile.html';
+            }
+        }
+
+        // Изменяем позицию кнопки, если элемент существует
+        if (loginRegisterBtnPosition.length > 0) {
+            loginRegisterBtnPosition[0].style.right = "30px";
+        }
+    }
 
     // clone home style 1 navigation for sticky menu
     if ($('.site-header .navigation').length) {
@@ -523,9 +562,10 @@
 
 
     /*==========================================================================
-        ROLE
+        = LOGIN-REGISTER
     ==========================================================================*/
 
+    document.addEventListener('DOMContentLoaded', function() {
         // Функция для получения значения cookie по имени
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -533,6 +573,40 @@
             if (parts.length === 2) return parts.pop().split(';').shift();
             return null;
         }
+    
+        // Проверка наличия токена
+        const token = getCookie('authToken');
+    
+        // Элементы, которые нужно изменить
+        const loginRegisterMenuItem = document.getElementById('loginRegister');
+        const loginRegisterBtn = document.getElementById('loginRegisterBtnSearch');
+        const loginRegisterBtnPosition = document.getElementsByClassName('search-contact');
+    
+        if (token) {
+            // Изменяем текст и ссылку, если токен существует
+            if (loginRegisterMenuItem) {
+                const loginLink = loginRegisterMenuItem.querySelector('a');
+                if (loginLink) {
+                    loginLink.textContent = 'Профиль';
+                    loginLink.href = './profile.html';
+                }
+            }
+    
+            if (loginRegisterBtn) {
+                const loginBtnLink = loginRegisterBtn.querySelector('a');
+                if (loginBtnLink) {
+                    loginBtnLink.textContent = 'Профиль';
+                    loginBtnLink.href = './profile.html';
+                }
+            }
+    
+            // Изменяем позицию кнопки, если элемент существует
+            if (loginRegisterBtnPosition.length > 0) {
+                loginRegisterBtnPosition[0].style.right = "30px";
+            }
+        }
+    });    
+    
 
     /*==========================================================================
         LOGOUT
@@ -550,6 +624,13 @@
                 window.location.href = "/login.html";
             }
         });
+        // Функция для получения значения cookie по имени
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
     });      
 
     /*==========================================================================

@@ -16,16 +16,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     .then(response => {
-        console.log('Ответ от сервера (получение партнеров):', response); // Логируем полный ответ от сервера
+        console.log('Ответ от сервера (получение партнеров):', response);
         if (!response.ok) {
             throw new Error('Ошибка при получении партнеров');
         }
         return response.json();
     })
     .then(data => {
-        console.log('Данные от сервера (получение партнеров):', data); // Логируем данные от сервера
+        console.log('Данные от сервера (получение партнеров):', data);
         if (data && data.status === 'SUCCESS') {
-            renderPartners(data.data.records); // Используем data.data.records
+            renderPartners(data.data.records);
         } else {
             console.error('Ошибка при получении партнеров:', data.message);
         }
@@ -34,9 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Ошибка при получении партнеров:', error);
     });
 
-    // Функция для рендеринга списка партнеров
     function renderPartners(partners) {
-        const partnersTableBody = document.getElementById('partnersTableBody'); // Убедитесь, что id совпадает
+        const partnersTableBody = document.getElementById('partnersTableBody');
         partnersTableBody.innerHTML = '';
 
         partners.forEach(partner => {
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Открыть модальное окно для редактирования партнера
     window.editPartner = function(id) {
         fetch(`http://185.121.2.208/hi-usa/private/partner/get?id=${id}`, {
             method: 'GET',
@@ -64,16 +62,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Ответ от сервера (получение партнера):', response);
+            return response.json();
+        })
         .then(data => {
+            console.log('Данные партнера для редактирования:', data); // Лог данных партнера
             if (data && data.status === 'SUCCESS') {
-                const partner = data.data;
-                document.getElementById('partnerId').value = partner.id;
-                document.getElementById('partnerName').value = partner.ceo_name;
-                document.getElementById('partnerEmail').value = partner.email;
-                document.getElementById('partnerPhone').value = partner.phone;
-                document.getElementById('partnerCountry').value = partner.country;
-                document.getElementById('editPartnerModal').style.display = 'block';
+                const partner = data.data.records.find(partner => partner.id === id);
+                if (partner) {
+                    console.log('Партнер:', partner); // Лог данных партнера для проверки структуры
+    
+                    // Убедитесь, что все данные партнера присутствуют и корректны
+                    document.getElementById('partnerId').value = partner.id || '';
+                    document.getElementById('partnerName').value = partner.ceo_name || '';
+                    document.getElementById('partnerEmail').value = partner.email || '';
+                    document.getElementById('partnerPhone').value = partner.phone || '';
+                    document.getElementById('partnerCountry').value = partner.country || '';
+    
+                    document.getElementById('editPartnerModal').style.display = 'block';
+                } else {
+                    console.log('Партнер с указанным id не найден.');
+                }
             } else {
                 console.log('Ошибка при получении информации о партнере.');
             }
@@ -82,20 +92,19 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Ошибка при получении информации о партнере:', error);
         });
     };
-
-    // Закрыть модальное окно
+    
     window.closeModal = function() {
         document.getElementById('editPartnerModal').style.display = 'none';
     };
-
-    // Обработать форму редактирования партнера
+    
+    
     document.getElementById('editPartnerForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
         const id = document.getElementById('partnerId').value;
         const updatedPartner = {
             id: id,
-            ceo_name: document.getElementById('partnerName').value,
+            ceo_name: document.getElementById('partnerName').value, 
             email: document.getElementById('partnerEmail').value,
             phone: document.getElementById('partnerPhone').value,
             country: document.getElementById('partnerCountry').value
@@ -123,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Удалить партнера
     window.deletePartner = function(id) {
         if (!confirm('Вы уверены, что хотите удалить этого партнера?')) {
             return;

@@ -1,19 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Проверяем, есть ли токен и роль пользователя в куках
     const authToken = getCookie('authToken');
     const userRole = getCookie('userRole');
 
-    // Если токена или роли нет, перенаправляем на страницу логина
     if (!authToken || userRole !== 'admin') {
         window.location.href = "/login.html";
         return;
     }
 
     let currentPage = 1;
+    let totalPages = 1;
     const usersList = document.getElementById('usersList');
     const pagination = document.getElementById('pagination');
 
-    // Функция для получения куки по имени
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -21,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return null;
     }
 
-    // Загрузка пользователей
     function loadUsers(page = 1) {
         const options = {
             method: 'GET',
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(body => {
-                console.log('Ответ сервера:', body); // Логирование ответа сервера
+                console.log('Ответ сервера:', body);
                 if (!body || !body.data || !Array.isArray(body.data.records)) {
                     console.error('Ответ не содержит данных пользователей:', body);
                     return;
@@ -50,15 +47,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (users.length === 0) {
                     console.log('Нет данных пользователей для отображения.');
                 }
+                totalPages = body.data.total_pages;
                 renderUsers(users);
-                renderPagination(body.data.total_pages, page);
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
             });
     }
 
-    // Отображение пользователей
     function renderUsers(users) {
         usersList.innerHTML = '';
         if (Array.isArray(users)) {
@@ -79,45 +75,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Отображение пагинации
-    function renderPagination(totalPages, currentPage) {
-        const ulPag = pagination.querySelector('.ul-pag');
-        ulPag.innerHTML = '';
-        if (totalPages && currentPage) {
-            for (let i = 1; i <= totalPages; i++) {
-                const pageItem = document.createElement('li');
-                pageItem.className = i === currentPage ? 'active' : '';
-                pageItem.textContent = i;
-                pageItem.addEventListener('click', () => {
-                    loadUsers(i);
-                    currentPage = i;
-                });
-                ulPag.appendChild(pageItem);
-            }
-        } else {
-            console.error('Ошибка при рендеринге пагинации. Некорректные данные totalPages или currentPage:', totalPages, currentPage);
-        }
-    }
 
-    // События для кнопок пагинации
-    const previousBtn = document.getElementById('previous');
-    const nextBtn = document.getElementById('next');
     const loadAllUsersBtn = document.getElementById('loadAllUsersBtn');
     const roleUsersForm = document.getElementById('RoleUsersForm');
-
-    if (previousBtn) {
-        previousBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                loadUsers(--currentPage);
-            }
-        });
-    }
-
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            loadUsers(++currentPage);
-        });
-    }
 
     if (loadAllUsersBtn) {
         loadAllUsersBtn.addEventListener('click', (event) => {
@@ -152,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(body => {
                     alert('Уровень пользователя успешно изменен.');
-                    loadUsers(currentPage); // Перезагружаем текущую страницу
+                    loadUsers(currentPage);
                 })
                 .catch(error => {
                     console.error('Возникла проблема с операцией изменения:', error);
@@ -161,6 +121,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Начальная загрузка пользователей
     loadUsers(currentPage);
 });
