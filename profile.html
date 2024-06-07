@@ -379,7 +379,7 @@
                                                 </label>
                                                 <label class="modal-content-label" for="comment"> 
                                                     Комментарий
-                                                    <textarea placeholder="Комментарий" id="comment" name="comment" class="modal-content-input"></textarea>
+                                                    <textarea maxlength="100" placeholder="Комментарий" id="comment" name="comment" class="modal-content-input"></textarea>
                                                 </label>
                                                 <button class="modal-content-btn" type="submit">Заказать</button>
                                             </div>
@@ -721,10 +721,10 @@
                                                                 <form id="changePasswordForm">
                                                                     <div class="row setting-forms">
                                                                         <div class="col col-md-4 profile-input">
-                                                                            <input name="old_password" type="password" placeholder="Старый пароль*" class="profile-input">
+                                                                            <input name="old_password" type="password" placeholder="Старый пароль*" class="profile-input" required>
                                                                         </div>
                                                                         <div class="col col-md-4 profile-input">
-                                                                            <input name="new_password" type="password" placeholder="Новый пароль*" class="">
+                                                                            <input name="new_password" type="password" placeholder="Новый пароль*" class="profile-input" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row setting-forms">
@@ -735,50 +735,13 @@
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                                <!--<script>
-                                                                    document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
-                                                                        event.preventDefault();
-                                                                        const formData = new FormData(event.target);
-                                                                        const data = {
-                                                                            old_password: formData.get('old_password'),
-                                                                            new_password: formData.get('new_password')
-                                                                        };
-                                                                        const token = "our_access_token"; // Заменим "our_access_token" на наш реальный токен
-                                                                        const options = {
-                                                                            method: 'POST',
-                                                                            headers: {
-                                                                                'Content-Type': 'application/json',
-                                                                                // Здесь нужно добавить заголовок с токеном для аутентификации
-                                                                                'Authorization': `Bearer ${token}` // Добавляем токен в заголовок
-                                                                            },
-                                                                            body: JSON.stringify(data)
-                                                                        };
-                                                                        fetch('http://185.121.2.208/hi-usa/private/auth/resetPassword', options)
-                                                                        .then(response => {
-                                                                            if (!response.ok) {
-                                                                                return response.json().then(errorData => {
-                                                                                    throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorData.message}`);
-                                                                                });
-                                                                            }
-                                                                            return response.json();
-                                                                        })
-                                                                            .then(data => {
-                                                                                console.log('Success:', data);
-                                                                                alert('Пароль успешно изменён.');
-                                                                            })
-                                                                            .catch(error => {
-                                                                                console.error('There was a problem with your fetch operation:', error);
-                                                                                alert('Ошибка при изменении пароля. Пожалуйста, попробуйте снова.');
-                                                                            });
-                                                                    });
-                                                                </script>-->
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>                                                
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                 
                                 </div>
                             </div>
                         </div>
@@ -898,5 +861,6 @@
     <script src="assets/js/fetchs/fetchUserProfile.js"></script>
     <script src="assets/js/fetchs/fetchUserProfileUpdate.js"></script>
     <script src="assets/js/fetchs/fetchUserAddParcel.js"></script>
+    <script src="assets/js/fetchs/fetchUserChangePassword.js"></script>
 </body>
 </html>

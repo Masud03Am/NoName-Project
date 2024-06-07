@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let totalPages = 1;
     const usersList = document.getElementById('usersList');
     const pagination = document.getElementById('pagination');
+    const prevBtn = document.getElementById('previous');
+    const nextBtn = document.getElementById('next');
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -49,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 totalPages = body.data.total_pages;
                 renderUsers(users);
+                setupPagination(totalPages, page);
             })
             .catch(error => {
                 console.error('Возникла проблема с операцией получения:', error);
@@ -75,6 +78,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function setupPagination(totalPages, currentPage) {
+        const ulPag = pagination.querySelector('.ul-pag');
+        ulPag.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.className = i === currentPage ? 'active' : '';
+            const button = document.querySelector(`button[onclick="goToPage(${pageNumber})"]`);
+            button.style.backgroundColor = "blue";
+            button.style.color = "white";
+            li.innerHTML = button;
+            ulPag.appendChild(li);
+        }
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+    }
+
+    function goToPage(page) {
+        if (page >= 1 && page <= totalPages) {
+            currentPage = page;
+            loadUsers(currentPage);
+        }
+    }
+
+    prevBtn.addEventListener('click', function () {
+        if (currentPage > 1) {
+            currentPage--;
+            loadUsers(currentPage);
+        }
+    });
+
+    nextBtn.addEventListener('click', function () {
+        if (currentPage < totalPages) {
+            currentPage++;
+            loadUsers(currentPage);
+        }
+    });
 
     const loadAllUsersBtn = document.getElementById('loadAllUsersBtn');
     const roleUsersForm = document.getElementById('RoleUsersForm');
@@ -82,7 +123,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (loadAllUsersBtn) {
         loadAllUsersBtn.addEventListener('click', (event) => {
             event.preventDefault();
-            loadUsers(1);
+            currentPage = 1;
+            loadUsers(currentPage);
         });
     }
 
@@ -123,3 +165,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loadUsers(currentPage);
 });
+
+function goToPage(page) {
+    if (page >= 1 && page <= totalPages) {
+        currentPage = page;
+        loadUsers(currentPage);
+    }
+}

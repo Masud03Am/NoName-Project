@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data && data.status === 'SUCCESS') {
                     // Handle success
+                    alert("Успешно");
                 } else {
                     throw new Error(data.message || 'Не удалось создать заказ.');
                 }

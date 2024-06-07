@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = document.getElementById('email').value.trim();
         const country = document.getElementById('country').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const note = document.getElementById('note').value.trim(); // Предположим, что у вас есть поле с ID 'note'
 
         // Проверка на заполненность обязательных полей
-        if (!name || !email || !phone || !note) {
+        if (!name || !email || !phone) {
+            alert('Пожалуйста, заполните все обязательные поля.');
             return;
         }
 
@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
             email: email,
             phone: phone,
             country: country,
-            message: note,
             theme: 'Авто-Карго'
         };
 
@@ -59,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Ошибка при отправке фидбека:', error);
+                alert('Ошибка при отправке фидбека. Пожалуйста, повторите попытку позже.');
             });
     });
 });

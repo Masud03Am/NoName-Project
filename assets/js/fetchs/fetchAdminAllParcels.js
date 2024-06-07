@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://185.121.2.208/hi-usa/private/parcel/getAll?page=${page}&perpage=${ordersPerPage}`, options)
             .then(response => response.json())
             .then(data => {
-                console.log('Полученные данные:', data); // Логируем полученные данные
+                console.log('Полученные данные:', data);
                 if (data && data.status === 'SUCCESS' && Array.isArray(data.data.records)) {
                     displayOrders(data.data.records);
                     setupPagination(data.data.total_pages, page);
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayOrders(orders) {
         const ordersTableBody = document.getElementById('ordersTableBody');
-        ordersTableBody.innerHTML = ''; // Clear the table
+        ordersTableBody.innerHTML = '';
 
         orders.forEach(order => {
             const row = document.createElement('tr');
@@ -72,9 +72,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://185.121.2.208/hi-usa/private/parcel/get?id=${orderId}`, options)
             .then(response => response.json())
             .then(data => {
-                console.log('Детали заказа:', data); // Логируем полученные данные заказа
+                console.log('Детали заказа:', data);
                 if (data && data.status === 'SUCCESS') {
-                    const orderDetails = data.data.records.find(order => order.id === orderId); // Ищем нужный заказ по ID
+                    const orderDetails = data.data.records.find(order => order.id === orderId);
                     if (orderDetails) {
                         displayOrderDetails(orderDetails);
                     } else {
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayOrderDetails(order) {
-        console.log('Заполняем данные заказа:', order); // Логируем данные заказа
+        console.log('Заполняем данные заказа:', order);
         const orderInfo = document.getElementById('orderInfo');
         orderInfo.innerHTML = `
             <p><strong>Название:</strong> ${order.name ? order.name : 'Не указано'}</p>
@@ -105,17 +105,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('orderDetails').style.display = 'block';
         document.getElementById('orderDetails').dataset.orderId = order.id;
         document.getElementById('orderDetails').dataset.orderPrice = order.price;
-        // Скролл к форме
         document.getElementById('orderDetails').scrollIntoView({ behavior: 'smooth' });
-        console.log('Элемент orderDetails после заполнения:', document.getElementById('orderDetails')); // Логируем состояние элемента
+        console.log('Элемент orderDetails после заполнения:', document.getElementById('orderDetails'));
     }
 
-    function updateOrderStatus(orderId, command, orderPrice) {
+    function updateOrderStatus(orderId, command) {
+        const orderPrice = document.getElementById('orderDetails').dataset.orderPrice;
         const payload = {
-            id: orderId,
-            command: command,
-            price: orderPrice
+            id: parseInt(orderId, 10),
+            command: command
         };
+
+        if (command === 'approved') {
+            payload.price = parseFloat(orderPrice);
+        }
+
+        console.log('Payload для обновления заказа:', payload);
 
         const options = {
             method: 'PUT',
@@ -129,10 +134,10 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('http://185.121.2.208/hi-usa/private/parcel/update', options)
             .then(response => response.json())
             .then(data => {
-                console.log('Ответ обновления заказа:', data); // Логируем ответ обновления заказа
+                console.log('Ответ обновления заказа:', data);
                 if (data && data.status === 'SUCCESS') {
                     console.log('Успешное обновление заказа:', data);
-                    fetchOrders(currentPage); // Refresh the orders list
+                    fetchOrders(currentPage);
                     document.getElementById('orderDetails').style.display = 'none';
                 } else {
                     throw new Error(data.message || 'Не удалось обновить заказ.');
