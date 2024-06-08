@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             zipcode: formData.get('zip-code'),
             passport_serie: formData.get('pasport'),
             phone: formData.get('phone'),
-            birth_date: `${formData.get('year')}-${formData.get('month')}-${formData.get('day')}`,
+            birth_date: `${formData.get('year')}-${formData.get('month').padStart(2, '0')}-${formData.get('day').padStart(2, '0')}`,
             region: formData.get('region'),
             country: formData.get('country')
         };
@@ -110,9 +110,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('input[name="flat"]').value = user.apartment || '';
         document.querySelector('input[name="zip-code"]').value = user.zipcode || '';
         document.querySelector('input[name="pasport"]').value = user.passport_serie || '';
-        document.querySelector('select[name="year"]').value = user.birth_date ? user.birth_date.split('-')[0] : '';
-        document.querySelector('select[name="month"]').value = user.birth_date ? user.birth_date.split('-')[1] : '';
-        document.querySelector('select[name="day"]').value = user.birth_date ? user.birth_date.split('-')[2] : '';
+        if (user.birth_date) {
+            const [year, month, day] = user.birth_date.split('-');
+            document.querySelector('select[name="year"]').value = year || '';
+            document.querySelector('select[name="month"]').value = month || '';
+            document.querySelector('select[name="day"]').value = day || '';
+        }
         document.querySelector('select[name="country"]').value = user.country || '';
         document.querySelector('select[name="region"]').value = user.region || '';
     }
@@ -122,9 +125,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const userPhone = user.phone || 'Не указан';
         const userRegion = user.region || 'Не указан';
 
-        document.getElementById('user-name').textContent = userName;
-        document.getElementById('user-phone').textContent = userPhone;
-        document.getElementById('user-region').textContent = userRegion;
+        const userNameElement = document.getElementById('user-name');
+        const userPhoneElement = document.getElementById('user-phone');
+        const userRegionElement = document.getElementById('user-region');
+
+        if (userNameElement) userNameElement.textContent = userName;
+        if (userPhoneElement) userPhoneElement.textContent = userPhone;
+        if (userRegionElement) userRegionElement.textContent = userRegion;
     }
 
     document.getElementById('country').addEventListener('change', function() {

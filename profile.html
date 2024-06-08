@@ -211,13 +211,6 @@
                                                         <button class="body-group-top-btn">Копировать</button>
                                                     </li>
                                                     <li id="" class="body-group-main-item">
-                                                        <p class="body-group-main-item-desc">Страна</p>
-                                                        <div class="body-group-main-item-2">
-                                                            <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
-                                                        </div>
-                                                        <button class="body-group-top-btn">Копировать</button>
-                                                    </li>
-                                                    <li id="" class="body-group-main-item">
                                                         <p class="body-group-main-item-desc">Город</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
@@ -592,6 +585,7 @@
                                                         <div class="grid">
                                                             <div class="settings-content">
                                                                 <form class="row setting-forms" id="userUpdateForm">
+                                                                    <!-- Other inputs here -->
                                                                     <div class="col col-md-4 profile-input">
                                                                         <input name="userId" type="text" placeholder="ID*" class="profile-input" value="" readonly>
                                                                     </div>
@@ -601,6 +595,7 @@
                                                                     <div class="col col-md-3 profile-input">
                                                                         <input name="email" type="text" placeholder="migahot108@lewenbo.com" class="profile-input" value="">
                                                                     </div>
+                                                                    <!-- Birthday and location selects -->
                                                                     <div class="col col-md-4">
                                                                         <div class="row" style="width: 100%; margin: 0px auto;">
                                                                             <div class="col col-md-4 profile-input" style="margin-top: 0; padding-right: 0px;">
@@ -635,69 +630,55 @@
                                                                                     </script>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="settings-opt row">
-                                                                                <div class="col col-md-4 profile-input">
-                                                                                    <select id="country" name="country" class="form-control">
-                                                                                        <option value="">Страна</option>
-                                                                                        <option value="Таджикистан">Таджикистан</option>
-                                                                                        <option value="Казахстан">Казахстан</option>
-                                                                                        <option value="Узбекистан">Узбекистан</option>
-                                                                                        <option value="Россия">Россия</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <div class="col col-md-4 profile-input">
-                                                                                    <select id="region" name="region" class="form-control">
-                                                                                        <option value="">Город/Посёлки</option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input name="pasport" type="text" placeholder="Серия номер паспорта*" class="profile-input">
+                                                                        <select name="country" id="country" class="form-control">
+                                                                            <option value="">Страна*</option>
+                                                                            <option value="Таджикистан">Таджикистан</option>
+                                                                            <option value="Казахстан">Казахстан</option>
+                                                                            <option value="Узбекистан">Узбекистан</option>
+                                                                            <option value="Россия">Россия</option>
+                                                                        </select>
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input name="street" type="text" placeholder="Улица*" class="">
+                                                                        <select name="region" id="region" class="form-control">
+                                                                            <option value="">Город/Посёлки</option>
+                                                                        </select>
                                                                     </div>
-                                                                    <div class="col col-md-4 profile-input">
-                                                                        <input name="house" type="text" placeholder="Дом">
+                                                                    <div class="col col-md-3 profile-input">
+                                                                        <input name="street" type="text" placeholder="Улица" class="profile-input" value="">
                                                                     </div>
-                                                                    <div class="col col-md-4 profile-input">
-                                                                        <input name="flat" type="text" placeholder="Квартира/офис">
+                                                                    <div class="col col-md-3 profile-input">
+                                                                        <input name="house" type="text" placeholder="Дом" class="profile-input" value="">
                                                                     </div>
-                                                                    <div class="col col-md-4 profile-input">
-                                                                        <input name="zip-code" type="text" placeholder="ZIP-код">
+                                                                    <div class="col col-md-3 profile-input">
+                                                                        <input name="flat" type="text" placeholder="Кв." class="profile-input" value="">
                                                                     </div>
+                                                                    <div class="col col-md-3 profile-input">
+                                                                        <input name="zip-code" type="text" placeholder="Zip-code" class="profile-input" value="">
+                                                                    </div>
+                                                                    <div class="col col-md-3 profile-input">
+                                                                        <input name="pasport" type="text" placeholder="Данные Паспорта" class="profile-input" value="">
+                                                                    </div>
+                                                                    <!-- File inputs -->
+                                                                    <div class="col col-md-3 profile-input">
+                                                                        <h6>Передняя часть паспорта</h6>
+                                                                        <input type="file" id="passportFront" class="profile-input">
+                                                                    </div>
+                                                                    <div class="col col-md-3 profile-input">
+                                                                        <h6>Задняя часть паспорта</h6>
+                                                                        <input type="file" id="passportBack" class="profile-input">
+                                                                    </div>
+                                                                    <!-- Save button -->
                                                                     <div class="col col-md-4">
-                                                                        <div class="col col-md-12 control-label">
-                                                                            <h6 class="">Передняя часть паспорта</h6>
-                                                                        </div>
-                                                                        <div class="input-group col-sm-8">
-                                                                            <label for="image">
-                                                                                <input id="passportFront" name="passportFront" type="file" accept="image/*">
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group col-md-4">
-                                                                        <div class="col col-md-12 control-label">
-                                                                            <h6 class="">Задняя часть паспорта</h6>
-                                                                        </div>
-                                                                        <div class="input-group col-sm-8">
-                                                                            <label for="image">
-                                                                                <input id="passportBack" name="passportBack" type="file" accept="image/*">
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col col-md-4">
-                                                                        <button style="font-weight: 600; background-color: #ff5e01; color: white; padding: 5px; border: 2px solid #ff5e01; border-radius: 5px;" type="button" class="" id="saveChangesButton">
-                                                                            <span>Сохранить изменения</span>
-                                                                        </button>
+                                                                        <button id="saveChangesButton" type="button" class="form-control btn btn-save-changes">Сохранить изменения</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>                                                
+                                                </div>                                                                                                                                           
                                             </div>
                                         </div>
                                     </div> 
