@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentPage = 1;
     let totalPages = 1;
     const usersList = document.getElementById('usersList');
-    const pagination = document.getElementById('pagination');
+    const paginationList = document.getElementById('paginationList');
     const prevBtn = document.getElementById('previous');
     const nextBtn = document.getElementById('next');
 
@@ -79,17 +79,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function setupPagination(totalPages, currentPage) {
-        const ulPag = pagination.querySelector('.ul-pag');
-        ulPag.innerHTML = '';
+        paginationList.innerHTML = '';
 
-        for (let i = 1; i <= totalPages; i++) {
+        if (totalPages === 1) {
             const li = document.createElement('li');
-            li.className = i === currentPage ? 'active' : '';
-            const button = document.querySelector(`button[onclick="goToPage(${pageNumber})"]`);
-            button.style.backgroundColor = "blue";
-            button.style.color = "white";
-            li.innerHTML = button;
-            ulPag.appendChild(li);
+            li.className = 'active';
+            li.textContent = '1';
+            paginationList.appendChild(li);
+        } else {
+            for (let i = 1; i <= totalPages; i++) {
+                const li = document.createElement('li');
+                li.className = i === currentPage ? 'active' : '';
+                li.textContent = i;
+                li.onclick = function() {
+                    goToPage(i);
+                };
+                paginationList.appendChild(li);
+            }
         }
 
         prevBtn.disabled = currentPage === 1;

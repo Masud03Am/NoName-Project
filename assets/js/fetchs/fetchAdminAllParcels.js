@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-    window.fetchOrders = function(page = 1) {
+    function fetchOrders(page = 1) {
+        currentPage = page;
         const options = {
             method: 'GET',
             headers: {
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://185.121.2.208/hi-usa/private/parcel/getAll?page=${page}&perpage=${ordersPerPage}`, options)
             .then(response => response.json())
             .then(data => {
-                console.log('Полученные данные:', data);
                 if (data && data.status === 'SUCCESS' && Array.isArray(data.data.records)) {
                     displayOrders(data.data.records);
                     setupPagination(data.data.total_pages, page);
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    window.viewOrder = function(orderId) {
+    function viewOrder(orderId) {
         const options = {
             method: 'GET',
             headers: {
@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://185.121.2.208/hi-usa/private/parcel/get?id=${orderId}`, options)
             .then(response => response.json())
             .then(data => {
-                console.log('Детали заказа:', data);
                 if (data && data.status === 'SUCCESS') {
                     const orderDetails = data.data.records.find(order => order.id === orderId);
                     if (orderDetails) {
@@ -90,23 +89,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayOrderDetails(order) {
-        console.log('Заполняем данные заказа:', order);
         const orderInfo = document.getElementById('orderInfo');
         orderInfo.innerHTML = `
-            <p><strong>Название:</strong> ${order.name ? order.name : 'Не указано'}</p>
-            <p><strong>URL адрес товара:</strong> ${order.link ? order.link : 'Не указано'}</p>
-            <p><strong>Код товара:</strong> ${order.id ? order.id : 'Не указано'}</p>
-            <p><strong>Цена товара:</strong> ${order.price ? order.price : 'Не указано'}</p>
-            <p><strong>Окончательная Цена:</strong> ${order.full_price ? order.full_price : 'Не указано'}</p>
-            <p><strong>Адрес доставки:</strong> ${order.user_address ? order.user_address : 'Не указано'}</p>
-            <p><strong>Состояние заказа:</strong> ${order.status ? order.status : 'Не указано'}</p>
-            <p><strong>Комментарий:</strong> ${order.comment ? order.comment : 'Нет комментария'}</p>
+            <p><strong>Название:</strong> ${order.name || 'Не указано'}</p>
+            <p><strong>URL адрес товара:</strong> ${order.link || 'Не указано'}</p>
+            <p><strong>Код товара:</strong> ${order.id || 'Не указано'}</p>
+            <p><strong>Цена товара:</strong> ${order.price || 'Не указано'}</p>
+            <p><strong>Окончательная Цена:</strong> ${order.full_price || 'Не указано'}</p>
+            <p><strong>Адрес доставки:</strong> ${order.user_address || 'Не указано'}</p>
+            <p><strong>Состояние заказа:</strong> ${order.status || 'Не указано'}</p>
+            <p><strong>Комментарий:</strong> ${order.comment || 'Нет комментария'}</p>
         `;
-        document.getElementById('orderDetails').style.display = 'block';
-        document.getElementById('orderDetails').dataset.orderId = order.id;
-        document.getElementById('orderDetails').dataset.orderPrice = order.price;
-        document.getElementById('orderDetails').scrollIntoView({ behavior: 'smooth' });
-        console.log('Элемент orderDetails после заполнения:', document.getElementById('orderDetails'));
+        const orderDetails = document.getElementById('orderDetails');
+        orderDetails.style.display = 'block';
+        orderDetails.dataset.orderId = order.id;
+        orderDetails.dataset.orderPrice = order.price;
+        orderDetails.scrollIntoView({ behavior: 'smooth' });
     }
 
     function updateOrderStatus(orderId, command) {
@@ -120,8 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
             payload.price = parseFloat(orderPrice);
         }
 
-        console.log('Payload для обновления заказа:', payload);
-
         const options = {
             method: 'PUT',
             headers: {
@@ -134,9 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('http://185.121.2.208/hi-usa/private/parcel/update', options)
             .then(response => response.json())
             .then(data => {
-                console.log('Ответ обновления заказа:', data);
                 if (data && data.status === 'SUCCESS') {
-                    console.log('Успешное обновление заказа:', data);
                     fetchOrders(currentPage);
                     document.getElementById('orderDetails').style.display = 'none';
                 } else {
@@ -148,43 +142,44 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    window.acceptOrder = function() {
+    function acceptOrder() {
         const orderId = document.getElementById('orderDetails').dataset.orderId;
         updateOrderStatus(orderId, 'approved');
-    };
+    }
 
-    window.rejectOrder = function() {
+    function rejectOrder() {
         const orderId = document.getElementById('orderDetails').dataset.orderId;
         updateOrderStatus(orderId, 'rejected');
-    };
+    }
 
     function setupPagination(totalPages, currentPage) {
         const pagination = document.getElementById('pagination');
-        const ulPag = pagination.querySelector('.ul-pag');
+        if (!pagination) {
+            console.error('Элемент с id "pagination" не найден.');
+            return;
+        }
+        let ulPag = pagination.querySelector('.ul-pag');
+        if (!ulPag) {
+            ulPag = document.createElement('ul');
+            ulPag.className = 'ul-pag';
+            pagination.appendChild(ulPag);
+        }
         ulPag.innerHTML = '';
+
+        if (totalPages <= 1) return; // Если всего одна страница, скрываем пагинацию
 
         for (let i = 1; i <= totalPages; i++) {
             const li = document.createElement('li');
             li.className = i === currentPage ? 'active' : '';
-            li.innerHTML = `<button onclick="fetchOrders(${i})">${i}</button>`;
+            li.innerHTML = `<a class="pag-link" href="javascript:void(0);" onclick="fetchOrders(${i})">${i}</a>`;
             ulPag.appendChild(li);
         }
-
-        document.getElementById('previous').disabled = currentPage === 1;
-        document.getElementById('next').disabled = currentPage === totalPages;
-
-        document.getElementById('previous').onclick = () => {
-            if (currentPage > 1) {
-                fetchOrders(currentPage - 1);
-            }
-        };
-
-        document.getElementById('next').onclick = () => {
-            if (currentPage < totalPages) {
-                fetchOrders(currentPage + 1);
-            }
-        };
     }
+
+    window.fetchOrders = fetchOrders;
+    window.viewOrder = viewOrder;
+    window.acceptOrder = acceptOrder;
+    window.rejectOrder = rejectOrder;
 
     fetchOrders(currentPage);
 });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -146,13 +146,13 @@
                         <div id="usersList">
                             <!-- Список пользователей будет загружен сюда -->
                         </div>
-                        <div id="pagination" class="pagination">
+                        <div class="pagination">
                             <button class="pag-btn" id="previous">Пред.</button>
-                            <ul class="ul-pag">
-                                <!-- Кнопки пагинации будут загружены сюда -->
+                            <ul class="ul-pag" id="paginationList">
+                                <!-- Пагинация будет динамически загружена сюда -->
                             </ul>
                             <button class="pag-btn" id="next">След.</button>
-                        </div>
+                        </div>                                              
                     </div>
                 </div>                
                 <div class="recentOrders">
@@ -215,13 +215,13 @@
                         <div class="list-group">
                             <!-- Список магазинов будет загружен сюда -->
                         </div>
-                        <div id="pagination" class="pagination">
+                        <div class="pagination" id="pagination">
                             <button class="pag-btn" id="previous">Пред.</button>
-                            <ul class="ul-pag">
-                                <!-- Кнопки пагинации будут загружены сюда -->
+                            <ul class="ul-pag" id="paginationList">
+                                <!-- Пагинация будет динамически загружена сюда -->
                             </ul>
                             <button class="pag-btn" id="next">След.</button>
-                        </div>
+                        </div> 
                     </div>
                 </div>
                 <div class="recentOrders">
@@ -396,13 +396,13 @@
                             <p>ДАННЫЕ ЗАКАЗ БЫЛ ОТКЛОНЕН</p>
                         </div>
                     </div>
-                    <div id="pagination" class="pagination">
+                    <div class="pagination" id="pagination">
                         <button class="pag-btn" id="previous">Пред.</button>
-                        <ul class="ul-pag">
-                            <!-- Кнопки пагинации будут загружены сюда -->
+                        <ul class="ul-pag" id="paginationList">
+                            <!-- Пагинация будет динамически загружена сюда -->
                         </ul>
                         <button class="pag-btn" id="next">След.</button>
-                    </div>
+                    </div> 
                 </div>                    
             </div>
 
@@ -616,11 +616,13 @@
                             </thead>
                             <tbody id="carsTableBody"></tbody>
                         </table>
-                        <div id="pagination" class="pagination">
+                        <div class="pagination" id="pagination">
                             <button class="pag-btn" id="previous">Пред.</button>
-                            <ul class="ul-pag"></ul>
+                            <ul class="ul-pag" id="paginationList">
+                                <!-- Пагинация будет динамически загружена сюда -->
+                            </ul>
                             <button class="pag-btn" id="next">След.</button>
-                        </div>
+                        </div> 
                     </div>
                 </div>                
                 <div class="recentOrders">
@@ -800,11 +802,11 @@
     <script src="assets/js/fetchs/fetchUsers.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddStore.js"></script>
     <script src="assets/js/fetchs/fetchAdminCategory.js"></script>
-    <script src="assets/js/fetchs/fetchAddCars.js"></script>
+    <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
     <script src="assets/js/fetchs/fetchAdminGetAndUpdatePartner.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllPartners.js"></script>
     <script src="assets/js/fetchs/fetchAdminAddPartner.js"></script>
-    <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
+    <script src="assets/js/fetchs/fetchAddCars.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllCars.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllParcels.js"></script>
     <script src="assets/js/fetchs/fetchAdminImagePath.js"></script>
