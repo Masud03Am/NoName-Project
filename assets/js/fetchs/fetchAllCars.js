@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(data.message || 'Ошибка при получении данных автомобилей');
             }
             renderCars(data.data.records);
+            initializeSlider();
         })
         .catch(error => {
             console.error('Возникла проблема с получением данных автомобилей:', error);
@@ -38,11 +39,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         cars.forEach((car, index) => {
+            const imageUrl = (car.images && car.images[0]) ? `/home/server/USA_SUPPLY/${car.images[0]}` : '/home/server/USA_SUPPLY/images/cars/2/2.png';
+
             const carElement = document.createElement('div');
-            carElement.className = 'grid';
+            carElement.className = 'grid item';
             carElement.id = `car-${index + 1}`;
             carElement.innerHTML = `
-                <a href=""><img src="${(car.images && car.images[0]) || 'assets/images/default-car.jpg'}" alt="${car.mark} ${car.model}"></a>
+                <a href="#"><img src="${imageUrl}" alt="${car.mark} ${car.model}"></a>
                 <p style="text-align: left; padding: 5px;">
                     <span>Марка: ${car.mark}<br></span>
                     <span>Модель: ${car.model}<br></span>
@@ -75,5 +78,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         return null;
+    }
+
+    function initializeSlider() {
+        if ($(".cars-slider").length) {
+            $(".cars-slider").owlCarousel({
+                autoplay: true,
+                smartSpeed: 300,
+                margin: 30,
+                loop: true,
+                autoplayHoverPause: true,
+                dots: false,
+                responsive: {
+                    0 : {
+                        items: 1
+                    },
+                    550 : {
+                        items: 1
+                    },
+                    992 : {
+                        items: 2
+                    },
+                    1200 : {
+                        items: 3
+                    }
+                }
+            });
+        }
     }
 });

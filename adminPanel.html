@@ -641,20 +641,19 @@
             <div data-page="images" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Управление изображениями</h2> 
+                        <h2>Управление изображениями</h2>
                     </div>
-                    <form id="">
+                    <form id="imageForm">
                         <input style="margin-bottom: 1.5rem;" class="form-input" type="text" id="filenameInput" placeholder="Введите путь к рисунку">
-                        <button style="margin-bottom: 1.5rem;" type="submit" class="form-submit" id="getImageButton">Получить Рисунок</button>
+                        <button style="margin-bottom: 1.5rem;" type="button" class="form-submit" id="getImageButton">Получить Рисунок</button>
                         <input style="margin-bottom: 1.5rem;" class="form-input" type="file" id="fileInput">
-                        <button style="margin-bottom: 1.5rem;" type="submit" class="form-submit" id="uploadImageButton">Заменить Рисунок</button>
+                        <button style="margin-bottom: 1.5rem;" type="button" class="form-submit" id="uploadImageButton">Заменить Рисунок</button>
                     </form>
                     <div>
                         <img id="imageDisplay" src="" alt="Изображение" style="display: none;">
                     </div>
                 </div>
             </div>
-
             <!-- ================ Settings ================= -->
             <div data-page="settings" class="details">
                 <div class="recentOrders">
@@ -808,6 +807,7 @@
     <script src="assets/js/fetchs/fetchAdminAllStores.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllCars.js"></script>
     <script src="assets/js/fetchs/fetchAdminAllParcels.js"></script>
+    <script src="assets/js/fetchs/fetchAdminImagePath.js"></script>
     
     <!--<script src="assets/js/fetchs/fetchAdminMenuStore.js"></script>-->
     <!--<script src="assets/js/fetchs/fetchAdminAllStores.js"></script>-->

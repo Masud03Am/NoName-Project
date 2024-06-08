@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
             shops.forEach(shop => {
                 const shopItem = document.createElement('div');
                 shopItem.classList.add('post', 'format-standard');
-                const imageUrl = shop.image_url ? shop.image_url : 'path/to/default-image.jpg'; // Используем изображение по умолчанию, если URL не указан
+                const imageUrl = shop.image_url ? `/home/server/USA_SUPPLY/${shop.image_url}` : '/home/server/USA_SUPPLY/path/to/default-image.jpg'; // Используем изображение по умолчанию, если URL не указан
                 shopItem.innerHTML = `
                     <div class="meta-title">
                         <div class="meta">

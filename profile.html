@@ -593,90 +593,80 @@
                                                             <div class="settings-content">
                                                                 <form class="row setting-forms" id="userUpdateForm">
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="userId" type="text" placeholder="ID*" class="profile-input" value="" readonly>
+                                                                        <input name="userId" type="text" placeholder="ID*" class="profile-input" value="" readonly>
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="firstName" type="text" placeholder="ФИО*" class="profile-input" value="">
+                                                                        <input name="firstName" type="text" placeholder="ФИО*" class="profile-input" value="">
                                                                     </div>
                                                                     <div class="col col-md-3 profile-input">
-                                                                        <input id="" name="email" type="text" placeholder="migahot108@lewenbo.com" class="profile-input" value="">
+                                                                        <input name="email" type="text" placeholder="migahot108@lewenbo.com" class="profile-input" value="">
                                                                     </div>
-                                                                </div>
-                                                                <div class="col col-md-4">
-                                                                    <div class="row" style="width: 100%; margin: 0px auto;">
-                                                                        <div class="col col-md-4 profile-input" style="margin-top: 0; padding-right: 0px;">
-                                                                            <select name="" id="" class="form-control">
-                                                                                <option value="">Год</option>
-                                                                                <script>
-                                                                                    var currentYear = new Date().getFullYear();
-                                                                                    for (var i = currentYear; i >= currentYear - 100; i--) {
-                                                                                        document.write('<option value="' + i + '">' + i + '</option>');
-                                                                                    }
-                                                                                </script>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="col col-md-4 profile-input" style="padding-right: 0px;">
-                                                                            <select name="" id="" class="form-control">
-                                                                                <option value="">Месяц</option>
-                                                                                <script>
-                                                                                    var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-                                                                                    for (var i = 0; i < months.length; i++) {
-                                                                                        document.write('<option value="' + (i + 1) + '">' + months[i] + '</option>');
-                                                                                    }
-                                                                                </script>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="col col-md-4 profile-input">
-                                                                            <select id="" name="" class="form-control">
-                                                                                <option value="">День</option>
-                                                                                <script>
-                                                                                    for (var i = 1; i <= 31; i++) {
-                                                                                        document.write('<option value="' + i + '">' + i + '</option>');
-                                                                                    }
-                                                                                </script>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="settings-opt row">
-                                                                            <div class="col col-md-4 profile-input">
-                                                                                <select id="" name="country" style="width: max-content" class="form-control">
-                                                                                    <option value="">Страна</option>
+                                                                    <div class="col col-md-4">
+                                                                        <div class="row" style="width: 100%; margin: 0px auto;">
+                                                                            <div class="col col-md-4 profile-input" style="margin-top: 0; padding-right: 0px;">
+                                                                                <select name="year" id="year" class="form-control">
+                                                                                    <option value="">Год</option>
                                                                                     <script>
-                                                                                        var countries = ['Таджикистан', 'Казахстан', 'Узбекистан', 'Россия'];
-                                                                                        for (var i = 0; i < countries.length; i++) {
-                                                                                            document.write('<option value="' + countries[i] + '">' + countries[i] + '</option>');
+                                                                                        var currentYear = new Date().getFullYear();
+                                                                                        for (var i = currentYear; i >= currentYear - 100; i--) {
+                                                                                            document.write('<option value="' + i + '">' + i + '</option>');
+                                                                                        }
+                                                                                    </script>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col col-md-4 profile-input" style="padding-right: 0px;">
+                                                                                <select name="month" id="month" class="form-control">
+                                                                                    <option value="">Месяц</option>
+                                                                                    <script>
+                                                                                        var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+                                                                                        for (var i = 0; i < months.length; i++) {
+                                                                                            document.write('<option value="' + (i + 1) + '">' + months[i] + '</option>');
                                                                                         }
                                                                                     </script>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="col col-md-4 profile-input">
-                                                                                <select id="" style="width: max-content;" class="form-control">
-                                                                                    <option value="">Город/Посёлки</option>
+                                                                                <select name="day" id="day" class="form-control">
+                                                                                    <option value="">День</option>
                                                                                     <script>
-                                                                                        var cities = ['Душанбе', 'Алмата', 'Ташкент', 'Москва'];
-                                                                                        for (var i = 0; i < cities.length; i++) {
-                                                                                            document.write('<option value="' + cities[i] + '">' + cities[i] + '</option>');
+                                                                                        for (var i = 1; i <= 31; i++) {
+                                                                                            document.write('<option value="' + i + '">' + i + '</option>');
                                                                                         }
                                                                                     </script>
                                                                                 </select>
                                                                             </div>
+                                                                            <div class="settings-opt row">
+                                                                                <div class="col col-md-4 profile-input">
+                                                                                    <select id="country" name="country" class="form-control">
+                                                                                        <option value="">Страна</option>
+                                                                                        <option value="Таджикистан">Таджикистан</option>
+                                                                                        <option value="Казахстан">Казахстан</option>
+                                                                                        <option value="Узбекистан">Узбекистан</option>
+                                                                                        <option value="Россия">Россия</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col col-md-4 profile-input">
+                                                                                    <select id="region" name="region" class="form-control">
+                                                                                        <option value="">Город/Посёлки</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <form class="row setting-forms">
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="pasport" type="text" placeholder="Серия номер паспорта*" class="profile-input">
+                                                                        <input name="pasport" type="text" placeholder="Серия номер паспорта*" class="profile-input">
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="street" type="text" placeholder="Улица*" class="">
+                                                                        <input name="street" type="text" placeholder="Улица*" class="">
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="house" type="text" placeholder="Дом">
+                                                                        <input name="house" type="text" placeholder="Дом">
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="flat" type="text" placeholder="Квартира/офис">
+                                                                        <input name="flat" type="text" placeholder="Квартира/офис">
                                                                     </div>
                                                                     <div class="col col-md-4 profile-input">
-                                                                        <input id="" name="zip-code" type="text" placeholder="ZIP-код">
+                                                                        <input name="zip-code" type="text" placeholder="ZIP-код">
                                                                     </div>
                                                                     <div class="col col-md-4">
                                                                         <div class="col col-md-12 control-label">
@@ -703,11 +693,11 @@
                                                                             <span>Сохранить изменения</span>
                                                                         </button>
                                                                     </div>
-                                                                </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>                                                
                                             </div>
                                         </div>
                                     </div> 

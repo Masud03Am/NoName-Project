@@ -54,7 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
             zipcode: formData.get('zip-code'),
             passport_serie: formData.get('pasport'),
             phone: formData.get('phone'),
-            birth_date: `${formData.get('year')}-${formData.get('month')}-${formData.get('day')}`
+            birth_date: `${formData.get('year')}-${formData.get('month')}-${formData.get('day')}`,
+            region: formData.get('region'),
+            country: formData.get('country')
         };
 
         const passportFront = document.getElementById('passportFront').files[0];
@@ -87,48 +89,73 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 console.log('Ответ от сервера:', data);
-                if (data && data.status === 'SUCCESS') {
-                    return fetch('http://185.121.2.208/hi-usa/private/user/getCurrent', {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });    
+                if (data.success) {
+                    alert('Профиль успешно обновлен.');
                 } else {
-                    throw new Error(data.message || 'Не удалось обновить данные пользователя.');
+                    alert('Ошибка обновления профиля: ' + data.message);
                 }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.data) {
-                    updateUserProfileDisplay(data.data);
-                } else {
-                    throw new Error('Не удалось получить обновленные данные о пользователе.');
-                }
-                alert("Успешно обновлён");
             })
             .catch(error => {
-                console.error('Ошибка при обновлении данных пользователя:', error);
+                console.error('Ошибка при обновлении профиля:', error);
+                alert('Ошибка при обновлении профиля.');
             });
     });
+
+    function fillUserProfile(user) {
+        document.querySelector('input[name="userId"]').value = user.id || '';
+        document.querySelector('input[name="firstName"]').value = user.name || '';
+        document.querySelector('input[name="email"]').value = user.email || '';
+        document.querySelector('input[name="street"]').value = user.street || '';
+        document.querySelector('input[name="house"]').value = user.house || '';
+        document.querySelector('input[name="flat"]').value = user.apartment || '';
+        document.querySelector('input[name="zip-code"]').value = user.zipcode || '';
+        document.querySelector('input[name="pasport"]').value = user.passport_serie || '';
+        document.querySelector('select[name="year"]').value = user.birth_date ? user.birth_date.split('-')[0] : '';
+        document.querySelector('select[name="month"]').value = user.birth_date ? user.birth_date.split('-')[1] : '';
+        document.querySelector('select[name="day"]').value = user.birth_date ? user.birth_date.split('-')[2] : '';
+        document.querySelector('select[name="country"]').value = user.country || '';
+        document.querySelector('select[name="region"]').value = user.region || '';
+    }
+
+    function updateUserProfileDisplay(user) {
+        const userName = user.name || 'Пользователь';
+        const userPhone = user.phone || 'Не указан';
+        const userRegion = user.region || 'Не указан';
+
+        document.getElementById('user-name').textContent = userName;
+        document.getElementById('user-phone').textContent = userPhone;
+        document.getElementById('user-region').textContent = userRegion;
+    }
+
+    document.getElementById('country').addEventListener('change', function() {
+        const country = this.value;
+        const regionSelect = document.getElementById('region');
+        regionSelect.innerHTML = '<option value="">Город/Посёлки</option>';
+
+        let regions = [];
+
+        switch (country) {
+            case 'Таджикистан':
+                regions = ['Душанбе', 'Худжанд', 'Бохтар'];
+                break;
+            case 'Казахстан':
+                regions = ['Алматы', 'Нур-Султан', 'Шымкент'];
+                break;
+            case 'Узбекистан':
+                regions = ['Ташкент', 'Самарканд', 'Бухара'];
+                break;
+            case 'Россия':
+                regions = ['Москва', 'Санкт-Петербург', 'Новосибирск'];
+                break;
+            default:
+                regions = [];
+        }
+
+        regions.forEach(region => {
+            const option = document.createElement('option');
+            option.value = region;
+            option.textContent = region;
+            regionSelect.appendChild(option);
+        });
+    });
 });
-
-function fillUserProfile(user) {
-    document.querySelector('input[name="userId"]').value = user.id || '';
-    document.querySelector('input[name="firstName"]').value = user.name || '';
-    document.querySelector('input[name="email"]').value = user.email || '';
-}
-
-function updateUserProfileDisplay(user) {
-    const address = user.addresses[0] || {};
-
-    document.getElementById('nameUser').textContent = user.name || 'Имя';
-    document.querySelector('#profile-category .body-group-main-item:nth-child(1) .body-group-main-item-desc1').textContent = user.id || 'ID';
-    document.querySelector('#profile-category .body-group-main-item:nth-child(2) .body-group-main-item-desc1').textContent = user.email || 'Почта';
-    document.querySelector('#profile-category .body-group-main-item:nth-child(3) .body-group-main-item-desc1').textContent = user.country || 'Страна';
-    document.querySelector('#profile-category .body-group-main-item:nth-child(4) .body-group-main-item-desc1').textContent = user.city || 'Город';
-    document.querySelector('#profile-category .body-group-main-item:nth-child(5) .body-group-main-item-desc1').textContent = `${address.street || ''} ${address.house || ''} ${address.apartment || ''}`.trim() || 'Адрес';
-    document.querySelector('#profile-category .body-group-main-item:nth-child(6) .body-group-main-item-desc1').textContent = address.zip_code || 'ZIP-код';
-    document.querySelector('#profile-category .body-group-main-item:nth-child(7) .body-group-main-item-desc1').textContent = user.phone || 'Телефон';
-}
