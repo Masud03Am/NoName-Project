@@ -65,8 +65,36 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data && data.status === 'SUCCESS') {
-                    // Handle success
                     alert("Успешно");
+
+                    const feedbackPayload = {
+                        command: "Feedback Command",
+                        email: formData.get('email') || 'example@example.com', // assuming user email is available in formData
+                        message: `Новый заказ создан пользователем ${formData.get('name')}`,
+                        name: formData.get('name'),
+                        phone: formData.get('phone') || '000-000-0000', // assuming user phone is available in formData
+                        theme: "Новый Заказ"
+                    };
+
+                    fetch('http://185.121.2.208/public/feedback/add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(feedbackPayload)
+                    })
+                    .then(response => response.json())
+                    .then(feedbackData => {
+                        if (feedbackData && feedbackData.status === 'SUCCESS') {
+                            console.log("Фидбек успешно отправлен");
+                        } else {
+                            console.error('Не удалось отправить фидбек:', feedbackData.message);
+                        }
+                    })
+                    .catch(feedbackError => {
+                        console.error('Ошибка при отправке фидбека:', feedbackError);
+                    });
+
                 } else {
                     throw new Error(data.message || 'Не удалось создать заказ.');
                 }
@@ -76,18 +104,16 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     });
 
-    // Function to calculate full price based on price and markup constant
     function calculateFullPrice() {
         const priceInput = document.getElementById('price');
         const fullPriceInput = document.getElementById('full_price');
-        const markupConstant = 1.5; // Change this to your markup constant
+        const markupConstant = 1.5; 
 
-        const price = parseFloat(priceInput.value) || 0; // Get price value, default to 0 if not a number
-        const fullPrice = price * markupConstant; // Calculate full price
-        fullPriceInput.value = fullPrice.toFixed(2); // Set full price with 2 decimal places
+        const price = parseFloat(priceInput.value) || 0;
+        const fullPrice = price * markupConstant;
+        fullPriceInput.value = fullPrice.toFixed(2);
     }
 
-    // Event listener to calculate full price when price input changes
     document.getElementById('price').addEventListener('input', calculateFullPrice);
 });
 

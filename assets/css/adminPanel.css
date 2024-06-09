@@ -1006,9 +1006,15 @@ pagination-store
   font-weight: 600;
 }
 
-.ul-pag > li .pag-link{
+.ul-pag > li .pag-link {
   color: white;
   text-decoration: none;
+  display: block;
+}
+
+.highlight {
+  background-color: gray;
+  color: white;
 }
 
 #next.active{

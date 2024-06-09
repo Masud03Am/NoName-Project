@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const paginationList = document.getElementById('paginationList');
     const prevBtn = document.getElementById('previous');
     const nextBtn = document.getElementById('next');
+    const searchInput = document.querySelector('.search input');
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return null;
     }
 
-    function loadUsers(page = 1) {
+    function loadUsers(page = 1, searchQuery = '') {
         const options = {
             method: 'GET',
             headers: {
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
-        fetch(`http://185.121.2.208/hi-usa/private/user/getAll?page=${page}`, options)
+        fetch(`http://185.121.2.208/hi-usa/private/user/getAll?page=${page}&search=${searchQuery}`, options)
             .then(response => {
                 if (!response.ok) {
                     return response.json().then(errorData => {
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log('Нет данных пользователей для отображения.');
                 }
                 totalPages = body.data.total_pages;
-                renderUsers(users);
+                renderUsers(users, searchQuery);
                 setupPagination(totalPages, page);
             })
             .catch(error => {
@@ -58,15 +59,23 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    function renderUsers(users) {
+    function highlightMatch(text, searchQuery) {
+        if (!searchQuery) return text;
+
+        const regex = new RegExp(`(${searchQuery})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function renderUsers(users, searchQuery = '') {
         usersList.innerHTML = '';
         if (Array.isArray(users)) {
             users.forEach(user => {
                 const userItem = document.createElement('div');
                 userItem.className = 'users-item';
+                const highlightedEmail = highlightMatch(user.email, searchQuery);
                 userItem.innerHTML = `
                     <div class="table-item noflex">${user.id}</div>
-                    <div class="table-item">${user.email}</div>
+                    <div class="table-item">${highlightedEmail}</div>
                     <div class="table-item">${user.name}</div>
                     <div class="table-item">${user.role}</div>
                     <div class="table-item">${user.phone}</div>
@@ -105,21 +114,21 @@ document.addEventListener('DOMContentLoaded', function () {
     function goToPage(page) {
         if (page >= 1 && page <= totalPages) {
             currentPage = page;
-            loadUsers(currentPage);
+            loadUsers(currentPage, searchInput.value);
         }
     }
 
     prevBtn.addEventListener('click', function () {
         if (currentPage > 1) {
             currentPage--;
-            loadUsers(currentPage);
+            loadUsers(currentPage, searchInput.value);
         }
     });
 
     nextBtn.addEventListener('click', function () {
         if (currentPage < totalPages) {
             currentPage++;
-            loadUsers(currentPage);
+            loadUsers(currentPage, searchInput.value);
         }
     });
 
@@ -160,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(body => {
                     alert('Уровень пользователя успешно изменен.');
-                    loadUsers(currentPage);
+                    loadUsers(currentPage, searchInput.value);
                 })
                 .catch(error => {
                     console.error('Возникла проблема с операцией изменения:', error);
@@ -169,12 +178,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    searchInput.addEventListener('input', function() {
+        currentPage = 1;
+        loadUsers(currentPage, searchInput.value);
+    });
+
     loadUsers(currentPage);
 });
-
-function goToPage(page) {
-    if (page >= 1 && page <= totalPages) {
-        currentPage = page;
-        loadUsers(currentPage);
-    }
-}

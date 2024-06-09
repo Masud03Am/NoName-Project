@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentPage = 1;
     const ordersPerPage = 6;
+    let allOrders = [];
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -29,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data && data.status === 'SUCCESS' && Array.isArray(data.data.records)) {
-                    displayOrders(data.data.records);
+                    allOrders = data.data.records.filter(order => order.status !== 'rejected');
+                    displayOrders(allOrders);
                     setupPagination(data.data.total_pages, page);
                 } else {
                     throw new Error(data.message || 'Не удалось получить заказы.');

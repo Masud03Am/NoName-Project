@@ -43,6 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderStores(stores) {
+        if (!storeList) {
+            console.error('Элемент списка магазинов не найден');
+            return;
+        }
         storeList.innerHTML = ''; // Очистка списка перед добавлением новых элементов
         stores.forEach(store => {
             const storeItem = document.createElement('div');
@@ -58,6 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updatePagination(current, total) {
         const ulPag = document.querySelector('.ul-pag');
+        if (!ulPag) {
+            console.error('Элемент списка пагинации не найден');
+            return;
+        }
         ulPag.innerHTML = ''; // Очистка пагинации перед добавлением новых элементов
 
         for (let i = 1; i <= total; i++) {
@@ -72,24 +80,34 @@ document.addEventListener('DOMContentLoaded', function() {
             ulPag.appendChild(li);
         }
 
-        previousBtn.disabled = current === 1;
-        nextBtn.disabled = current === total;
+        if (previousBtn) {
+            previousBtn.disabled = current === 1;
+        }
+        if (nextBtn) {
+            nextBtn.disabled = current === total;
+        }
     }
 
-    loadAllStoresBtn.addEventListener('click', function(event) {
-        event.preventDefault();
-        loadStores();
-    });
+    if (loadAllStoresBtn) {
+        loadAllStoresBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            loadStores();
+        });
+    }
 
-    previousBtn.addEventListener('click', function() {
-        if (currentPage > 1) {
-            loadStores(--currentPage);
-        }
-    });
+    if (previousBtn) {
+        previousBtn.addEventListener('click', function() {
+            if (currentPage > 1) {
+                loadStores(--currentPage);
+            }
+        });
+    }
 
-    nextBtn.addEventListener('click', function() {
-        loadStores(++currentPage);
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            loadStores(++currentPage);
+        });
+    }
 
     // Загрузка первой страницы магазинов при загрузке страницы
     loadStores();
@@ -106,6 +124,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             const categorySelect = document.getElementById('category1');
+            if (!categorySelect) {
+                console.error('Элемент выбора категории не найден');
+                return;
+            }
+            categorySelect.innerHTML = ''; // Очистка категорий перед добавлением новых элементов
             if (data && data.status === 'SUCCESS' && Array.isArray(data.data)) {
                 data.data.forEach(category => {
                     const option = document.createElement('option');
@@ -134,6 +157,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const categoryIdInput = document.getElementById('category1');
         const storeIdInput = document.getElementById('storeId1');
 
+        if (!storeNameInput || !storeDescriptionInput || !storeLinkInput || !categoryIdInput || !storeIdInput) {
+            console.error('Один или несколько элементов формы не найдены');
+            return;
+        }
+
+        // Очистка значений полей формы
+        storeNameInput.value = '';
+        storeDescriptionInput.value = '';
+        storeLinkInput.value = '';
+        categoryIdInput.value = '';
+        storeIdInput.value = '';
+
         // Заполнение значений полей формы данными выбранного магазина
         storeNameInput.value = store.name || '';
         storeDescriptionInput.value = store.description || '';
@@ -142,24 +177,33 @@ document.addEventListener('DOMContentLoaded', function() {
         storeIdInput.value = store.id || '';
 
         // Скролл к форме
-        document.getElementById('editStoreForm').scrollIntoView({ behavior: 'smooth' });
+        const editStoreForm = document.getElementById('editStoreForm');
+        if (editStoreForm) {
+            editStoreForm.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            console.error('Форма редактирования магазина не найдена');
+        }
     }
 
     // Обработчик события для клика на магазине в списке
-    storeList.addEventListener('click', function(event) {
-        const target = event.target;
-        if (target.tagName === 'H3') {
-            const storeId = target.dataset.storeId; // Предполагается, что вы добавили data атрибут для хранения id магазина
-            console.log('Клик по магазину с ID:', storeId); // Логирование ID магазина
+    if (storeList) {
+        storeList.addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.tagName === 'H3') {
+                const storeId = target.dataset.storeId; // Предполагается, что вы добавили data атрибут для хранения id магазина
+                console.log('Клик по магазину с ID:', storeId); // Логирование ID магазина
 
-            if (storeId) {
-                // Получение информации о магазине по его id и заполнение формы
-                fetchStoreById(storeId);
-            } else {
-                console.error('ID магазина не найден');
+                if (storeId) {
+                    // Получение информации о магазине по его id и заполнение формы
+                    fetchStoreById(storeId);
+                } else {
+                    console.error('ID магазина не найден');
+                }
             }
-        }
-    });
+        });
+    } else {
+        console.error('Элемент списка магазинов не найден');
+    }
 
     // Функция для получения информации о магазине по его id
     function fetchStoreById(storeId) {
@@ -174,10 +218,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log('Полный ответ о магазине:', data); // Логирование полного ответа о магазине
 
-            if (data && data.status === 'SUCCESS' && data.data.records) {
+            if (data && data.status === 'SUCCESS' && data.data && data.data.records) {
                 // Поскольку данные магазина находятся в массиве records, выбираем первый элемент
-                const store = data.data.records[0];
-                fillStoreForm(store); // Заполнение формы данными о магазине
+                const store = data.data.records.find(store => store.id === Number(storeId));
+                if (store) {
+                    fillStoreForm(store); // Заполнение формы данными о магазине
+                } else {
+                    console.error('Магазин с указанным ID не найден в ответе сервера');
+                }
             } else {
                 console.error('Ошибка при получении информации о магазине:', data.message);
             }
@@ -189,45 +237,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Обработчик для формы обновления информации о магазине
     const editStoreForm = document.getElementById('editStoreForm');
-    editStoreForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    if (editStoreForm) {
+        editStoreForm.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        const formData = {
-            id: document.getElementById('storeId1').value,
-            name: document.getElementById('storeName1').value,
-            description: document.getElementById('storeDescription1').value,
-            link: document.getElementById('storeLink1').value,
-            category_id: document.getElementById('category1').value
-        };
+            const formData = {
+                id: document.getElementById('storeId1').value,
+                name: document.getElementById('storeName1').value,
+                description: document.getElementById('storeDescription1').value,
+                link: document.getElementById('storeLink1').value,
+                category_id: document.getElementById('category1').value
+            };
 
-        console.log('Отправка данных для обновления магазина:', formData); // Логирование данных для обновления
+            console.log('Отправка данных для обновления магазина:', formData); // Логирование данных для обновления
 
-        updateStoreInfo(formData);
-    });
+            updateStoreInfo(formData);
+        });
+    } else {
+        console.error('Форма редактирования информации о магазине не найдена');
+    }
 
     // Обработчик для формы обновления логотипа магазина
     const updateStoreImageForm = document.getElementById('updateStoreImageForm');
-    updateStoreImageForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    if (updateStoreImageForm) {
+        updateStoreImageForm.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        const formData = new FormData();
-        formData.append('storeId', document.getElementById('storeId1').value);
-        formData.append('icon', document.getElementById('icon1').files[0]);
+            const fileInput = document.getElementById('icon1');
+            const selectedFile = fileInput.files[0];
 
-        console.log('Отправка данных для обновления логотипа магазина:', formData); // Логирование данных для обновления логотипа
+            if (!selectedFile) {
+                console.error('Файл изображения не выбран');
+                return;
+            }
 
-        updateStoreImage(formData);
-    });
+            const formData = new FormData();
+            formData.append('id', document.getElementById('storeId1').value);
+            formData.append('file', selectedFile);
 
-    // Функция для отправки обновленной информации о магазине на сервер
+            console.log('Отправка данных для обновления логотипа магазина:', formData.get('id'), formData.get('file')); // Логирование данных для обновления
+
+            updateStoreImage(formData);
+        });
+    } else {
+        console.error('Форма редактирования логотипа магазина не найдена');
+    }
+
+    // Функция для отправки обновленных данных магазина на сервер
     function updateStoreInfo(data) {
         fetch('http://185.121.2.208/hi-usa/private/shop/update', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': `Bearer ${authToken}`
             },
-            body: JSON.stringify(data)
+            body: new URLSearchParams(data)
         })
         .then(response => response.json())
         .then(data => {
