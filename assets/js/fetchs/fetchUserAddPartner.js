@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Ответ сервера:', data); // Логируем ответ сервера
                 if (data && data.status === 'SUCCESS') {
                     document.getElementById('contact-form-main').reset();
+                    alert("Успешно");
                 } else {
                     throw new Error(data.message || 'Ошибка при отправке запроса на партнёрство');
                 }

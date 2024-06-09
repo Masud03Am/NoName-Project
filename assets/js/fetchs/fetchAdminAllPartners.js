@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${partner.ceo_name}</td>
+                <td>${partner.org_name}</td>
                 <td>${partner.email}</td>
                 <td>${partner.phone}</td>
                 <td>${partner.country}</td>
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Убедитесь, что все данные партнера присутствуют и корректны
                     document.getElementById('partnerId').value = partner.id || '';
                     document.getElementById('partnerName').value = partner.ceo_name || '';
+                    document.getElementById('partnerOrgName').value = partner.org_name || '';
                     document.getElementById('partnerEmail').value = partner.email || '';
                     document.getElementById('partnerPhone').value = partner.phone || '';
                     document.getElementById('partnerCountry').value = partner.country || '';
@@ -105,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const updatedPartner = {
             id: id,
             ceo_name: document.getElementById('partnerName').value, 
+            org_name: document.getElementById('partnerOrgName').value,
             email: document.getElementById('partnerEmail').value,
             phone: document.getElementById('partnerPhone').value,
             country: document.getElementById('partnerCountry').value

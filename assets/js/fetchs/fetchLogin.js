@@ -27,6 +27,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         const response = await fetch('http://185.121.2.208/hi-usa/public/auth/login', options);
         if (!response.ok) {
             const errorData = await response.json();
+            alert(`Ошибка авторизации: ${errorData.message}`);
             throw new Error(`Ответ сети был неудовлетворительным: ${response.status} ${response.statusText} - ${errorData.message}`);
         }
 

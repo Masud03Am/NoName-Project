@@ -498,7 +498,8 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Имя</th>
+                                    <th>Имя Дир. Орг.</th>
+                                    <th>Название Организации</th>
                                     <th>Email</th>
                                     <th>Телефон</th>
                                     <th>Страна</th>
@@ -518,14 +519,18 @@
                         <h3>Редактировать Партнера</h3>
                         <form id="editPartnerForm">
                             <input type="hidden" id="partnerId">
-                            <label for="partnerName">Имя:</label>
+                            <label for="partnerName">Имя Дир. Орг. :</label>
                             <input type="text" id="partnerName" name="partnerName" class="form-input" required>
-                            <label for="partnerEmail">Email:</label>
+                            <label for="partnerOrgName">Название Организации :</label>
+                            <input type="text" id="partnerOrgName" name="partnerOrgName" class="form-input" required>
+                            <label for="partnerEmail">Email :</label>
                             <input type="email" id="partnerEmail" name="partnerEmail" class="form-input" required>
-                            <label for="partnerPhone">Телефон:</label>
+                            <label for="partnerPhone">Телефон :</label>
                             <input type="text" id="partnerPhone" name="partnerPhone" class="form-input" required>
-                            <label for="partnerCountry">Страна:</label>
+                            <label for="partnerCountry">Страна :</label>
                             <input type="text" id="partnerCountry" name="partnerCountry" class="form-input" required>
+                            <label for="logo">Логотип :</label>
+                            <input type="file" id="logo" name="logo" class="form-input" required>
                             <button class="form-submit" type="submit">Сохранить</button>
                         </form>
                     </div>

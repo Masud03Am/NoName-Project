@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const orderInfo = document.getElementById('orderInfo');
         orderInfo.innerHTML = `
             <p><strong>Название:</strong> ${order.name || 'Не указано'}</p>
-            <p><strong>URL адрес товара:</strong> ${order.link || 'Не указано'}</p>
+            <p><strong>URL адрес товара:</strong> ${order.link ? `<a href="${encodeURIComponent(order.link)}" target="_blank">${order.link}</a>` : 'Не указано'}</p>
             <p><strong>Код товара:</strong> ${order.id || 'Не указано'}</p>
             <p><strong>Цена товара:</strong> ${order.price || 'Не указано'}</p>
             <p><strong>Окончательная Цена:</strong> ${order.full_price || 'Не указано'}</p>
