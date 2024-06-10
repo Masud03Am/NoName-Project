@@ -2,17 +2,23 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('http://185.121.2.208/hi-usa/public/partner/getImages')
         .then(response => response.json())
         .then(data => {
-            if (data.code === 0 && data.data && Array.isArray(data.data)) {
+            console.log('Данные от сервера (получение партнеров):', data); // Логирование ответа сервера
+
+            if (data.code === 0 && data.data && Array.isArray(data.data.records)) {
                 const partnersSlider = document.getElementById('partnersSlider');
                 partnersSlider.innerHTML = ''; // Очищаем контейнер перед добавлением новых изображений
 
-                data.data.forEach(partner => {
+                data.data.records.forEach(partner => {
                     const grid = document.createElement('div');
                     grid.classList.add('grid');
 
                     const img = document.createElement('img');
-                    img.src = `http://185.121.2.208/${partner.logo}`;
-                    img.alt = 'Partner logo';
+                    img.src = `http://185.121.2.208/hi-usa/public/images/partners/${partner.logo}`;
+                    img.alt = `${partner.org_name} logo`;
+                    img.onerror = function() {
+                        console.error(`Не удалось загрузить изображение: ${img.src}`);
+                        img.src = 'path/to/default-logo.jpg'; // Путь к изображению по умолчанию
+                    };
 
                     grid.appendChild(img);
                     partnersSlider.appendChild(grid);
@@ -21,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Инициализация слайдера (зависит от используемого плагина)
                 initializeSlider();
             } else {
-                console.error('Ошибка получения данных партнеров:', data.message);
+                console.error('Ошибка получения данных партнеров:', data.message || 'Неизвестная ошибка');
             }
         })
         .catch(error => {

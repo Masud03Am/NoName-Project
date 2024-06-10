@@ -102,23 +102,42 @@ document.addEventListener('DOMContentLoaded', function() {
             <p><strong>Состояние заказа:</strong> ${order.status || 'Не указано'}</p>
             <p><strong>Комментарий:</strong> ${order.comment || 'Нет комментария'}</p>
         `;
+
         const orderDetails = document.getElementById('orderDetails');
         orderDetails.style.display = 'block';
         orderDetails.dataset.orderId = order.id;
         orderDetails.dataset.orderPrice = order.price;
         orderDetails.scrollIntoView({ behavior: 'smooth' });
+
+        const orderActions = document.querySelector('.orderActions');
+        const rejectedMessage = document.getElementById('rejectedMessage');
+        orderActions.innerHTML = ''; // Очистить действия
+
+        if (order.status === 'rejected') {
+            rejectedMessage.style.display = 'block';
+        } else {
+            rejectedMessage.style.display = 'none';
+
+            if (order.status === 'approved') {
+                orderActions.innerHTML = `
+                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'paid')">Заказ был оплачен</button>
+                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'in_transit')">Заказ В пути</button>
+                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'delivered')">Заказ был доставлен</button>
+                `;
+            } else {
+                orderActions.innerHTML = `
+                    <button class="btn" style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
+                    <button class="btn" onclick="acceptOrder()">Принять Заказ</button>
+                `;
+            }
+        }
     }
 
-    function updateOrderStatus(orderId, command) {
-        const orderPrice = document.getElementById('orderDetails').dataset.orderPrice;
+    function updateOrderStatus(orderId, status) {
         const payload = {
             id: parseInt(orderId, 10),
-            command: command
+            command: status
         };
-
-        if (command === 'approved') {
-            payload.price = parseFloat(orderPrice);
-        }
 
         const options = {
             method: 'PUT',

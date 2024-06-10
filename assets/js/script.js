@@ -620,10 +620,16 @@
                 // Удаляем данные из куки
                 document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                 document.cookie = 'userRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                
+                // Удаляем данные из local storage
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('userRole');
+                
                 // Перенаправляем на страницу входа
                 window.location.href = "/login.html";
             }
         });
+        
         // Функция для получения значения cookie по имени
         function getCookie(name) {
             const value = `; ${document.cookie}`;

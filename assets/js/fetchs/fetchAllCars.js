@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+            console.log('Ответ сервера:', data); // Логирование ответа сервера
             if (data.code !== 0 || !Array.isArray(data.data.records)) {
                 throw new Error(data.message || 'Ошибка при получении данных автомобилей');
             }
@@ -39,29 +40,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         cars.forEach((car, index) => {
-            const imageUrl = (car.images && car.images[0]) ? `/home/server/USA_SUPPLY/${car.images[0]}` : '/home/server/USA_SUPPLY/images/cars/2/2.png';
+            const defaultImageUrl = 'path/to/default-image.jpg'; // Убедитесь, что этот путь верен
+            const imageUrl = (car.images && car.images[0]) ? `http://185.121.2.208/hi-usa/public/images/cars/${car.images[0]}` : defaultImageUrl;
 
-            const carElement = document.createElement('div');
-            carElement.className = 'grid item';
-            carElement.id = `car-${index + 1}`;
-            carElement.innerHTML = `
-                <a href="#"><img src="${imageUrl}" alt="${car.mark} ${car.model}"></a>
-                <p style="text-align: left; padding: 5px;">
-                    <span>Марка: ${car.mark}<br></span>
-                    <span>Модель: ${car.model}<br></span>
-                    <span>Год выпуска: ${car.model_year}<br></span>
-                    <span>Тип двигателя: ${car.engine_type}<br></span>
-                    <span>Объем двигателя: ${car.engine_volume}<br></span>
-                    <span>Пробег: ${car.mileage}<br></span>
-                    <span>Коробка передач: ${car.transmission}<br></span>
-                    <span>Стоимость: ${car.amount}<br></span>
-                    <span>Тип кузова: ${car.body}<br></span>
-                    <span>Цвет: ${car.color}<br></span>
-                    <span>Цилиндры: ${car.cylinders}<br></span>
-                </p>
-            `;
-            carsSlider.appendChild(carElement);
+            const img = new Image();
+            img.src = imageUrl;
+            img.onload = function() {
+                createCarElement(car, index, imageUrl);
+            };
+            img.onerror = function() {
+                console.error(`Не удалось загрузить изображение: ${imageUrl}. Используется изображение по умолчанию.`);
+                createCarElement(car, index, defaultImageUrl);
+            };
         });
+    }
+
+    function createCarElement(car, index, imageUrl) {
+        const carElement = document.createElement('div');
+        carElement.className = 'grid item';
+        carElement.id = `car-${index + 1}`;
+        carElement.innerHTML = `
+            <a href="#"><img src="${imageUrl}" alt="${car.mark} ${car.model}"></a>
+            <p style="text-align: left; padding: 5px;">
+                <span>Марка: ${car.mark}<br></span>
+                <span>Модель: ${car.model}<br></span>
+                <span>Год выпуска: ${car.model_year}<br></span>
+                <span>Тип двигателя: ${car.engine_type}<br></span>
+                <span>Объем двигателя: ${car.engine_volume}<br></span>
+                <span>Пробег: ${car.mileage}<br></span>
+                <span>Коробка передач: ${car.transmission}<br></span>
+                <span>Стоимость: ${car.amount}<br></span>
+                <span>Тип кузова: ${car.body}<br></span>
+                <span>Цвет: ${car.color}<br></span>
+                <span>Цилиндры: ${car.cylinders}<br></span>
+            </p>
+        `;
+        const carsSlider = document.getElementById('cars-slider');
+        carsSlider.appendChild(carElement);
     }
 
     function renderNoCarsMessage() {

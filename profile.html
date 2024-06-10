@@ -182,8 +182,8 @@
                                             <div class="middle-item__head">
                                                 <img class="profile_avatar" src="assets/images/testimonials/img-1.jpg" alt="avatar" width="36" height="36">
                                                 <div class="text-profile">
-                                                    <h2>Ваш адрес в Душанбе</h2>
-                                                    <p class="descs">Укажите ваш адрес в Душанбе как адрес для доставки при покупке online</p>
+                                                    <h2 id="cityTitle">Ваш адрес в Душанбе</h2>
+                                                    <p id="cityDescription" class="descs">Укажите ваш адрес в Душанбе как адрес для доставки при покупке online</p>
                                                 </div>
                                             </div>
                                             <div class="body-group">
@@ -196,35 +196,35 @@
                                                 </div>
                                                 <hr>
                                                 <ul class="body-group-main">
-                                                    <li id="" class="body-group-main-item">
+                                                    <li class="body-group-main-item">
                                                         <p class="body-group-main-item-desc">ID</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
                                                         <button class="body-group-top-btn">Копировать</button>
                                                     </li>
-                                                    <li id="" class="body-group-main-item">
+                                                    <li class="body-group-main-item">
                                                         <p class="body-group-main-item-desc">Почта</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
                                                         <button class="body-group-top-btn">Копировать</button>
                                                     </li>
-                                                    <li id="" class="body-group-main-item">
+                                                    <li class="body-group-main-item">
                                                         <p class="body-group-main-item-desc">Город</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
                                                         <button class="body-group-top-btn">Копировать</button>
                                                     </li>
-                                                    <li id="" class="body-group-main-item">
+                                                    <li class="body-group-main-item">
                                                         <p class="body-group-main-item-desc">Адрес</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
                                                         </div>
                                                         <button class="body-group-top-btn">Копировать</button>
                                                     </li>
-                                                    <li id="" class="body-group-main-item">
+                                                    <li class="body-group-main-item">
                                                         <p class="body-group-main-item-desc">ZIP-код</p>
                                                         <div class="body-group-main-item-2">
                                                             <p class="body-group-main-item-desc1 mb-0">606 interchange blvd</p>
@@ -249,7 +249,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                                
                                 <div id="profile-category" class="col col-md-4 profile-content-2">
                                     <div class="card">
                                         <div class="card-body">
@@ -373,28 +373,38 @@
                                         <div class="isotope-toolbar-1">
                                             <label>
                                                 <button class="isotope-toolbar-btn-1">
-                                                    <span>В ожидании <span style="color: grey;">(0)</span></span>
+                                                    <span>В ожидании <span id="waiting-count" style="color: grey;">(0)</span></span>
                                                 </button>
                                             </label>
                                             <label>
                                                 <button class="isotope-toolbar-btn-1">
-                                                    <span>Отправлено <span style="color: grey;">(0)</span></span>
+                                                    <span>Отправлено <span id="sent-count" style="color: grey;">(0)</span></span>
                                                 </button>
                                             </label>
                                             <label>
                                                 <button class="isotope-toolbar-btn-1">
-                                                    <span>На таможенном складе <span style="color: grey;">(0)</span></span>
+                                                    <span>На таможенном складе <span id="customs-count" style="color: grey;">(0)</span></span>
                                                 </button>
                                             </label>
                                             <label>
                                                 <button class="isotope-toolbar-btn-1">
-                                                    <span>Прибыл <span style="color: grey;">(0)</span></span>
+                                                    <span>Прибыл <span id="arrived-count" style="color: grey;">(0)</span></span>
                                                 </button>
                                             </label>
                                             <label>
                                                 <button class="isotope-toolbar-btn-1">
-                                                    <span>Доставлен <span style="color: grey;">(0)</span></span>
+                                                    <span>Доставлен <span id="delivered-count" style="color: grey;">(0)</span></span>
                                                 </button>
+                                            </label>
+                                            <label>
+                                                <button class="isotope-toolbar-btn-1">
+                                                    <span>Одобренные товары <span id="approved-count" style="color: grey;">(0)</span></span>
+                                                </button>
+                                            </label>
+                                            <label>
+                                                <button class="isotope-toolbar-btn-1">
+                                                    <span>Отклоненные товары <span id="rejected-count" style="color: grey;">(0)</span></span>
+                                                </button>                                                
                                             </label>
                                         </div>
                                     </div>
@@ -402,12 +412,12 @@
                                         <div class="isotope-toolbar-1">
                                             <label>
                                                 <button class="isotope-toolbar-btn-1">
-                                                    <span>В ожидании <span style="color: grey;">(0)</span></span>
+                                                    <span>В ожидании <span id="waiting-count" style="color: grey;">(0)</span></span>
                                                 </button>
                                             </label>
                                             <label>
                                                 <button class="isotope-toolbar-btn-1">
-                                                    <span>Одобренные товары <span style="color: grey;">(0)</span></span>
+                                                    <span>Одобренные товары <span id="approved-count" style="color: grey;">(0)</span></span>
                                                 </button>
                                             </label>
                                         </div>
@@ -447,7 +457,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                             <div class="isotope-item-1" data-type="fedex">
@@ -824,5 +834,6 @@
     <script src="assets/js/fetchs/fetchUserProfileUpdate.js"></script>
     <script src="assets/js/fetchs/fetchUserAddParcel.js"></script>
     <script src="assets/js/fetchs/fetchUserChangePassword.js"></script>
+    <script src="assets/js/fetchs/fetchUserInfoParcels.js"></script>
 </body>
 </html>

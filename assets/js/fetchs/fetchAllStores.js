@@ -213,30 +213,56 @@ document.addEventListener('DOMContentLoaded', function () {
         const shopList = document.getElementById('shopList');
         shopList.innerHTML = ''; // Сбросить содержимое перед добавлением магазинов
 
+        const defaultImageUrl = 'path/to/default-image.jpg'; // Убедитесь, что этот путь корректный и изображение доступно
+
         if (shops && shops.length > 0) {
             shops.forEach(shop => {
                 const shopItem = document.createElement('div');
                 shopItem.classList.add('post', 'format-standard');
-                const imageUrl = shop.image_url ? `/home/server/USA_SUPPLY/${shop.image_url}` : '/home/server/USA_SUPPLY/path/to/default-image.jpg'; // Используем изображение по умолчанию, если URL не указан
-                shopItem.innerHTML = `
-                    <div class="meta-title">
-                        <div class="meta">
-                            <div style="display: flex; justify-content: center;" class="img-holder">
-                                <img src="${imageUrl}" alt="${shop.name}">
+                const imageUrl = shop.picture ? `http://185.121.2.208/hi-usa/public/images/shops/${shop.picture}` : defaultImageUrl; // Используем изображение по умолчанию, если URL не указан
+
+                // Проверяем, доступно ли изображение
+                const img = new Image();
+                img.src = imageUrl;
+                img.onload = function() {
+                    shopItem.innerHTML = `
+                        <div class="meta-title">
+                            <div class="meta">
+                                <div style="display: flex; justify-content: center;" class="img-holder">
+                                    <img src="${imageUrl}" alt="${shop.name}">
+                                </div>
+                            </div>
+                            <div class="title">
+                                <h3><a href="${shop.link}" target="_blank">${shop.name}</a></h3>
+                                <p>${shop.description}</p>
                             </div>
                         </div>
-                        <div class="title">
-                            <h3><a href="./404.html">${shop.name}</a></h3>
-                            <p>${shop.description}</p>
+                    `;
+                    shopList.appendChild(shopItem);
+                };
+                img.onerror = function() {
+                    console.error(`Не удалось загрузить изображение: ${imageUrl}. Используется изображение по умолчанию.`);
+                    shopItem.innerHTML = `
+                        <div class="meta-title">
+                            <div class="meta">
+                                <div style="display: flex; justify-content: center;" class="img-holder">
+                                    <img src="${defaultImageUrl}" alt="${shop.name}">
+                                </div>
+                            </div>
+                            <div class="title">
+                                <h3><a href="${shop.link}" target="_blank">${shop.name}</a></h3>
+                                <p>${shop.description}</p>
+                            </div>
                         </div>
-                    </div>
-                `;
-                shopList.appendChild(shopItem);
+                    `;
+                    shopList.appendChild(shopItem);
+                };
             });
         } else {
             shopList.innerHTML = '<p>Магазины не найдены.</p>';
         }
     }
+
 
     // Функция для обновления пагинации
     function updatePagination() {

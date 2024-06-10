@@ -85,6 +85,16 @@ function updateProfile(user) {
             console.error(`Элемент для ${desc} не найден`);
         }
     });
+
+    const cityTitleElement = document.getElementById('cityTitle');
+    const cityDescriptionElement = document.getElementById('cityDescription');
+    if (cityTitleElement && cityDescriptionElement) {
+        const city = user.addresses[0].region || 'ваш город';
+        cityTitleElement.textContent = `Ваш адрес в ${city}`;
+        cityDescriptionElement.textContent = `Укажите ваш адрес в ${city} как адрес для доставки при покупке online`;
+    } else {
+        console.error('Элементы для замены текста с городом не найдены');
+    }
 }
 
 document.addEventListener('click', function(event) {

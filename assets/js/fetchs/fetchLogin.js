@@ -24,7 +24,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             body: JSON.stringify(data)
         };
 
-        const response = await fetch('http://185.121.2.208/hi-usa/public/auth/login', options);
+        const response = await fetch('http://185.121.2.208/hi-usa/private/user/getCurrent', options);
         if (!response.ok) {
             const errorData = await response.json();
             alert(`Ошибка авторизации: ${errorData.message}`);

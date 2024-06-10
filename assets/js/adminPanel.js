@@ -45,10 +45,23 @@ document.addEventListener('DOMContentLoaded', function() {
             // Удаляем данные из куки
             document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
             document.cookie = 'userRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            
+            // Удаляем данные из local storage
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userRole');
+            
             // Перенаправляем на страницу входа
             window.location.href = "/login.html";
         }
     });
+
+    // Функция для получения значения cookie по имени
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }
 });
 
 // Функция для получения куки по имени
