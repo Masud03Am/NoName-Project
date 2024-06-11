@@ -388,10 +388,7 @@
                         <div class="orderInfo" id="orderInfo">
                             <!-- Данные о заказе будут добавлены здесь -->
                         </div>
-                        <div class="orderActions">
-                            <button class="btn" style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
-                            <button class="btn" onclick="acceptOrder()">Принять Заказ</button>
-                        </div>
+                        <div class="orderActions"></div>
                         <div id="rejectedMessage" style="display: none;">
                             <p>ДАННЫЕ ЗАКАЗ БЫЛ ОТКЛОНЕН</p>
                         </div>
@@ -541,9 +538,9 @@
             <div data-page="cars-cargo" class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
-                        <h2>Добавить новый автомобиль</h2> 
+                        <h2>Добавить новый автомобиль</h2>
                     </div>
-                    <form id="addCarsForm" aria-label="Добавить новую машину">
+                    <form id="addCarsForm" enctype="multipart/form-data" aria-label="Добавить новую машину">
                         <div class="form-group">
                             <label for="mark">Марка</label>
                             <input type="text" id="mark" name="mark" class="form-input" required>
@@ -584,18 +581,14 @@
                             <label for="cylinders">Цилиндры</label>
                             <input type="text" id="cylinders" name="cylinders" class="form-input" required>
                         </div>
-                        <!--<div class="form-group">
-                            <label for="amount">Количество</label>
-                            <input type="text" id="amount" name="amount" class="form-input" required>
-                        </div>-->
                         <div class="form-group">
-                            <label for="icon">Изображение/Иконка</label>
-                            <input type="file" id="icon" name="icon" class="form-input" required>
+                            <label for="file">Изображение/Иконка</label>
+                            <input type="file" id="icon" name="file" class="form-input" required>
                         </div>
                         <button style="background-color: rgb(59, 175, 59);" type="submit" class="form-submit">Отправить</button>
                     </form>
                     <div id="addCarMessage"></div>
-                </div>
+                </div>                             
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Данные автомобилей</h2>

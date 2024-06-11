@@ -40,8 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         cars.forEach((car, index) => {
-            const defaultImageUrl = 'path/to/default-image.jpg'; // Убедитесь, что этот путь верен
-            const imageUrl = (car.images && car.images[0]) ? `http://185.121.2.208/hi-usa/public/images/cars/${car.images[0]}` : defaultImageUrl;
+            const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${car.image}`;
 
             const img = new Image();
             img.src = imageUrl;

@@ -124,6 +124,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button class="btn" onclick="updateOrderStatus(${order.id}, 'in_transit')">Заказ В пути</button>
                     <button class="btn" onclick="updateOrderStatus(${order.id}, 'delivered')">Заказ был доставлен</button>
                 `;
+            } else if (order.status === 'paid') {
+                orderActions.innerHTML = `
+                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'in_transit')">Заказ В пути</button>
+                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'delivered')">Заказ был доставлен</button>
+                `;
+            } else if (order.status === 'in_transit') {
+                orderActions.innerHTML = `
+                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'delivered')">Заказ был доставлен</button>
+                `;
             } else {
                 orderActions.innerHTML = `
                     <button class="btn" style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
