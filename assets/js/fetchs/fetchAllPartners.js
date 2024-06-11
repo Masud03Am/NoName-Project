@@ -4,24 +4,29 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log('Данные от сервера (получение партнеров):', data);
 
-            if (data.code === 0 && data.data && Array.isArray(data.data.records)) {
+            if (data.code === 0 && Array.isArray(data.data)) {
                 const partnersSlider = document.getElementById('partnersSlider');
                 partnersSlider.innerHTML = ''; 
 
-                data.data.records.forEach(partner => {
+                data.data.forEach(partner => {
                     const grid = document.createElement('div');
                     grid.classList.add('grid');
 
-                    const img = document.createElement('img');
-                    img.src = `http://185.121.2.208/hi-usa/public/upload?filename=${partner.logo}`;
-                    img.alt = `${partner.org_name} logo`;
-                    /*img.onerror = function() {
-                        console.error(`Не удалось загрузить изображение: ${img.src}`);
-                        img.src = 'path/to/default-logo.jpg'; // Путь к изображению по умолчанию
-                    };*/
+                    const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${partner.logo}`;
 
-                    grid.appendChild(img);
-                    partnersSlider.appendChild(grid);
+                    // Проверяем, доступно ли изображение
+                    const img = new Image();
+                    img.src = imageUrl;
+                    img.onload = function() {
+                        grid.innerHTML = `<img src="${imageUrl}" alt="${partner.org_name} logo">`;
+                        partnersSlider.appendChild(grid);
+                    };
+                    img.onerror = function() {
+                        console.error(`Не удалось загрузить изображение: ${imageUrl}. Используется изображение по умолчанию.`);
+                        const defaultImageUrl = 'path/to/default-logo.jpg'; // Путь к изображению по умолчанию
+                        grid.innerHTML = `<img src="${defaultImageUrl}" alt="${partner.org_name} logo">`;
+                        partnersSlider.appendChild(grid);
+                    };
                 });
 
                 initializeSlider();
@@ -35,31 +40,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeSlider() {
-    /*------------------------------------------
-        = PARTNERS SLIDER
-    -------------------------------------------*/
     if ($(".partners-slider").length) {
         $(".partners-slider").owlCarousel({
-            autoplay:true,
+            autoplay: true,
             smartSpeed: 300,
             margin: 30,
-            loop:true,
-            autoplayHoverPause:true,
+            loop: true,
+            autoplayHoverPause: true,
             dots: false,
             responsive: {
-                0 : {
+                0: {
                     items: 2
                 },
-
-                550 : {
+                550: {
                     items: 3
                 },
-
-                992 : {
+                992: {
                     items: 4
                 },
-
-                1200 : {
+                1200: {
                     items: 5
                 }
             }

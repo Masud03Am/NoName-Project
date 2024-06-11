@@ -32,24 +32,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     const li = document.createElement('li');
                     li.innerHTML = `
                         <h4>${category.name}</h4>
-                        <button class="edit-btn" data-id="${category.id}" data-name="${category.name}">Изменить</button>
+                        <button class="edit-btn" data-id="${category.id}" data-name="${category.name}" data-active="${category.active}">Изменить</button>
                     `;
                     categoryList.appendChild(li);
                 });
 
                 // Добавляем обработчики событий для кнопок
-                /*document.querySelectorAll('.delete-btn').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const categoryId = this.getAttribute('data-id');
-                        deleteCategory(categoryId);
-                    });
-                });*/
-
                 document.querySelectorAll('.edit-btn').forEach(button => {
                     button.addEventListener('click', function () {
                         const categoryId = this.getAttribute('data-id');
                         const categoryName = this.getAttribute('data-name');
-                        openEditModal(categoryId, categoryName);
+                        const categoryActive = this.getAttribute('data-active');
+                        openEditModal(categoryId, categoryName, categoryActive);
                     });
                 });
             } else {
@@ -105,52 +99,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Функция для удаления категории
-    /*function deleteCategory(categoryId) {
-        const authToken = getCookie('authToken'); // Получаем токен из куки
-        fetch(`http://185.121.2.208/hi-usa/private/category/delete/${categoryId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${authToken}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.code === 0) {
-                loadCategories(); // Перезагрузить категории после удаления
-            } else {
-                throw new Error(data.message || 'Произошла ошибка при удалении категории.');
-            }
-        })
-        .catch(error => {
-            console.error('Произошла ошибка при удалении категории:', error);
-            alert('Произошла ошибка при удалении категории. Пожалуйста, попробуйте снова.');
-        });
-    }*/
-
     // Открыть модальное окно для редактирования категории
-    function openEditModal(categoryId, categoryName) {
+    function openEditModal(categoryId, categoryName, categoryActive) {
         document.getElementById('editCategoryId').value = categoryId;
         document.getElementById('editCategoryName').value = categoryName;
+        document.getElementById('editCategoryActive').value = categoryActive;
         document.getElementById('editCategoryModal').style.display = 'block';
     }
-
-    
-
 
     // Обработка отправки формы редактирования категории
     document.getElementById('editCategoryForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const categoryId = document.getElementById('editCategoryId').value;
         const categoryName = document.getElementById('editCategoryName').value.trim();
+        const categoryActive = document.getElementById('editCategoryActive').value;
 
         if (!categoryName) {
             alert('Введите название категории.');
             return;
         }
 
-        updateCategory(categoryId, categoryName).then(() => {
-            closeModal();
+        updateCategory(categoryId, categoryName, categoryActive).then(() => {
+            closeModal1(); // Ensure this function is defined and closes the modal
             loadCategories(); // Перезагрузить категории после редактирования
         }).catch(error => {
             console.error('Произошла ошибка при обновлении категории:', error);
@@ -158,16 +128,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    function updateCategory(categoryId, categoryName) {
+    // Функция для обновления категории
+    function updateCategory(categoryId, categoryName, categoryActive) {
         const authToken = getCookie('authToken'); // Получаем токен из куки
         return new Promise((resolve, reject) => {
-            fetch('http://185.121.2.208/hi-usa/private/category/update', {
+            const url = `http://185.121.2.208/hi-usa/private/category/update?id=${categoryId}&name=${encodeURIComponent(categoryName)}&active=${categoryActive}`;
+            fetch(url, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify({ id: categoryId, name: categoryName, active: true })
+                }
             })
             .then(response => response.json())
             .then(data => {
@@ -183,14 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Функция для получения куки по имени
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        return null;
-    }
-
-    // Привязываем функцию addCategory к кнопке добавления новой категории
+    // Добавляем обработчик события для кнопки добавления категории
     document.getElementById('addCategoryButton').addEventListener('click', addCategory);
 });

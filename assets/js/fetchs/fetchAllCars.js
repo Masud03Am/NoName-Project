@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(data.message || 'Ошибка при получении данных автомобилей');
             }
             renderCars(data.data.records);
-            initializeSlider();
+            initializeSlider(); // Ensure slider initialization is done after rendering cars
         })
         .catch(error => {
             console.error('Возникла проблема с получением данных автомобилей:', error);

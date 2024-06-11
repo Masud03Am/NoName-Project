@@ -43,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
             comment: formData.get('comment') || "",
             name: formData.get('name'),
             link: formData.get('link'),
-            price: parseFloat(formData.get('price')), // Добавляем цену
-            full_price: parseFloat(formData.get('full_price')), // Добавляем полную цену
+            price: parseFloat(formData.get('price')),
+            full_price: parseFloat(formData.get('full_price')),
             quantity: parseInt(formData.get('quantity')),
-            user_address: 0, // Assuming you need to add this value
+            user_address: 0,
             user_id: parseInt(formData.get('id'))
         };
 
@@ -69,12 +69,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const feedbackPayload = {
                         command: "Feedback Command",
-                        email: formData.get('email') || 'example@example.com', // assuming user email is available in formData
+                        email: formData.get('email') || 'example@example.com',
                         message: `Новый заказ создан пользователем ${formData.get('name')}`,
                         name: formData.get('name'),
-                        phone: formData.get('phone') || '000-000-0000', // assuming user phone is available in formData
+                        phone: formData.get('phone') || '000-000-0000',
                         theme: "Новый Заказ"
                     };
+
+                    console.log('Отправка фидбека:', feedbackPayload);
 
                     fetch('http://185.121.2.208/public/feedback/add', {
                         method: 'POST',
@@ -107,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function calculateFullPrice() {
         const priceInput = document.getElementById('price');
         const fullPriceInput = document.getElementById('full_price');
-        const markupConstant = 1.5; 
+        const markupConstant = 1.5;
 
         const price = parseFloat(priceInput.value) || 0;
         const fullPrice = price * markupConstant;

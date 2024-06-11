@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td>${order.id}</td>
                 <td>${order.price}</td>
                 <td>${order.full_price}</td>
-                <td>${order.user_address}</td>
                 <td>${order.status}</td>
                 <td><button onclick="viewOrder(${order.id})">Просмотр</button></td>
             `;
@@ -74,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://185.121.2.208/hi-usa/private/parcel/get?id=${orderId}`, options)
             .then(response => response.json())
             .then(data => {
+                console.log('Все заказы', data);
                 if (data && data.status === 'SUCCESS') {
                     const orderDetails = data.data.records.find(order => order.id === orderId);
                     if (orderDetails) {
@@ -102,52 +102,60 @@ document.addEventListener('DOMContentLoaded', function() {
             <p><strong>Состояние заказа:</strong> ${order.status || 'Не указано'}</p>
             <p><strong>Комментарий:</strong> ${order.comment || 'Нет комментария'}</p>
         `;
-
+    
         const orderDetails = document.getElementById('orderDetails');
         orderDetails.style.display = 'block';
         orderDetails.dataset.orderId = order.id;
         orderDetails.dataset.orderPrice = order.price;
         orderDetails.scrollIntoView({ behavior: 'smooth' });
-
+    
         const orderActions = document.querySelector('.orderActions');
         const rejectedMessage = document.getElementById('rejectedMessage');
         orderActions.innerHTML = ''; // Очистить действия
-
+    
         if (order.status === 'rejected') {
             rejectedMessage.style.display = 'block';
         } else {
             rejectedMessage.style.display = 'none';
-
-            if (order.status === 'approved') {
-                orderActions.innerHTML = `
-                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'paid')">Заказ был оплачен</button>
-                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'in_transit')">Заказ В пути</button>
-                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'delivered')">Заказ был доставлен</button>
-                `;
-            } else if (order.status === 'paid') {
-                orderActions.innerHTML = `
-                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'in_transit')">Заказ В пути</button>
-                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'delivered')">Заказ был доставлен</button>
-                `;
-            } else if (order.status === 'in_transit') {
-                orderActions.innerHTML = `
-                    <button class="btn" onclick="updateOrderStatus(${order.id}, 'delivered')">Заказ был доставлен</button>
-                `;
-            } else {
-                orderActions.innerHTML = `
-                    <button class="btn" style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
-                    <button class="btn" onclick="acceptOrder()">Принять Заказ</button>
-                `;
+    
+            switch (order.status) {
+                case 'awaiting payment':
+                    orderActions.innerHTML = `
+                        <button class="btn" onclick="updateOrderStatus(${order.id}, 'approved', 'Оплачен')">Оплачен</button>
+                        <button class="btn" onclick="updateOrderStatus(${order.id}, 'send', 'В пути')">В пути</button>
+                        <button class="btn" onclick="updateOrderStatus(${order.id}, 'arrived', 'Доставлен')">Доставлен</button>
+                    `;
+                    break;
+                case 'approved':
+                    orderActions.innerHTML = `
+                        <button class="btn" onclick="updateOrderStatus(${order.id}, 'send', 'В пути')">В пути</button>
+                        <button class="btn" onclick="updateOrderStatus(${order.id}, 'arrived', 'Доставлен')">Доставлен</button>
+                    `;
+                    break;
+                case 'send':
+                    orderActions.innerHTML = `
+                        <button class="btn" onclick="updateOrderStatus(${order.id}, 'arrived', 'Доставлен')">Доставлен</button>
+                    `;
+                    break;
+                case 'arrived':
+                    orderActions.innerHTML = ``;
+                    break;
+                default:
+                    orderActions.innerHTML = `
+                        <button class="btn" style="background-color: #f44336;" onclick="rejectOrder()">Отклонить заказ</button>
+                        <button class="btn" onclick="acceptOrder()">Принять Заказ</button>
+                    `;
+                    break;
             }
         }
     }
-
-    function updateOrderStatus(orderId, status) {
+    
+    function updateOrderStatus(orderId, status, displayStatus) {
         const payload = {
             id: parseInt(orderId, 10),
             command: status
         };
-
+    
         const options = {
             method: 'PUT',
             headers: {
@@ -156,12 +164,12 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(payload)
         };
-
+    
         fetch('http://185.121.2.208/hi-usa/private/parcel/update', options)
             .then(response => response.json())
             .then(data => {
                 if (data && data.status === 'SUCCESS') {
-                    fetchOrders(currentPage);
+                    updateStatusInList(orderId, displayStatus);
                     document.getElementById('orderDetails').style.display = 'none';
                 } else {
                     throw new Error(data.message || 'Не удалось обновить заказ.');
@@ -171,15 +179,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Ошибка при обновлении заказа:', error);
             });
     }
+    
+    function updateStatusInList(orderId, displayStatus) {
+        const ordersTableBody = document.getElementById('ordersTableBody');
+        const rows = ordersTableBody.getElementsByTagName('tr');
+        for (let row of rows) {
+            const idCell = row.cells[2];
+            if (idCell && idCell.textContent == orderId) {
+                row.cells[5].textContent = displayStatus;
+                break;
+            }
+        }
+    }
 
     function acceptOrder() {
         const orderId = document.getElementById('orderDetails').dataset.orderId;
-        updateOrderStatus(orderId, 'approved');
+        updateOrderStatus(orderId, 'awaiting payment', 'Ожидает оплаты');
     }
 
     function rejectOrder() {
         const orderId = document.getElementById('orderDetails').dataset.orderId;
-        updateOrderStatus(orderId, 'rejected');
+        updateOrderStatus(orderId, 'rejected', 'Отклонен');
     }
 
     function setupPagination(totalPages, currentPage) {
@@ -210,6 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.viewOrder = viewOrder;
     window.acceptOrder = acceptOrder;
     window.rejectOrder = rejectOrder;
+    window.updateOrderStatus = updateOrderStatus;  // Added to the global scope
 
     fetchOrders(currentPage);
 });
