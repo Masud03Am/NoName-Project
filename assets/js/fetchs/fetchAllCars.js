@@ -21,61 +21,43 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.code !== 0 || !Array.isArray(data.data.records)) {
                 throw new Error(data.message || 'Ошибка при получении данных автомобилей');
             }
-            renderCars(data.data.records);
-            initializeSlider(); // Ensure slider initialization is done after rendering cars
+            const carsSlider = document.getElementById('cars-slider');
+            carsSlider.innerHTML = ''; // Очищаем текущее содержимое
+
+            data.data.records.forEach(car => {
+                const slide = document.createElement('div');
+                slide.classList.add('carousel-slide');
+
+                const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${car.image}`;
+                const img = new Image();
+                img.src = imageUrl;
+                img.alt = `${car.mark} ${car.model}`;
+
+                slide.appendChild(img);
+                slide.innerHTML += `
+                    <p style="text-align: left; padding: 5px;">
+                        <span>Марка: ${car.mark}<br></span>
+                        <span>Модель: ${car.model}<br></span>
+                        <span>Год выпуска: ${car.model_year}<br></span>
+                        <span>Тип двигателя: ${car.engine_type}<br></span>
+                        <span>Объем двигателя: ${car.engine_volume}<br></span>
+                        <span>Пробег: ${car.mileage}<br></span>
+                        <span>Коробка передач: ${car.transmission}<br></span>
+                        <span>Стоимость: ${car.amount}<br></span>
+                        <span>Тип кузова: ${car.body}<br></span>
+                        <span>Цвет: ${car.color}<br></span>
+                        <span>Цилиндры: ${car.cylinders}<br></span>
+                    </p>
+                `;
+                carsSlider.appendChild(slide);
+            });
+
+            initializeCarousel();
         })
         .catch(error => {
             console.error('Возникла проблема с получением данных автомобилей:', error);
             renderNoCarsMessage();
         });
-    }
-
-    function renderCars(cars) {
-        const carsSlider = document.getElementById('cars-slider');
-        carsSlider.innerHTML = '';  // Очищаем текущее содержимое
-
-        if (cars.length === 0) {
-            renderNoCarsMessage();
-            return;
-        }
-
-        cars.forEach((car, index) => {
-            const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${car.image}`;
-
-            const img = new Image();
-            img.src = imageUrl;
-            img.onload = function() {
-                createCarElement(car, index, imageUrl);
-            };
-            img.onerror = function() {
-                console.error(`Не удалось загрузить изображение: ${imageUrl}. Используется изображение по умолчанию.`);
-                createCarElement(car, index, defaultImageUrl);
-            };
-        });
-    }
-
-    function createCarElement(car, index, imageUrl) {
-        const carElement = document.createElement('div');
-        carElement.className = 'grid item';
-        carElement.id = `car-${index + 1}`;
-        carElement.innerHTML = `
-            <a href="#"><img src="${imageUrl}" alt="${car.mark} ${car.model}"></a>
-            <p style="text-align: left; padding: 5px;">
-                <span>Марка: ${car.mark}<br></span>
-                <span>Модель: ${car.model}<br></span>
-                <span>Год выпуска: ${car.model_year}<br></span>
-                <span>Тип двигателя: ${car.engine_type}<br></span>
-                <span>Объем двигателя: ${car.engine_volume}<br></span>
-                <span>Пробег: ${car.mileage}<br></span>
-                <span>Коробка передач: ${car.transmission}<br></span>
-                <span>Стоимость: ${car.amount}<br></span>
-                <span>Тип кузова: ${car.body}<br></span>
-                <span>Цвет: ${car.color}<br></span>
-                <span>Цилиндры: ${car.cylinders}<br></span>
-            </p>
-        `;
-        const carsSlider = document.getElementById('cars-slider');
-        carsSlider.appendChild(carElement);
     }
 
     function renderNoCarsMessage() {
@@ -94,30 +76,61 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-    function initializeSlider() {
-        if ($(".cars-slider").length) {
-            $(".cars-slider").owlCarousel({
-                autoplay: true,
-                smartSpeed: 300,
-                margin: 30,
-                loop: true,
-                autoplayHoverPause: true,
-                dots: false,
-                responsive: {
-                    0 : {
-                        items: 1
-                    },
-                    550 : {
-                        items: 1
-                    },
-                    992 : {
-                        items: 2
-                    },
-                    1200 : {
-                        items: 3
-                    }
-                }
-            });
-        }
+    function initializeCarousel() {
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.carousel-button.next');
+        const prevButton = document.querySelector('.carousel-button.prev');
+        const slideWidth = slides[0].getBoundingClientRect().width;
+
+        let currentIndex = 0;
+
+        const updateSlidePosition = () => {
+            track.style.transform = `translateX(-${currentIndex * (slideWidth + 20)}px)`;
+        };
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlidePosition();
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlidePosition();
+        });
+
+        // Свайп
+        let startX;
+        let isDown = false;
+
+        track.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - track.offsetLeft;
+            track.style.cursor = 'grabbing';
+        });
+
+        track.addEventListener('mouseleave', () => {
+            isDown = false;
+            track.style.cursor = 'grab';
+        });
+
+        track.addEventListener('mouseup', () => {
+            isDown = false;
+            track.style.cursor = 'grab';
+        });
+
+        track.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 3; //scroll-fast
+            track.scrollLeft = track.scrollLeft - walk;
+        });
+
+        // Автопрокрутка
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlidePosition();
+        }, 3000); // меняем каждые 3 секунды
     }
 });

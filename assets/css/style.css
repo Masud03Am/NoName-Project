@@ -2681,6 +2681,76 @@ hr {
   display: inline-block;
 }
 
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 25px 15px 18px;
+}
+
+.carousel-track {
+  display: inline-block;
+  transition: transform 0.5s ease;
+  cursor: grab;
+}
+
+.carousel-slide {
+  display: inline-block;
+  min-width: 200px;
+  margin: 0 10px;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-button.prev {
+  left: 10px;
+}
+
+.carousel-button.next {
+  right: 10px;
+}
+
+@media (max-width: 1200px) {
+  .carousel-slide {
+    min-width: 20%;
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel-slide {
+    min-width: 25%;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-slide {
+    min-width: 33.3333%;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-slide {
+    min-width: 100%;
+  }
+}
 
 /*--------------------------------------------------------------
 #0.7	cars-slider-section

@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://185.121.2.208/hi-usa/private/parcel/getAll?page=${page}&perpage=${ordersPerPage}`, options)
             .then(response => response.json())
             .then(data => {
+                console.log('Данные заказов', data);
                 if (data && data.status === 'SUCCESS' && Array.isArray(data.data.records)) {
                     allOrders = data.data.records.filter(order => order.status !== 'rejected');
                     displayOrders(allOrders);
@@ -73,10 +74,15 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://185.121.2.208/hi-usa/private/parcel/get?id=${orderId}`, options)
             .then(response => response.json())
             .then(data => {
-                console.log('Все заказы', data);
+                console.log('Данные заказа', data);
                 if (data && data.status === 'SUCCESS') {
                     const orderDetails = data.data.records.find(order => order.id === orderId);
                     if (orderDetails) {
+                        // Find the matching order in allOrders to get the address
+                        const fullOrderDetails = allOrders.find(order => order.id === orderId);
+                        if (fullOrderDetails) {
+                            orderDetails.address = fullOrderDetails.address;
+                        }
                         displayOrderDetails(orderDetails);
                     } else {
                         throw new Error('Не удалось найти заказ с указанным ID.');
@@ -92,32 +98,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayOrderDetails(order) {
         const orderInfo = document.getElementById('orderInfo');
+        const address = order.address || {};  // Получаем адрес из order.address
+
+        // Add debug statement to check the address object
+        console.log("Order Address: ", address);
+        console.log("Full Order Data: ", order);
+
+        // Update the address display to include the region and zip code
         orderInfo.innerHTML = `
             <p><strong>Название:</strong> ${order.name || 'Не указано'}</p>
             <p><strong>URL адрес товара:</strong> ${order.link ? `<a href="${encodeURIComponent(order.link)}" target="_blank">${order.link}</a>` : 'Не указано'}</p>
             <p><strong>Код товара:</strong> ${order.id || 'Не указано'}</p>
             <p><strong>Цена товара:</strong> ${order.price || 'Не указано'}</p>
             <p><strong>Окончательная Цена:</strong> ${order.full_price || 'Не указано'}</p>
-            <p><strong>Адрес доставки:</strong> ${order.user_address || 'Не указано'}</p>
+            <p><strong>Адрес доставки:</strong> ${address.region || 'Не указано'}, ${address.street || 'Не указано'}, ${address.house || 'Не указано'}, ${address.apartment || 'Не указано'}, ${address.zip_code || 'Не указано'}</p>
             <p><strong>Состояние заказа:</strong> ${order.status || 'Не указано'}</p>
             <p><strong>Комментарий:</strong> ${order.comment || 'Нет комментария'}</p>
         `;
-    
+
         const orderDetails = document.getElementById('orderDetails');
         orderDetails.style.display = 'block';
         orderDetails.dataset.orderId = order.id;
         orderDetails.dataset.orderPrice = order.price;
         orderDetails.scrollIntoView({ behavior: 'smooth' });
-    
+
         const orderActions = document.querySelector('.orderActions');
         const rejectedMessage = document.getElementById('rejectedMessage');
         orderActions.innerHTML = ''; // Очистить действия
-    
+
         if (order.status === 'rejected') {
             rejectedMessage.style.display = 'block';
         } else {
             rejectedMessage.style.display = 'none';
-    
+
             switch (order.status) {
                 case 'awaiting payment':
                     orderActions.innerHTML = `
@@ -149,13 +162,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+
     function updateOrderStatus(orderId, status, displayStatus) {
         const payload = {
             id: parseInt(orderId, 10),
             command: status
         };
-    
+
         const options = {
             method: 'PUT',
             headers: {
@@ -164,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(payload)
         };
-    
+
         fetch('http://185.121.2.208/hi-usa/private/parcel/update', options)
             .then(response => response.json())
             .then(data => {
@@ -179,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Ошибка при обновлении заказа:', error);
             });
     }
-    
+
     function updateStatusInList(orderId, displayStatus) {
         const ordersTableBody = document.getElementById('ordersTableBody');
         const rows = ordersTableBody.getElementsByTagName('tr');
