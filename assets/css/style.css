@@ -2698,6 +2698,7 @@ hr {
 .carousel-slide {
   display: inline-block;
   min-width: 200px;
+  min-height: 150px;
   margin: 0 10px;
 }
 
@@ -2705,7 +2706,7 @@ hr {
   width: 100%;
   height: auto;
   max-width: 200px;
-  max-height: 100px;
+  max-height: 150px;
   object-fit: contain;
 }
 

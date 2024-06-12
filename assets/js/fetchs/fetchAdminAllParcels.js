@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: parseInt(orderId, 10),
             command: status
         };
-
+    
         const options = {
             method: 'PUT',
             headers: {
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(payload)
         };
-
+    
         fetch('http://185.121.2.208/hi-usa/private/parcel/update', options)
             .then(response => response.json())
             .then(data => {
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 console.error('Ошибка при обновлении заказа:', error);
             });
-    }
+    }    
 
     function updateStatusInList(orderId, displayStatus) {
         const ordersTableBody = document.getElementById('ordersTableBody');
@@ -207,13 +207,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function acceptOrder() {
         const orderId = document.getElementById('orderDetails').dataset.orderId;
-        updateOrderStatus(orderId, 'awaiting payment', 'Ожидает оплаты');
+        updateOrderStatus(orderId, 'approved', 'Одобрен');
     }
-
+    
     function rejectOrder() {
         const orderId = document.getElementById('orderDetails').dataset.orderId;
         updateOrderStatus(orderId, 'rejected', 'Отклонен');
-    }
+    }    
 
     function setupPagination(totalPages, currentPage) {
         const pagination = document.getElementById('pagination');
