@@ -1,79 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetchCars();
+    fetchStores();
 
-    function fetchCars(page = 1) {
-        const authToken = getCookie('authToken');
-
-        if (!authToken) {
-            console.log('Ошибка: токен не найден. Пожалуйста, войдите снова.');
-            return;
-        }
-
-        fetch(`http://185.121.2.208/hi-usa/private/cars/getAll?page=${page}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${authToken}`
-            }
+    function fetchStores() {
+        fetch('http://185.121.2.208/hi-usa/public/shop/get', {
+            method: 'GET'
         })
         .then(response => response.json())
         .then(data => {
             console.log('Ответ сервера:', data); // Логирование ответа сервера
-            if (data.code !== 0 || !Array.isArray(data.data.records)) {
-                throw new Error(data.message || 'Ошибка при получении данных автомобилей');
-            }
-            const carsSlider = document.getElementById('cars-slider');
-            carsSlider.innerHTML = ''; // Очищаем текущее содержимое
 
-            data.data.records.forEach(car => {
+            if (data.code !== 0 || !Array.isArray(data.data.records)) {
+                throw new Error(data.message || 'Ошибка при получении данных магазинов');
+            }
+
+            const stores = data.data.records;
+            const storeSlider = document.getElementById('store-slider');
+            storeSlider.innerHTML = ''; // Очищаем текущее содержимое
+
+            stores.forEach(shop => {
                 const slide = document.createElement('div');
                 slide.classList.add('carousel-slide');
 
-                const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${car.image}`;
+                const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${shop.picture}`;
                 const img = new Image();
                 img.src = imageUrl;
-                img.alt = `${car.mark} ${car.model}`;
+                img.alt = `${shop.name}`;
 
                 slide.appendChild(img);
-                slide.innerHTML += `
-                    <p style="text-align: left; padding: 5px; font-size: 0.9rem;">
-                        <span>Марка: ${car.mark}<br></span>
-                        <span>Модель: ${car.model}<br></span>
-                        <span>Год выпуска: ${car.model_year}<br></span>
-                        <span>Тип двигателя: ${car.engine_type}<br></span>
-                        <span>Объем двигателя: ${car.engine_volume}<br></span>
-                        <span>Пробег: ${car.mileage}<br></span>
-                        <span>Коробка передач: ${car.transmission}<br></span>
-                        <span>Стоимость: ${car.amount}<br></span>
-                        <span>Тип кузова: ${car.body}<br></span>
-                        <span>Цвет: ${car.color}<br></span>
-                        <span>Цилиндры: ${car.cylinders}<br></span>
-                    </p>
-                `;
-                carsSlider.appendChild(slide);
+                storeSlider.appendChild(slide);
             });
 
             initializeCarousel();
         })
         .catch(error => {
-            console.error('Возникла проблема с получением данных автомобилей:', error);
-            renderNoCarsMessage();
+            console.error('Возникла проблема с получением данных магазинов:', error);
+            renderNoStoresMessage();
         });
     }
 
-    function renderNoCarsMessage() {
-        const carsSlider = document.getElementById('cars-slider');
-        carsSlider.innerHTML = '<p>Нет доступных автомобилей для отображения.</p>';
-    }
-
-    function getCookie(name) {
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-            const [cookieName, cookieValue] = cookie.split('=');
-            if (cookieName.trim() === name) {
-                return cookieValue;
-            }
-        }
-        return null;
+    function renderNoStoresMessage() {
+        const storeSlider = document.getElementById('store-slider');
+        storeSlider.innerHTML = '<p>Нет доступных магазинов для отображения.</p>';
     }
 
     function initializeCarousel() {

@@ -186,28 +186,16 @@
         <!-- end of hero slider -->
 
         <!-- start stores-section -->
-        <section style="margin: 5rem 0;" class="partners-section">
+        <section style="margin: 5rem 0;" class="store-section">
             <div style="margin-bottom: 0; padding: 20px 0;" class="section-title-s4 section-padding">
                 <h2>Список Магазинов</h2>
             </div>
             <div class="container">
-                <div class="row">
+                <div style="margin-left: 0; margin-right: 0;" class="row">
                     <div class="col col-xs-12">
-                        <div class="partner-grids partners-slider">
-                            <div class="grid">
-                                <img src="assets/images/stores/img-1.jpg" alt="">
-                            </div>
-                            <div class="grid">
-                                <img src="assets/images/stores/img-2.jpg" alt="">
-                            </div>
-                            <div class="grid">
-                                <img src="assets/images/stores/img-3.jpg" alt="">
-                            </div>
-                            <div class="grid">
-                                <img src="assets/images/stores/img-4.jpg" alt="">
-                            </div>
-                            <div class="grid">
-                                <img src="assets/images/stores/img-5.jpg" alt="">
+                        <div class="carousel-container">
+                            <div class="carousel-track" id="store-slider">
+                                <!-- Магазины будут добавляться здесь -->
                             </div>
                         </div>
                     </div>
@@ -216,8 +204,6 @@
             </div> <!-- end container -->
         </section>
         <!-- end stores-section -->
-
-
         
             <!-- start about-us-section-s3 -->
             <section class="about-us-section-s3 section-padding">
@@ -542,14 +528,12 @@
                 <h2>Наши партнёры</h2>
             </div>
             <div class="container">
-                <div class="row">
+                <div style="margin-left: 0; margin-right: 0;" class="row">
                     <div class="col col-xs-12">
                         <div class="carousel-container">
-                            <button class="carousel-button prev">‹</button>
                             <div class="carousel-track" id="partnersSlider">
                                 <!-- Динамически загружаемые изображения партнеров будут добавляться сюда -->
                             </div>
-                            <button class="carousel-button next">›</button>
                         </div>
                     </div>
                 </div>
@@ -557,7 +541,6 @@
             </div> <!-- end container -->
         </section>
         <!-- end partners-section -->
-
 
         <!-- start testimonials-section-s2 -->
         <section class="testimonials-section-s2 section-padding">
@@ -723,6 +706,7 @@
 
     <!-- Custom script for this webpage(NoName) -->
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/fetchs/fetchAllStoresMain.js"></script>
     <script src="assets/js/fetchs/fetchAllPartners.js"></script>
 </body>
 </html>

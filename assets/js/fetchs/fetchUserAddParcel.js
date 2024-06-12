@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data && data.status === 'SUCCESS') {
                     alert("Успешно");
-
+                    document.getElementById('myModal1').style.display = 'none';
                     const feedbackPayload = {
                         command: "Feedback Command",
                         email: formData.get('email') || 'example@example.com',

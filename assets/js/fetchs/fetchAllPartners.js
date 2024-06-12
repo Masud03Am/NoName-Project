@@ -1,103 +1,109 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://185.121.2.208/hi-usa/public/partner/getImages')
-        .then(response => response.json())
-        .then(data => {
-            console.log('Данные от сервера (получение партнеров):', data);
+    fetchPartners();
 
-            if (data.code === 0 && Array.isArray(data.data)) {
-                const partnersSlider = document.getElementById('partnersSlider');
-                partnersSlider.innerHTML = ''; 
+    function fetchPartners() {
+        fetch('http://185.121.2.208/hi-usa/public/partner/getImages')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Данные от сервера (получение партнеров):', data);
 
-                data.data.forEach(partner => {
-                    const slide = document.createElement('div');
-                    slide.classList.add('carousel-slide');
+                if (data.code === 0 && Array.isArray(data.data)) {
+                    const partnersSlider = document.getElementById('partnersSlider');
+                    partnersSlider.innerHTML = ''; 
 
-                    const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${partner.logo}`;
-                    const img = new Image();
-                    img.src = imageUrl;
-                    img.alt = `${partner.org_name} logo`;
+                    data.data.forEach(partner => {
+                        const slide = document.createElement('div');
+                        slide.classList.add('carousel-slide');
 
-                    slide.appendChild(img);
-                    partnersSlider.appendChild(slide);
-                });
+                        const imageUrl = `http://185.121.2.208/hi-usa/public/upload?filename=${partner.logo}`;
+                        const img = new Image();
+                        img.src = imageUrl;
+                        img.alt = `${partner.org_name} logo`;
 
-                initializeCarousel();
-            } else {
-                console.error('Ошибка получения данных партнеров:', data.message || 'Неизвестная ошибка');
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка при загрузке данных партнеров:', error);
-        });
-});
+                        slide.appendChild(img);
+                        partnersSlider.appendChild(slide);
+                    });
 
-function initializeCarousel() {
-    const track = document.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const nextButton = document.querySelector('.carousel-button.next');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    const slideWidth = slides[0].getBoundingClientRect().width;
-
-    let currentIndex = 0;
-
-    // Клонируем все слайды для бесконечного цикла
-    const firstClones = slides.map(slide => slide.cloneNode(true));
-    const lastClones = slides.map(slide => slide.cloneNode(true));
-
-    firstClones.forEach(clone => track.appendChild(clone));
-    lastClones.reverse().forEach(clone => track.insertBefore(clone, slides[0]));
-
-    const allSlides = Array.from(track.children);
-
-    // Обновляем ширину трека
-    track.style.width = `${allSlides.length * (slideWidth + 20)}px`;
-
-    // Начальная позиция - после клонированных последних слайдов
-    track.style.transform = `translateX(-${(slideWidth + 20) * slides.length}px)`;
-
-    const updateSlidePosition = () => {
-        track.style.transition = 'transform 0.5s ease-in-out';
-        track.style.transform = `translateX(-${(slideWidth + 20) * (currentIndex + slides.length)}px)`;
-    };
-
-    const handleTransitionEnd = () => {
-        if (currentIndex >= slides.length) {
-            track.style.transition = 'none';
-            currentIndex = 0;
-            track.style.transform = `translateX(-${(slideWidth + 20) * slides.length}px)`;
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    track.style.transition = 'transform 0.5s ease-in-out';
-                });
+                    initializePartnersCarousel();
+                } else {
+                    console.error('Ошибка получения данных партнеров:', data.message || 'Неизвестная ошибка');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке данных партнеров:', error);
             });
-        } else if (currentIndex < 0) {
-            track.style.transition = 'none';
-            currentIndex = slides.length - 1;
+    }
+
+    function initializePartnersCarousel() {
+        const track = document.querySelector('#partnersSlider');
+        const slides = Array.from(track.children);
+        const slideWidth = slides[0].getBoundingClientRect().width;
+
+        let currentIndex = 0;
+
+        // Клонируем все слайды для бесконечного цикла
+        const firstClones = slides.map(slide => slide.cloneNode(true));
+        const lastClones = slides.map(slide => slide.cloneNode(true));
+
+        firstClones.forEach(clone => track.appendChild(clone));
+        lastClones.reverse().forEach(clone => track.insertBefore(clone, slides[0]));
+
+        const allSlides = Array.from(track.children);
+
+        // Обновляем ширину трека
+        track.style.width = `${allSlides.length * (slideWidth + 20)}px`;
+
+        // Начальная позиция - после клонированных последних слайдов
+        track.style.transform = `translateX(-${(slideWidth + 20) * slides.length}px)`;
+
+        const updateSlidePosition = () => {
+            track.style.transition = 'transform 0.5s ease-in-out';
             track.style.transform = `translateX(-${(slideWidth + 20) * (currentIndex + slides.length)}px)`;
-            requestAnimationFrame(() => {
+        };
+
+        const handleTransitionEnd = () => {
+            if (currentIndex >= slides.length) {
+                track.style.transition = 'none';
+                currentIndex = 0;
+                track.style.transform = `translateX(-${(slideWidth + 20) * slides.length}px)`;
                 requestAnimationFrame(() => {
-                    track.style.transition = 'transform 0.5s ease-in-out';
+                    requestAnimationFrame(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    });
                 });
-            });
-        }
-    };
+            } else if (currentIndex < 0) {
+                track.style.transition = 'none';
+                currentIndex = slides.length - 1;
+                track.style.transform = `translateX(-${(slideWidth + 20) * (currentIndex + slides.length)}px)`;
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    });
+                });
+            }
+        };
 
-    nextButton.addEventListener('click', () => {
-        currentIndex++;
-        updateSlidePosition();
-    });
+        // Удаляем кнопки "prev" и "next"
+        // Автопрокрутка
+        let intervalId = setInterval(() => {
+            currentIndex++;
+            updateSlidePosition();
+        }, 3000); // меняем каждые 3 секунды
 
-    prevButton.addEventListener('click', () => {
-        currentIndex--;
-        updateSlidePosition();
-    });
+        // Останавливаем автопрокрутку при наведении курсора на слайды
+        track.addEventListener('mouseover', () => {
+            clearInterval(intervalId);
+        });
 
-    // Обработчик окончания анимации для бесшовного перехода
-    track.addEventListener('transitionend', handleTransitionEnd);
+        // Возобновляем автопрокрутку при убирании курсора
+        track.addEventListener('mouseout', () => {
+            intervalId = setInterval(() => {
+                currentIndex++;
+                updateSlidePosition();
+            }, 3000);
+        });
 
-    // Автопрокрутка
-    setInterval(() => {
-        currentIndex++;
-        updateSlidePosition();
-    }, 3000); // меняем каждые 3 секунды
-}
+        // Обработчик окончания анимации для бесшовного перехода
+        track.addEventListener('transitionend', handleTransitionEnd);
+    }
+});
