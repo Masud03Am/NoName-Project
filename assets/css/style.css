@@ -2681,36 +2681,7 @@ hr {
   display: inline-block;
 }
 
-.carousel-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  margin: 0 auto;
-  padding: 25px 15px 18px;
-}
-
-.carousel-track {
-  display: inline-block;
-  transition: transform 0.5s ease;
-  cursor: grab;
-}
-
-.carousel-slide {
-  display: inline-block;
-  min-width: 200px;
-  min-height: 150px;
-  margin: 0 10px;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: auto;
-  max-width: 200px;
-  max-height: 150px;
-  object-fit: contain;
-}
-
-.carousel-button {
+/*.carousel-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -2727,31 +2698,47 @@ hr {
 
 .carousel-button.next {
   right: 10px;
+}*/
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 25px 15px 18px;
 }
 
-@media (max-width: 1200px) {
-  .carousel-slide {
-    min-width: 20%;
-  }
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  cursor: grab;
 }
 
-@media (max-width: 992px) {
-  .carousel-slide {
-    min-width: 25%;
-  }
+.carousel-slide {
+  flex: 1;
+  min-width: 200px;
+  min-height: 150px;
+  margin: 0 10px;
 }
 
-@media (max-width: 768px) {
-  .carousel-slide {
-    min-width: 33.3333%;
-  }
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  max-height: 150px;
+  object-fit: contain;
 }
 
 @media (max-width: 576px) {
   .carousel-slide {
+    flex: 2;
+    min-width: 300px;
+  }
+  .carousel-slide img {
     min-width: 100%;
   }
-}
+}  
+
 
 /*--------------------------------------------------------------
 #0.7	cars-slider-section

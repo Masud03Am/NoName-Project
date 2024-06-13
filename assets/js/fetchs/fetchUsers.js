@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevBtn = document.getElementById('previous');
     const nextBtn = document.getElementById('next');
     const searchInput = document.querySelector('.search input');
+    const usersPerPage = 6; // Ограничение количества пользователей на странице
 
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
 
-        fetch(`http://185.121.2.208/hi-usa/private/user/getAll?page=${page}&search=${searchQuery}`, options)
+        fetch(`http://185.121.2.208/hi-usa/private/user/getAll?page=${page}&search=${searchQuery}&perpage=${usersPerPage}`, options)
             .then(response => {
                 if (!response.ok) {
                     return response.json().then(errorData => {
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (users.length === 0) {
                     console.log('Нет данных пользователей для отображения.');
                 }
-                totalPages = body.data.total_pages;
+                totalPages = Math.ceil(body.data.total_count / usersPerPage); // Обновление totalPages с учетом usersPerPage
                 renderUsers(users, searchQuery);
                 setupPagination(totalPages, page);
             })
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const li = document.createElement('li');
                 li.className = i === currentPage ? 'active' : '';
                 li.textContent = i;
-                li.onclick = function() {
+                li.onclick = function () {
                     goToPage(i);
                 };
                 paginationList.appendChild(li);
@@ -178,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('input', function () {
         currentPage = 1;
         loadUsers(currentPage, searchInput.value);
     });

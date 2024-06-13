@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (data.code === 0 && Array.isArray(data.data)) {
                     const partnersSlider = document.getElementById('partnersSlider');
-                    partnersSlider.innerHTML = ''; 
+                    partnersSlider.innerHTML = '';
 
                     data.data.forEach(partner => {
                         const slide = document.createElement('div');
@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let currentIndex = 0;
 
-        // Клонируем все слайды для бесконечного цикла
         const firstClones = slides.map(slide => slide.cloneNode(true));
         const lastClones = slides.map(slide => slide.cloneNode(true));
 
@@ -49,11 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lastClones.reverse().forEach(clone => track.insertBefore(clone, slides[0]));
 
         const allSlides = Array.from(track.children);
-
-        // Обновляем ширину трека
         track.style.width = `${allSlides.length * (slideWidth + 20)}px`;
-
-        // Начальная позиция - после клонированных последних слайдов
         track.style.transform = `translateX(-${(slideWidth + 20) * slides.length}px)`;
 
         const updateSlidePosition = () => {
@@ -83,19 +78,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        // Удаляем кнопки "prev" и "next"
-        // Автопрокрутка
         let intervalId = setInterval(() => {
             currentIndex++;
             updateSlidePosition();
-        }, 3000); // меняем каждые 3 секунды
+        }, 3000);
 
-        // Останавливаем автопрокрутку при наведении курсора на слайды
         track.addEventListener('mouseover', () => {
             clearInterval(intervalId);
         });
 
-        // Возобновляем автопрокрутку при убирании курсора
         track.addEventListener('mouseout', () => {
             intervalId = setInterval(() => {
                 currentIndex++;
@@ -103,7 +94,59 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 3000);
         });
 
-        // Обработчик окончания анимации для бесшовного перехода
         track.addEventListener('transitionend', handleTransitionEnd);
+
+        let startX, endX;
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        track.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX;
+        });
+
+        track.addEventListener('touchend', () => {
+            if (startX > endX + 50) {
+                currentIndex++;
+            } else if (startX < endX - 50) {
+                currentIndex--;
+            }
+            updateSlidePosition();
+        });
+
+        // Добавление функциональности для мыши
+        let isDragging = false, startDragX = 0, endDragX = 0, initialTransform = 0;
+
+        track.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startDragX = e.clientX;
+            initialTransform = parseInt(track.style.transform.replace('translateX(', '').replace('px)', ''));
+            track.style.transition = 'none';
+            e.preventDefault();
+        });
+
+        track.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                endDragX = e.clientX;
+                const distance = endDragX - startDragX;
+                track.style.transform = `translateX(${initialTransform + distance}px)`;
+            }
+        });
+
+        const mouseUpHandler = () => {
+            if (isDragging) {
+                const distance = endDragX - startDragX;
+                if (distance < -50) {
+                    currentIndex++;
+                } else if (distance > 50) {
+                    currentIndex--;
+                }
+                updateSlidePosition();
+                isDragging = false;
+            }
+        };
+
+        track.addEventListener('mouseup', mouseUpHandler);
+        track.addEventListener('mouseleave', mouseUpHandler);
     }
 });

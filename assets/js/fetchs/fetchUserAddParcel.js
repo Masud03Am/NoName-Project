@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     console.log('Отправка фидбека:', feedbackPayload);
 
-                    fetch('http://185.121.2.208/public/feedback/add', {
+                    fetch('http://185.121.2.208/hi-usa/public/feedback/add', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

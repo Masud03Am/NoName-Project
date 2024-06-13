@@ -146,5 +146,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Обработчик окончания анимации для бесшовного перехода
         track.addEventListener('transitionend', handleTransitionEnd);
+
+        let startX, endX;
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            clearInterval(intervalId);
+        });
+
+        track.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX;
+            const distance = endX - startX;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(${initialTransform + distance}px)`;
+        });
+
+        track.addEventListener('touchend', () => {
+            const distance = endX - startX;
+            if (distance < -50) {
+                currentIndex++;
+            } else if (distance > 50) {
+                currentIndex--;
+            }
+            updateSlidePosition();
+            intervalId = setInterval(() => {
+                currentIndex++;
+                updateSlidePosition();
+            }, 3000);
+        });
+
+        // Добавление функциональности для мыши
+        let isDragging = false, startDragX = 0, endDragX = 0, initialTransform = 0;
+
+        track.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startDragX = e.clientX;
+            initialTransform = parseInt(track.style.transform.replace('translateX(', '').replace('px)', ''));
+            track.style.transition = 'none';
+            e.preventDefault();
+            clearInterval(intervalId);
+        });
+
+        track.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                endDragX = e.clientX;
+                const distance = endDragX - startDragX;
+                track.style.transform = `translateX(${initialTransform + distance}px)`;
+            }
+        });
+
+        const mouseUpHandler = () => {
+            if (isDragging) {
+                const distance = endDragX - startDragX;
+                if (distance < -50) {
+                    currentIndex++;
+                } else if (distance > 50) {
+                    currentIndex--;
+                }
+                updateSlidePosition();
+                isDragging = false;
+                intervalId = setInterval(() => {
+                    currentIndex++;
+                    updateSlidePosition();
+                }, 3000);
+            }
+        };
+
+        track.addEventListener('mouseup', mouseUpHandler);
+        track.addEventListener('mouseleave', mouseUpHandler);
     }
 });
