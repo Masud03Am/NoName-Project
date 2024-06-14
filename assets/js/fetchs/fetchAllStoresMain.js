@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function initializeCarousel() {
-        const track = document.querySelector('.carousel-track');
+        const track = document.querySelector('#store-slider');
         const slides = Array.from(track.children);
         const slideWidth = slides[0].getBoundingClientRect().width;
 
@@ -113,5 +113,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Обработчик окончания анимации для бесшовного перехода
         track.addEventListener('transitionend', handleTransitionEnd);
+
+        let startX, endX;
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        track.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX;
+        });
+
+        track.addEventListener('touchend', () => {
+            if (startX > endX + 50) {
+                currentIndex++;
+            } else if (startX < endX - 50) {
+                currentIndex--;
+            }
+            updateSlidePosition();
+        });
+
+        // Добавление функциональности для мыши
+        let isDragging = false, startDragX = 0, endDragX = 0, initialTransform = 0;
+
+        track.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startDragX = e.clientX;
+            initialTransform = parseInt(track.style.transform.replace('translateX(', '').replace('px)', ''));
+            track.style.transition = 'none';
+            e.preventDefault();
+        });
+
+        track.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                endDragX = e.clientX;
+                const distance = endDragX - startDragX;
+                track.style.transform = `translateX(${initialTransform + distance}px)`;
+            }
+        });
+
+        const mouseUpHandler = () => {
+            if (isDragging) {
+                const distance = endDragX - startDragX;
+                if (distance < -50) {
+                    currentIndex++;
+                } else if (distance > 50) {
+                    currentIndex--;
+                }
+                updateSlidePosition();
+                isDragging = false;
+            }
+        };
+
+        track.addEventListener('mouseup', mouseUpHandler);
+        track.addEventListener('mouseleave', mouseUpHandler);
     }
 });
